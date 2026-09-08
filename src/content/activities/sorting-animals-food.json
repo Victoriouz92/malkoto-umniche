@@ -1,0 +1,67 @@
+{
+  "id": "sorting-animals-food",
+  "schemaVersion": 1,
+  "engine": "sorting",
+  "mechanic": "m018",
+  "titleKey": "act.sorting-animals-food",
+  "category": "animals",
+  "ageMin": 3,
+  "ageMax": 5,
+  "difficulty": 1,
+  "skills": ["classification", "visual-discrimination"],
+  "themes": ["farm", "food"],
+  "durationSec": 75,
+  "assets": [
+    "animal.cow",
+    "animal.dog",
+    "animal.cat",
+    "food.apple",
+    "food.banana",
+    "food.carrot"
+  ],
+  "params": {
+    "bins": [
+      {
+        "id": "animal",
+        "asset": "animal.horse"
+      },
+      {
+        "id": "food",
+        "asset": "food.pear"
+      }
+    ],
+    "items": [
+      {
+        "asset": "animal.cow",
+        "bin": "animal"
+      },
+      {
+        "asset": "animal.dog",
+        "bin": "animal"
+      },
+      {
+        "asset": "animal.cat",
+        "bin": "animal"
+      },
+      {
+        "asset": "food.apple",
+        "bin": "food"
+      },
+      {
+        "asset": "food.banana",
+        "bin": "food"
+      },
+      {
+        "asset": "food.carrot",
+        "bin": "food"
+      }
+    ]
+  },
+  "parentNoteKey": "note.sorting-animals-food",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

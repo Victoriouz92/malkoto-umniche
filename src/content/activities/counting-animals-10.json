@@ -1,0 +1,49 @@
+{
+  "id": "counting-animals-10",
+  "schemaVersion": 1,
+  "engine": "counting",
+  "mechanic": "m039",
+  "titleKey": "act.counting-animals-10",
+  "category": "numbers",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 4,
+  "skills": [
+    "counting",
+    "number-sense",
+    "sustained-attention"
+  ],
+  "themes": [
+    "forest"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "animal.rabbit",
+    "animal.squirrel",
+    "animal.fox"
+  ],
+  "params": {
+    "rounds": [
+      {
+        "asset": "animal.rabbit",
+        "count": 8
+      },
+      {
+        "asset": "animal.squirrel",
+        "count": 9
+      },
+      {
+        "asset": "animal.fox",
+        "count": 10
+      }
+    ],
+    "choices": 4
+  },
+  "parentNoteKey": "note.counting-animals-10",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

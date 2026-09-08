@@ -1,0 +1,46 @@
+{
+  "id": "odd-color-3",
+  "schemaVersion": 1,
+  "engine": "odd-one-out",
+  "mechanic": "m008",
+  "titleKey": "act.odd-color-3",
+  "category": "puzzles",
+  "ageMin": 3,
+  "ageMax": 5,
+  "difficulty": 1,
+  "skills": ["visual-discrimination", "classification"],
+  "themes": ["shapes"],
+  "durationSec": 45,
+  "assets": [],
+  "params": {
+    "items": [
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "blue",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "blue",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "red",
+        "scale": 1
+      }
+    ],
+    "oddIndex": 2,
+    "showGrouping": true
+  },
+  "parentNoteKey": "note.odd-color-3",
+  "a11y": {
+    "colorIndependent": false,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

@@ -1,0 +1,57 @@
+{
+  "id": "sequence-size-5",
+  "schemaVersion": 1,
+  "engine": "sequencing",
+  "mechanic": "m101",
+  "titleKey": "act.sequence-size-5",
+  "category": "shapes",
+  "ageMin": 4,
+  "ageMax": 5,
+  "difficulty": 3,
+  "skills": ["measurement", "sequencing", "sustained-attention"],
+  "themes": ["shapes"],
+  "durationSec": 90,
+  "assets": [],
+  "params": {
+    "items": [
+      {
+        "kind": "shape",
+        "shape": "square",
+        "color": "teal",
+        "scale": 0.35
+      },
+      {
+        "kind": "shape",
+        "shape": "square",
+        "color": "teal",
+        "scale": 0.5
+      },
+      {
+        "kind": "shape",
+        "shape": "square",
+        "color": "teal",
+        "scale": 0.68
+      },
+      {
+        "kind": "shape",
+        "shape": "square",
+        "color": "teal",
+        "scale": 0.84
+      },
+      {
+        "kind": "shape",
+        "shape": "square",
+        "color": "teal",
+        "scale": 1
+      }
+    ],
+    "kind": "size-asc"
+  },
+  "parentNoteKey": "note.sequence-size-5",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

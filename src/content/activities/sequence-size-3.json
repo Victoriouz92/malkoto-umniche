@@ -1,0 +1,45 @@
+{
+  "id": "sequence-size-3",
+  "schemaVersion": 1,
+  "engine": "sequencing",
+  "mechanic": "m101",
+  "titleKey": "act.sequence-size-3",
+  "category": "shapes",
+  "ageMin": 2,
+  "ageMax": 4,
+  "difficulty": 1,
+  "skills": ["measurement", "sequencing", "visual-discrimination"],
+  "themes": ["shapes"],
+  "durationSec": 60,
+  "assets": [],
+  "params": {
+    "items": [
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "blue",
+        "scale": 0.4
+      },
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "blue",
+        "scale": 0.7
+      },
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "blue",
+        "scale": 1
+      }
+    ],
+    "kind": "size-asc"
+  },
+  "parentNoteKey": "note.sequence-size-3",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

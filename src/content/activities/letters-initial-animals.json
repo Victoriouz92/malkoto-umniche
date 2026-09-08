@@ -1,0 +1,64 @@
+{
+  "id": "letters-initial-animals",
+  "schemaVersion": 1,
+  "engine": "letters",
+  "mechanic": "m051",
+  "titleKey": "act.letters-initial-animals",
+  "category": "letters",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "phonological-awareness",
+    "letter-recognition",
+    "vocabulary"
+  ],
+  "themes": [
+    "forest"
+  ],
+  "durationSec": 100,
+  "assets": [
+    "animal.fox",
+    "animal.rabbit",
+    "animal.bear"
+  ],
+  "params": {
+    "mode": "initial",
+    "rounds": [
+      {
+        "asset": "animal.fox",
+        "letter": "Л",
+        "choices": [
+          "Л",
+          "Р",
+          "М"
+        ]
+      },
+      {
+        "asset": "animal.rabbit",
+        "letter": "З",
+        "choices": [
+          "З",
+          "С",
+          "Ж"
+        ]
+      },
+      {
+        "asset": "animal.bear",
+        "letter": "М",
+        "choices": [
+          "М",
+          "Н",
+          "Л"
+        ]
+      }
+    ]
+  },
+  "parentNoteKey": "note.letters-initial-animals",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

@@ -1,0 +1,56 @@
+{
+  "id": "math-sub-10",
+  "schemaVersion": 1,
+  "engine": "math",
+  "mechanic": "m045",
+  "titleKey": "act.math-sub-10",
+  "category": "numbers",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "arithmetic",
+    "counting",
+    "number-sense"
+  ],
+  "themes": [
+    "ocean"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "animal.fish"
+  ],
+  "params": {
+    "op": "sub",
+    "choices": 4,
+    "rounds": [
+      {
+        "asset": "animal.fish",
+        "a": 8,
+        "b": 3
+      },
+      {
+        "asset": "animal.fish",
+        "a": 9,
+        "b": 4
+      },
+      {
+        "asset": "animal.fish",
+        "a": 10,
+        "b": 6
+      },
+      {
+        "asset": "animal.fish",
+        "a": 7,
+        "b": 7
+      }
+    ]
+  },
+  "parentNoteKey": "note.math-sub-10",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

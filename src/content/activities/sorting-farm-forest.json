@@ -1,0 +1,77 @@
+{
+  "id": "sorting-farm-forest",
+  "schemaVersion": 1,
+  "engine": "sorting",
+  "mechanic": "m018",
+  "titleKey": "act.sorting-farm-forest",
+  "category": "animals",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": ["classification", "everyday-knowledge"],
+  "themes": ["farm", "forest"],
+  "durationSec": 90,
+  "assets": [
+    "animal.cow",
+    "animal.pig",
+    "animal.sheep",
+    "animal.chicken",
+    "animal.bear",
+    "animal.fox",
+    "animal.owl",
+    "animal.squirrel"
+  ],
+  "params": {
+    "bins": [
+      {
+        "id": "farm",
+        "asset": "animal.horse"
+      },
+      {
+        "id": "forest",
+        "asset": "nature.tree"
+      }
+    ],
+    "items": [
+      {
+        "asset": "animal.cow",
+        "bin": "farm"
+      },
+      {
+        "asset": "animal.pig",
+        "bin": "farm"
+      },
+      {
+        "asset": "animal.sheep",
+        "bin": "farm"
+      },
+      {
+        "asset": "animal.chicken",
+        "bin": "farm"
+      },
+      {
+        "asset": "animal.bear",
+        "bin": "forest"
+      },
+      {
+        "asset": "animal.fox",
+        "bin": "forest"
+      },
+      {
+        "asset": "animal.owl",
+        "bin": "forest"
+      },
+      {
+        "asset": "animal.squirrel",
+        "bin": "forest"
+      }
+    ]
+  },
+  "parentNoteKey": "note.sorting-farm-forest",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

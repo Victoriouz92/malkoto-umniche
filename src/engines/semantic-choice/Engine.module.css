@@ -1,0 +1,36 @@
+.choice {
+  display: grid;
+  place-items: center;
+  width: clamp(8rem, 22vw, 12rem);
+  aspect-ratio: 1;
+  padding: var(--sp-4);
+  background: color-mix(in srgb, var(--c-surface) 88%, var(--c-secondary));
+  border: 3px solid transparent;
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--dur-fast) var(--ease-spring), border-color var(--dur-fast);
+}
+
+.choice:hover {
+  transform: translateY(-3px);
+}
+
+.correct {
+  border-color: var(--c-success);
+  transform: scale(1.06);
+}
+
+.explanation {
+  min-height: 2.5em;
+  margin: 0;
+  color: var(--c-ink-soft);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  text-align: center;
+  opacity: 0;
+  transition: opacity var(--dur-normal) var(--ease-out);
+}
+
+.visible {
+  opacity: 1;
+}

@@ -1,0 +1,86 @@
+{
+  "id": "hidden-forest-nature",
+  "schemaVersion": 1,
+  "engine": "spot-difference",
+  "mechanic": "m071",
+  "titleKey": "act.hidden-forest-nature",
+  "category": "puzzles",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 4,
+  "skills": [
+    "visual-discrimination",
+    "sustained-attention",
+    "classification"
+  ],
+  "themes": [
+    "forest"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "scene.forest",
+    "nature.leaf",
+    "nature.mushroom",
+    "nature.flower",
+    "nature.cloud",
+    "animal.fox",
+    "animal.owl"
+  ],
+  "params": {
+    "mode": "find-all",
+    "scene": "scene.forest",
+    "targets": [
+      {
+        "id": "nature.leaf",
+        "x": 17,
+        "y": 61,
+        "size": 38,
+        "opacity": 0.55
+      },
+      {
+        "id": "nature.mushroom",
+        "x": 42,
+        "y": 82,
+        "size": 42,
+        "opacity": 0.58
+      },
+      {
+        "id": "nature.flower",
+        "x": 67,
+        "y": 77,
+        "size": 40,
+        "opacity": 0.56
+      },
+      {
+        "id": "nature.cloud",
+        "x": 82,
+        "y": 26,
+        "size": 50,
+        "opacity": 0.52
+      }
+    ],
+    "decoys": [
+      {
+        "id": "animal.fox",
+        "x": 28,
+        "y": 75,
+        "size": 52,
+        "opacity": 0.75
+      },
+      {
+        "id": "animal.owl",
+        "x": 72,
+        "y": 33,
+        "size": 45,
+        "opacity": 0.72
+      }
+    ]
+  },
+  "parentNoteKey": "note.hidden-forest-nature",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

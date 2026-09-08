@@ -1,0 +1,23 @@
+.workshop { width: min(48rem, 100%); margin: auto; text-align: center; }
+.heading h2 { font-size: clamp(1.3rem, 3vw, 2rem); margin: .4rem 0; }
+.heading p { min-height: 2.5rem; font-size: 1rem; color: var(--c-ink-soft); }
+.eyebrow { font-size: .7rem; color: var(--c-primary); letter-spacing: .13em; font-weight: 900; }
+.workspace { display: flex; justify-content: center; align-items: start; gap: 1rem; }
+.example { width: 22%; padding: .7rem; background: var(--c-surface); border: 1px solid var(--c-border); border-radius: 1rem; font-size: .8rem; font-weight: 800; }
+.example svg { display: block; width: 100%; }
+.board { position: relative; width: min(25rem, 70%); aspect-ratio: 1; border: 2px solid #e4dfd0; border-radius: 1.5rem; background: radial-gradient(#d7dfd6 1px, transparent 1px) 0 0 / 18px 18px, #fdfcf8; }
+.piece { position: absolute; transform: translate(-50%, -50%) rotate(var(--piece-rotation)); pointer-events: none; }
+.piece > svg { opacity: .12; filter: grayscale(1); }
+.piece[data-active='true'] > svg { opacity: .42; filter: none; }
+.piece[data-done='true'] > svg { opacity: 1; filter: drop-shadow(0 2px 1px #00000012); }
+.placeTarget { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; min-width: 48px; min-height: 48px; border: 2px dashed #286f69; border-radius: .7rem; pointer-events: auto; background: transparent; }
+.placeTarget:disabled { border-color: transparent; }
+.stem { position: absolute; left: 48%; top: 42%; width: 4%; height: 51%; background: var(--crayon-green); border-radius: 1rem; }
+.progress { display: flex; gap: .45rem; justify-content: center; padding: .8rem; }
+.progress span { width: 9px; height: 9px; border-radius: 50%; background: var(--c-border); }
+.progress span[data-done='true'] { background: #299d8f; }
+.tray { display: flex; gap: .65rem; padding: .6rem; justify-content: center; flex-wrap: wrap; }
+.choice { width: clamp(64px, 12vw, 88px); height: clamp(64px, 12vw, 88px); padding: .85rem; border: 2px solid var(--c-border); border-radius: 1.2rem; background: var(--c-surface); box-shadow: 0 4px 0 #e4dfd0; }
+.choice[aria-pressed='true'] { border-color: #299d8f; background: #e3f6ef; box-shadow: 0 4px 0 #299d8f; }
+.choice:disabled { opacity: .6; }
+@media (max-width: 30rem) { .workspace { gap: .4rem; } .example { padding: .3rem; } }

@@ -1,0 +1,58 @@
+{
+  "id": "matching-shadow-forest",
+  "schemaVersion": 1,
+  "engine": "matching",
+  "mechanic": "m002",
+  "titleKey": "act.matching-shadow-forest",
+  "category": "puzzles",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 4,
+  "skills": ["visual-discrimination", "classification"],
+  "themes": ["forest"],
+  "durationSec": 90,
+  "assets": [
+    "animal.bear",
+    "animal.fox",
+    "animal.owl",
+    "animal.squirrel",
+    "animal.hedgehog",
+    "animal.frog"
+  ],
+  "params": {
+    "pairs": [
+      {
+        "left": "animal.bear",
+        "right": "animal.bear"
+      },
+      {
+        "left": "animal.fox",
+        "right": "animal.fox"
+      },
+      {
+        "left": "animal.owl",
+        "right": "animal.owl"
+      },
+      {
+        "left": "animal.squirrel",
+        "right": "animal.squirrel"
+      },
+      {
+        "left": "animal.hedgehog",
+        "right": "animal.hedgehog"
+      },
+      {
+        "left": "animal.frog",
+        "right": "animal.frog"
+      }
+    ],
+    "rightMode": "silhouette"
+  },
+  "parentNoteKey": "note.matching-shadow-forest",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

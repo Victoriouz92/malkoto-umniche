@@ -1,0 +1,38 @@
+{
+  "id": "early-colors-warm",
+  "schemaVersion": 1,
+  "engine": "coloring",
+  "mechanic": "m078",
+  "titleKey": "act.early-colors-warm",
+  "category": "colors",
+  "ageMin": 2,
+  "ageMax": 6,
+  "difficulty": 1,
+  "skills": [
+    "creativity",
+    "fine-motor"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "lineart.flower"
+  ],
+  "params": {
+    "lineart": "lineart.flower",
+    "palette": [
+      "red",
+      "orange",
+      "yellow",
+      "pink"
+    ]
+  },
+  "parentNoteKey": "note.early-colors-warm",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

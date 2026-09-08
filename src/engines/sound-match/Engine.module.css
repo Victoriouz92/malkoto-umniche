@@ -1,0 +1,70 @@
+/* Големият бутон за слушане е ГЕРОЯТ на екрана — от него тръгва всичко. */
+.speaker {
+  display: grid;
+  place-items: center;
+  width: calc(var(--tap-lg) * 1.7);
+  height: calc(var(--tap-lg) * 1.7);
+  color: var(--c-on-secondary);
+  background: var(--c-secondary);
+  border-radius: var(--r-full);
+  box-shadow: var(--shadow-press);
+  transition:
+    transform var(--dur-instant) var(--ease-out),
+    box-shadow var(--dur-instant) var(--ease-out);
+}
+
+.speaker:active {
+  transform: translateY(3px);
+  box-shadow: var(--shadow-press-sm);
+}
+
+.speaker svg {
+  width: 45%;
+  height: 45%;
+}
+
+/* Докато звучи, бутонът пулсира — детето вижда, че нещо се случва. */
+.playing {
+  animation: pulse 900ms var(--ease-in-out) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: var(--shadow-press), 0 0 0 0 var(--c-secondary-soft);
+  }
+  50% {
+    box-shadow: var(--shadow-press), 0 0 0 16px transparent;
+  }
+}
+
+.hint {
+  font-size: var(--fs-md);
+  color: var(--c-ink-soft);
+}
+
+/* Верният избор остава открит; останалите отстъпват. */
+.right {
+  box-shadow: 0 0 0 4px var(--c-success);
+}
+
+.dimmed {
+  opacity: 0.4;
+}
+
+/* ── Когато звукът е изключен ───────────────────────────────────── */
+
+.silent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-5);
+  max-width: 30rem;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playing {
+    animation: none;
+  }
+}

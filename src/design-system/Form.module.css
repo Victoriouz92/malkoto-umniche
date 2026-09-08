@@ -1,0 +1,156 @@
+/**
+ * Формови примитиви — за родителския панел.
+ *
+ * Тук подравняването е ЛЯВО и плътността е по-висока, отколкото в детския
+ * режим: това е интерфейс за възрастен, който сканира настройки, а не за
+ * дете, което тапва едри плоскости.
+ */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  text-align: left;
+}
+
+.label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  color: var(--c-ink);
+}
+
+.hint {
+  font-size: var(--fs-xs);
+  color: var(--c-ink-soft);
+}
+
+.error {
+  font-size: var(--fs-xs);
+  color: var(--c-danger);
+  font-weight: var(--fw-medium);
+}
+
+/* ── Текстово поле ─────────────────────────────────────────────── */
+
+.input {
+  min-height: var(--tap-min);
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--fs-md);
+  color: var(--c-ink);
+  background: var(--c-surface);
+  border: 2px solid var(--c-border);
+  border-radius: var(--r-lg);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.input:focus-visible {
+  border-color: var(--c-secondary);
+}
+
+.input::placeholder {
+  color: var(--c-ink-faint);
+}
+
+/* ── Ключе ─────────────────────────────────────────────────────── */
+
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  min-height: var(--tap-min);
+  padding: var(--sp-3) 0;
+  text-align: left;
+  width: 100%;
+}
+
+.toggleText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.track {
+  position: relative;
+  flex: none;
+  width: 3.5rem;
+  height: 2rem;
+  border-radius: var(--r-full);
+  background: var(--c-surface-3);
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.trackOn {
+  background: var(--c-secondary);
+}
+
+.thumb {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--r-full);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur-fast) var(--ease-spring);
+}
+
+.trackOn .thumb {
+  transform: translateX(1.5rem);
+}
+
+/* Ключето само по себе си е цвят и положение. Положението остава
+   различимо и без цвят — затова палецът се мести, а не само боядисва. */
+
+/* ── Брояч ─────────────────────────────────────────────────────── */
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.stepperValue {
+  min-width: 5rem;
+  text-align: center;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Чипове за филтри ──────────────────────────────────────────── */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--tap-min);
+  padding: var(--sp-2) var(--sp-4);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--c-ink-soft);
+  background: var(--c-surface);
+  border: 2px solid var(--c-border);
+  border-radius: var(--r-full);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.chipOn {
+  color: var(--c-secondary-ink);
+  background: var(--c-secondary-soft);
+  border-color: var(--c-secondary);
+}
+
+/* Отметката прави избраното различимо и без цвят. */
+.chipMark {
+  font-weight: var(--fw-heavy);
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Малкото Умниче">
+  <rect width="512" height="512" rx="113" fill="#FDFBF7"/>
+  <circle cx="256" cy="129" r="53" fill="#F08A4B"/>
+  <circle cx="383" cy="256" r="53" fill="#4FB07C"/>
+  <circle cx="256" cy="383" r="53" fill="#8B7BD8"/>
+  <circle cx="129" cy="256" r="53" fill="#5A9BD8"/>
+  <circle cx="256" cy="256" r="76" fill="#E85F35"/>
+</svg>

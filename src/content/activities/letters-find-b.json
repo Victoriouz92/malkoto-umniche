@@ -1,0 +1,46 @@
+{
+  "id": "letters-find-b",
+  "schemaVersion": 1,
+  "engine": "letters",
+  "mechanic": "m049",
+  "titleKey": "act.letters-find-b",
+  "category": "letters",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": [
+    "letter-recognition",
+    "visual-discrimination",
+    "sustained-attention"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 80,
+  "assets": [],
+  "params": {
+    "mode": "find",
+    "target": "Б",
+    "grid": [
+      "В",
+      "Б",
+      "Р",
+      "Б",
+      "Ь",
+      "В",
+      "Б",
+      "Р",
+      "В",
+      "Б",
+      "Ь",
+      "Р"
+    ]
+  },
+  "parentNoteKey": "note.letters-find-b",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

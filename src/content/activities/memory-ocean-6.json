@@ -1,0 +1,9 @@
+{
+  "id": "memory-ocean-6", "schemaVersion": 1, "engine": "memory", "mechanic": "m009",
+  "titleKey": "act.memory-ocean-6", "category": "memory", "ageMin": 3, "ageMax": 6, "difficulty": 2,
+  "skills": ["visual-memory", "working-memory"], "themes": ["ocean"], "durationSec": 80,
+  "assets": ["animal.fish", "animal.crab", "animal.octopus"],
+  "params": { "items": ["animal.fish", "animal.crab", "animal.octopus"], "flipBackMs": 2000 },
+  "parentNoteKey": "note.memory-ocean-6",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false }, "noFail": true
+}

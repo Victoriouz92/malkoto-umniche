@@ -1,0 +1,50 @@
+{
+  "id": "letters-find-s",
+  "schemaVersion": 1,
+  "engine": "letters",
+  "mechanic": "m049",
+  "titleKey": "act.letters-find-s",
+  "category": "letters",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "letter-recognition",
+    "visual-discrimination",
+    "sustained-attention"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 90,
+  "assets": [],
+  "params": {
+    "mode": "find",
+    "target": "С",
+    "grid": [
+      "С",
+      "О",
+      "Е",
+      "С",
+      "З",
+      "О",
+      "С",
+      "Е",
+      "З",
+      "С",
+      "О",
+      "Е",
+      "С",
+      "З",
+      "О",
+      "С"
+    ]
+  },
+  "parentNoteKey": "note.letters-find-s",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

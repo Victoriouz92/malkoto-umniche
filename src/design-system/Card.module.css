@@ -1,0 +1,52 @@
+.root {
+  --_bg: var(--c-surface);
+  --_fg: var(--c-ink);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  color: var(--_fg);
+  background: var(--_bg);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.flat {
+  box-shadow: none;
+  border: 2px solid var(--c-border);
+}
+
+.raised {
+  box-shadow: var(--shadow-md);
+}
+
+/* Едра плоскост за детския начален екран. Цветовете идват отвън
+   през --cat-*-bg / --cat-*-ink, зададени инлайн от CategoryCard. */
+.tile {
+  gap: var(--sp-4);
+  padding: var(--sp-6);
+  border-radius: var(--r-3xl);
+  box-shadow: var(--shadow-md);
+  min-height: calc(var(--tap-lg) * 2);
+}
+
+.interactive {
+  cursor: pointer;
+  text-align: left;
+  transition:
+    transform var(--dur-fast) var(--ease-spring),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.interactive:active {
+  transform: scale(0.97);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (hover: hover) {
+  .interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+}

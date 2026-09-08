@@ -1,0 +1,26 @@
+{
+  "id": "sound-pets-2",
+  "schemaVersion": 1,
+  "engine": "sound-match",
+  "mechanic": "m085",
+  "titleKey": "act.sound-pets-2",
+  "category": "animals",
+  "ageMin": 2,
+  "ageMax": 3,
+  "difficulty": 1,
+  "skills": ["listening", "vocabulary", "auditory-memory"],
+  "themes": ["pets"],
+  "durationSec": 60,
+  "assets": ["animal.cat", "animal.dog"],
+  "params": {
+    "autoPlay": true,
+    "rounds": [
+      { "sound": "animal.cat", "choices": ["animal.cat", "animal.dog"] },
+      { "sound": "animal.dog", "choices": ["animal.dog", "animal.cat"] },
+      { "sound": "animal.cat", "choices": ["animal.cat", "animal.dog"] }
+    ]
+  },
+  "parentNoteKey": "note.sound-pets-2",
+  "a11y": { "colorIndependent": true, "requiresAudio": true, "requiresPrecision": false },
+  "noFail": true
+}

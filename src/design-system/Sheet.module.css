@@ -1,0 +1,105 @@
+/**
+ * Панел върху съдържанието. Стъпва на native <dialog>, за да получим
+ * заклещване на фокуса, Esc и inert-фона без собствен код.
+ */
+
+.dialog {
+  padding: 0;
+  border: none;
+  background: transparent;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: visible;
+}
+
+.dialog::backdrop {
+  background: rgb(43 38 34 / 0.45);
+  backdrop-filter: blur(2px);
+  animation: fade var(--dur-normal) var(--ease-out);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  box-shadow: var(--shadow-xl);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Долен лист — подразбиране на телефон. Стига до палеца. */
+.bottom {
+  position: fixed;
+  inset: auto 0 0 0;
+  width: 100%;
+  max-height: 88dvh;
+  padding: var(--sp-6) var(--sp-5) calc(var(--safe-b) + var(--sp-8));
+  border-radius: var(--r-3xl) var(--r-3xl) 0 0;
+  animation: rise var(--dur-normal) var(--ease-settle);
+}
+
+/* Центриран диалог — родителски панел на широк екран. */
+.center {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  translate: -50% -50%;
+  width: min(32rem, calc(100vw - var(--sp-8)));
+  max-height: 86dvh;
+  padding: var(--sp-6);
+  border-radius: var(--r-2xl);
+  animation: pop var(--dur-normal) var(--ease-spring);
+}
+
+/* Пълен екран — мек стоп, PIN врата. Заема всичко нарочно. */
+.full {
+  position: fixed;
+  inset: 0;
+  padding: calc(var(--safe-t) + var(--sp-8)) var(--sp-6) calc(var(--safe-b) + var(--sp-8));
+  border-radius: 0;
+  animation: fade var(--dur-normal) var(--ease-out);
+}
+
+.grabber {
+  width: 3rem;
+  height: 0.3rem;
+  margin: 0 auto;
+  border-radius: var(--r-full);
+  background: var(--c-border-strong);
+  flex: none;
+}
+
+.title {
+  font-size: var(--fs-xl);
+  color: var(--c-ink);
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(12%);
+    opacity: 0;
+  }
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.94);
+    opacity: 0;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottom,
+  .center,
+  .full,
+  .dialog::backdrop {
+    animation: none;
+  }
+}

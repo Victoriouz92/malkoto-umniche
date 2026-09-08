@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "tinymind/mechanics/schema.json",
+  "title": "TinyMind Mechanic Entry",
+  "description": "Един запис от каталога с образователни механики за деца 2-8 г. Каталогът е ИЗСЛЕДОВАТЕЛСКИ документ, не изпълним код. Активностите в src/content/activities се пишат по този каталог, но следват отделна Activity схема.",
+  "type": "object",
+  "required": [
+    "id", "slug", "name", "category", "tier", "value", "engine",
+    "ageMin", "ageMax", "difficulty", "goal", "skills", "loop", "rules",
+    "feedback", "animation", "audio", "a11y", "themes", "variations",
+    "noFail", "assetsNeeded"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id":       { "type": "string", "pattern": "^m[0-9]{3}$" },
+    "slug":     { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "name":     { "type": "string", "description": "Име на български" },
+    "category": {
+      "enum": [
+        "visual-perception", "memory", "matching-classification",
+        "logic-reasoning", "spatial-construction", "numeracy",
+        "literacy", "language-vocabulary", "fine-motor",
+        "attention-executive", "creativity-expression", "auditory",
+        "social-emotional", "everyday-knowledge"
+      ]
+    },
+    "tier": {
+      "type": "integer", "minimum": 1, "maximum": 4,
+      "description": "1 = ядро на платформата (задължително в MVP), 2 = висока стойност, 3 = добра, 4 = допълваща"
+    },
+    "value": {
+      "type": "integer", "minimum": 1, "maximum": 10,
+      "description": "Образователна стойност: обхват на уменията x възрастов диапазон x доказателствена база x реиграваемост"
+    },
+    "engine": {
+      "type": "string",
+      "description": "Кой от 20-те двигателя реализира тази механика. Ключово поле: доказва, че 100 механики се покриват от 20 двигателя.",
+      "enum": [
+        "puzzle", "memory", "matching", "sorting", "sequencing", "counting",
+        "tracing", "coloring", "maze", "pattern", "connect-dots",
+        "spot-difference", "shape-builder", "letters", "words", "math",
+        "sound-match", "drawing", "compare", "odd-one-out"
+      ]
+    },
+    "ageMin": { "type": "integer", "minimum": 2, "maximum": 8 },
+    "ageMax": { "type": "integer", "minimum": 2, "maximum": 8 },
+    "difficulty": {
+      "type": "array", "items": { "type": "integer", "minimum": 1, "maximum": 5 },
+      "minItems": 2, "maxItems": 2,
+      "description": "[най-лесен, най-труден] вариант, който механиката поддържа"
+    },
+    "goal":  { "type": "string", "description": "Образователната цел, едно изречение" },
+    "skills": { "type": "array", "items": { "$ref": "#/definitions/skill" }, "minItems": 1 },
+    "loop":  { "type": "string", "description": "Геймплей примката, едно изречение" },
+    "rules": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+    "feedback":  { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+    "animation": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "audio":     { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "a11y":      { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "themes":    { "type": "array", "items": { "$ref": "#/definitions/theme" }, "minItems": 1 },
+    "variations":{ "type": "array", "items": { "type": "string" }, "minItems": 2 },
+    "noFail": {
+      "type": "boolean",
+      "description": "Дали механиката може да работи изцяло без понятие за грешка. Задължително true, ако ageMin <= 4."
+    },
+    "assetsNeeded": {
+      "type": "array", "items": { "type": "string" }, "minItems": 1,
+      "description": "Категории графика, нужни за механиката. Захранва docs/ASSETS.md."
+    }
+  },
+  "definitions": {
+    "skill": {
+      "enum": [
+        "visual-discrimination", "visual-memory", "working-memory", "auditory-memory",
+        "spatial-reasoning", "logic", "pattern-recognition", "classification",
+        "counting", "number-sense", "arithmetic", "measurement", "symmetry",
+        "letter-recognition", "phonological-awareness", "reading",
+        "vocabulary", "listening", "narrative",
+        "fine-motor", "hand-eye-coordination",
+        "sustained-attention", "inhibitory-control", "cognitive-flexibility",
+        "sequencing", "problem-solving", "creativity",
+        "emotion-recognition", "social-reasoning", "everyday-knowledge",
+        "rhythm", "pitch-discrimination"
+      ]
+    },
+    "theme": {
+      "enum": [
+        "farm", "forest", "ocean", "jungle", "space", "vehicles", "food",
+        "home", "city", "seasons", "weather", "body", "music", "shapes",
+        "dinosaurs", "insects", "toys", "clothes", "garden", "pets"
+      ]
+    }
+  }
+}

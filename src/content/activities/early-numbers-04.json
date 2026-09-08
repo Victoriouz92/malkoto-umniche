@@ -1,0 +1,39 @@
+{
+  "id": "early-numbers-04",
+  "schemaVersion": 1,
+  "engine": "counting",
+  "mechanic": "m039",
+  "titleKey": "act.early-numbers-04",
+  "category": "numbers",
+  "ageMin": 2,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": [
+    "counting",
+    "number-sense",
+    "visual-discrimination"
+  ],
+  "themes": [
+    "garden"
+  ],
+  "durationSec": 60,
+  "assets": [
+    "nature.flower"
+  ],
+  "params": {
+    "rounds": [
+      {
+        "asset": "nature.flower",
+        "count": 4
+      }
+    ],
+    "choices": 3
+  },
+  "parentNoteKey": "note.early-numbers-04",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

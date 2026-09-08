@@ -1,0 +1,58 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap, var(--sp-4));
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap, var(--sp-3));
+}
+
+.grid {
+  display: grid;
+  gap: var(--gap, var(--sp-4));
+  grid-template-columns: repeat(auto-fill, minmax(var(--min, 14rem), 1fr));
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.page {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: calc(var(--safe-t) + var(--sp-6)) calc(var(--safe-r) + var(--sp-5))
+    calc(var(--safe-b) + var(--sp-10)) calc(var(--safe-l) + var(--sp-5));
+}
+
+.pageNarrow {
+  max-width: var(--parent-max);
+}
+
+/**
+ * Центриран текст.
+ *
+ * За детските екрани и за витрините: симетрията изглежда като продукт.
+ * Родителският панел НЕ го ползва — там текстът е ляво подравнен, защото
+ * плътна таблица с числа се сканира по левия ръб.
+ */
+.pageCentered {
+  text-align: center;
+}
+
+.pageCentered :where(ul, ol, p, h1, h2, h3) {
+  margin-inline: auto;
+}
+
+/* Дългият текст не бива да е центриран — окото губи началото на реда. */
+.pageCentered :where(p) {
+  max-width: 46rem;
+}

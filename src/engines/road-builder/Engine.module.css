@@ -1,0 +1,14 @@
+.workshop { width: min(43rem, 100%); margin: auto; text-align: center; }
+.eyebrow { color: #45558a; font-weight: 900; font-size: .75rem; letter-spacing: .1em; }
+.workshop h2 { font-size: clamp(1.4rem, 3vw, 2rem); margin: .5rem 0; }
+.workshop p { color: var(--c-ink-soft); font-size: 1rem; }
+.map { display: flex; gap: .4rem; align-items: center; justify-content: center; padding: 1rem .25rem; }
+.roads { width: min(24rem, 75%); aspect-ratio: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; padding: .6rem; border-radius: 1.4rem; background: #d7e4cc; box-shadow: 0 8px 0 #c2d0b7; }
+.tile { display: block; padding: 0; min-width: 48px; min-height: 48px; background: #f5f6ec; border-radius: 8px; overflow: hidden; }
+.tile svg { display: block; width: 100%; transform: rotate(var(--turn)); }
+.tile:focus-visible { outline-offset: -5px; }
+.grass { display: grid; place-items: center; color: #7ca674; font-size: 2rem; background: #c9dfba; border-radius: 8px; }
+.departure, .destination { width: 10%; max-width: 64px; }
+.destination { font-size: 2.5rem; color: #25745a; }
+.hint { margin-top: 1rem; }
+.roads { grid-template-rows: repeat(3, minmax(0, 1fr)); }

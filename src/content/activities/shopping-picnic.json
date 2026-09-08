@@ -1,0 +1,16 @@
+{
+  "id": "shopping-picnic", "schemaVersion": 1, "engine": "shopping", "mechanic": "m103",
+  "titleKey": "act.shopping-picnic", "category": "food", "ageMin": 4, "ageMax": 6,
+  "difficulty": 2, "skills": ["counting", "working-memory", "everyday-knowledge", "problem-solving"],
+  "themes": ["food"], "durationSec": 180,
+  "assets": ["food.apple", "food.banana", "food.carrot", "food.bread", "food.strawberry"],
+  "params": {
+    "shelf": ["food.apple", "food.banana", "food.carrot", "food.bread", "food.strawberry"],
+    "orders": [
+      { "title": "Плодове за двама", "items": [{"asset":"food.apple","count":2},{"asset":"food.banana","count":1}] },
+      { "title": "Кошница за приятелите", "items": [{"asset":"food.bread","count":1},{"asset":"food.carrot","count":2}] },
+      { "title": "Големият пикник", "items": [{"asset":"food.apple","count":2},{"asset":"food.strawberry","count":3},{"asset":"food.bread","count":1}] }
+    ]
+  },
+  "parentNoteKey":"note.shopping-picnic", "a11y":{"colorIndependent":true,"requiresAudio":false,"requiresPrecision":false}, "noFail":true
+}

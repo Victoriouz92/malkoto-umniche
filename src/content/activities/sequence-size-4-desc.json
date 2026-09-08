@@ -1,0 +1,51 @@
+{
+  "id": "sequence-size-4-desc",
+  "schemaVersion": 1,
+  "engine": "sequencing",
+  "mechanic": "m101",
+  "titleKey": "act.sequence-size-4-desc",
+  "category": "shapes",
+  "ageMin": 3,
+  "ageMax": 5,
+  "difficulty": 2,
+  "skills": ["measurement", "sequencing"],
+  "themes": ["shapes"],
+  "durationSec": 75,
+  "assets": [],
+  "params": {
+    "items": [
+      {
+        "kind": "shape",
+        "shape": "star",
+        "color": "orange",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "star",
+        "color": "orange",
+        "scale": 0.75
+      },
+      {
+        "kind": "shape",
+        "shape": "star",
+        "color": "orange",
+        "scale": 0.55
+      },
+      {
+        "kind": "shape",
+        "shape": "star",
+        "color": "orange",
+        "scale": 0.35
+      }
+    ],
+    "kind": "size-desc"
+  },
+  "parentNoteKey": "note.sequence-size-4-desc",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

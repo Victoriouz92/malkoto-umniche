@@ -1,0 +1,93 @@
+{
+  "id": "sorting-three-groups",
+  "schemaVersion": 1,
+  "engine": "sorting",
+  "mechanic": "m018",
+  "titleKey": "act.sorting-three-groups",
+  "category": "puzzles",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "classification",
+    "logic"
+  ],
+  "themes": [
+    "farm",
+    "food",
+    "vehicles"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "animal.cat",
+    "animal.dog",
+    "animal.rabbit",
+    "food.apple",
+    "food.carrot",
+    "food.bread",
+    "vehicle.car",
+    "vehicle.bus",
+    "vehicle.train"
+  ],
+  "params": {
+    "bins": [
+      {
+        "id": "animal",
+        "asset": "animal.horse"
+      },
+      {
+        "id": "food",
+        "asset": "food.pear"
+      },
+      {
+        "id": "vehicle",
+        "asset": "vehicle.truck"
+      }
+    ],
+    "items": [
+      {
+        "asset": "animal.cat",
+        "bin": "animal"
+      },
+      {
+        "asset": "animal.dog",
+        "bin": "animal"
+      },
+      {
+        "asset": "animal.rabbit",
+        "bin": "animal"
+      },
+      {
+        "asset": "food.apple",
+        "bin": "food"
+      },
+      {
+        "asset": "food.carrot",
+        "bin": "food"
+      },
+      {
+        "asset": "food.bread",
+        "bin": "food"
+      },
+      {
+        "asset": "vehicle.car",
+        "bin": "vehicle"
+      },
+      {
+        "asset": "vehicle.bus",
+        "bin": "vehicle"
+      },
+      {
+        "asset": "vehicle.train",
+        "bin": "vehicle"
+      }
+    ]
+  },
+  "parentNoteKey": "note.sorting-three-groups",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

@@ -1,0 +1,150 @@
+/**
+ * Бутон — най-натисканият обект в продукта.
+ * Стои върху плътен долен ръб и потъва при натискане: детето получава
+ * усещане за физически предмет, а не за правоъгълник. Това е точка 1
+ * от Juicy Feedback („тактилно, в момента на действието").
+ */
+
+.root {
+  --_bg: var(--c-surface);
+  --_fg: var(--c-ink);
+  --_edge: var(--shadow-press);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+
+  min-height: var(--tap-min);
+  padding: var(--sp-3) var(--sp-6);
+
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  text-align: center;
+
+  color: var(--_fg);
+  background: var(--_bg);
+  border-radius: var(--r-xl);
+  box-shadow: var(--_edge);
+
+  transition:
+    transform var(--dur-instant) var(--ease-out),
+    box-shadow var(--dur-instant) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    filter var(--dur-fast) var(--ease-out);
+}
+
+.root:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: var(--shadow-press-sm);
+}
+
+@media (hover: hover) {
+  .root:hover:not(:disabled) {
+    filter: brightness(1.04);
+  }
+}
+
+.root:disabled {
+  opacity: 0.45;
+  cursor: default;
+  box-shadow: none;
+}
+
+/* ── Варианти ─────────────────────────────────────────────────── */
+
+.primary {
+  --_bg: var(--c-primary);
+  --_fg: var(--c-on-primary);
+}
+
+/* Ярката версия на primary покрива само 3.3:1 — валидно за едър
+   получер текст. За дребен текст използвай варианта `strong`. */
+.strong {
+  --_bg: var(--c-primary-strong);
+  --_fg: var(--c-on-primary);
+}
+
+.secondary {
+  --_bg: var(--c-secondary);
+  --_fg: var(--c-on-secondary);
+}
+
+.soft {
+  --_bg: var(--c-surface-2);
+  --_fg: var(--c-ink);
+}
+
+/* Плосък бутон без ръб — за второстепенни действия в родителския панел. */
+.quiet {
+  --_bg: transparent;
+  --_fg: var(--c-ink-soft);
+  --_edge: none;
+  border: 2px solid var(--c-border);
+}
+
+.quiet:active:not(:disabled) {
+  transform: none;
+  background: var(--c-surface-2);
+}
+
+/* Само в родителския панел. Никога в детски екран. */
+.danger {
+  --_bg: var(--c-danger);
+  --_fg: #ffffff;
+}
+
+/* ── Размери ──────────────────────────────────────────────────── */
+
+.sm {
+  min-height: var(--tap-min);
+  padding: var(--sp-2) var(--sp-4);
+  font-size: var(--fs-sm);
+  border-radius: var(--r-lg);
+}
+
+.md {
+  min-height: var(--tap);
+  padding: var(--sp-3) var(--sp-6);
+  font-size: var(--fs-md);
+}
+
+/* Детски размер: расте заедно с --tap от възрастовата лента. */
+.kid {
+  min-height: var(--tap-lg);
+  min-width: var(--tap-lg);
+  padding: var(--sp-4) var(--sp-8);
+  font-size: var(--fs-xl);
+  border-radius: var(--r-2xl);
+}
+
+/* Кръгъл бутон само с икона. Винаги изисква aria-label. */
+.icon {
+  min-width: var(--tap);
+  min-height: var(--tap);
+  padding: var(--sp-3);
+  border-radius: var(--r-full);
+  aspect-ratio: 1;
+}
+
+.iconKid {
+  min-width: var(--tap-lg);
+  min-height: var(--tap-lg);
+  padding: var(--sp-4);
+  border-radius: var(--r-full);
+  aspect-ratio: 1;
+}
+
+.block {
+  display: flex;
+  width: 100%;
+}
+
+.glyph {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.25em;
+  height: 1.25em;
+}

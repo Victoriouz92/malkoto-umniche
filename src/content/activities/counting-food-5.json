@@ -1,0 +1,43 @@
+{
+  "id": "counting-food-5",
+  "schemaVersion": 1,
+  "engine": "counting",
+  "mechanic": "m039",
+  "titleKey": "act.counting-food-5",
+  "category": "numbers",
+  "ageMin": 3,
+  "ageMax": 5,
+  "difficulty": 2,
+  "skills": ["counting", "number-sense"],
+  "themes": ["food"],
+  "durationSec": 75,
+  "assets": ["food.apple", "food.strawberry", "food.grapes"],
+  "params": {
+    "rounds": [
+      {
+        "asset": "food.grapes",
+        "count": 2
+      },
+      {
+        "asset": "food.apple",
+        "count": 3
+      },
+      {
+        "asset": "food.apple",
+        "count": 4
+      },
+      {
+        "asset": "food.strawberry",
+        "count": 5
+      }
+    ],
+    "choices": 3
+  },
+  "parentNoteKey": "note.counting-food-5",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

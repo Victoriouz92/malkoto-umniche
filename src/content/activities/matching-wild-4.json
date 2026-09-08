@@ -1,0 +1,27 @@
+{
+  "id": "matching-wild-4",
+  "schemaVersion": 1,
+  "engine": "matching",
+  "mechanic": "m016",
+  "titleKey": "act.matching-wild-4",
+  "category": "puzzles",
+  "ageMin": 4,
+  "ageMax": 5,
+  "difficulty": 3,
+  "skills": ["visual-discrimination", "classification"],
+  "themes": ["forest"],
+  "durationSec": 80,
+  "assets": ["animal.fox", "animal.bear", "animal.owl", "animal.hedgehog"],
+  "params": {
+    "pairs": [
+      { "left": "animal.fox", "right": "animal.fox" },
+      { "left": "animal.bear", "right": "animal.bear" },
+      { "left": "animal.owl", "right": "animal.owl" },
+      { "left": "animal.hedgehog", "right": "animal.hedgehog" }
+    ],
+    "rightMode": "same"
+  },
+  "parentNoteKey": "note.matching-wild-4",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false },
+  "noFail": true
+}

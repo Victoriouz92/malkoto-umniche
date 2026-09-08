@@ -1,0 +1,39 @@
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!--
+    ШАБЛОН: контурна рисунка за оцветяване  (docs/ASSETS.md)
+
+    Всяка запълваема зона носи:
+      fill="#FFFFFF"        — започва бяла
+      data-region="име"     — кодът заменя fill при тап
+
+    Зона БЕЗ data-region не се оцветява. Точно така оставяш части,
+    които трябва да си останат бели: очи, зъби, отблясъци.
+
+    Контурът е винаги stroke="#2B2622" с дебелина 8.
+    Изтрий коментарите преди предаване.
+  -->
+
+  <path
+    data-region="body"
+    d="M128 68 C 96 44, 48 62, 48 118 C 48 172, 92 216, 128 216 C 164 216, 208 172, 208 118 C 208 62, 160 44, 128 68 Z"
+    fill="#FFFFFF"
+    stroke="#2B2622"
+    stroke-width="8"
+    stroke-linejoin="round" />
+
+  <path
+    data-region="stem"
+    d="M126 68 C 124 52, 130 38, 144 30"
+    fill="none"
+    stroke="#2B2622"
+    stroke-width="10"
+    stroke-linecap="round" />
+
+  <path
+    data-region="leaf"
+    d="M144 44 C 164 26, 194 28, 198 44 C 188 62, 158 62, 144 44 Z"
+    fill="#FFFFFF"
+    stroke="#2B2622"
+    stroke-width="8"
+    stroke-linejoin="round" />
+</svg>

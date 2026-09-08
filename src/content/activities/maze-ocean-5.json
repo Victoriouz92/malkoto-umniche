@@ -1,0 +1,39 @@
+{
+  "id": "maze-ocean-5",
+  "schemaVersion": 1,
+  "engine": "maze",
+  "mechanic": "m034",
+  "titleKey": "act.maze-ocean-5",
+  "category": "puzzles",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "spatial-reasoning",
+    "problem-solving",
+    "fine-motor",
+    "sustained-attention"
+  ],
+  "themes": [
+    "garden"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "animal.octopus",
+    "animal.fish"
+  ],
+  "params": {
+    "cols": 5,
+    "rows": 5,
+    "seed": 3141,
+    "goalAsset": "animal.octopus",
+    "travellerAsset": "animal.fish"
+  },
+  "parentNoteKey": "note.maze-ocean-5",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

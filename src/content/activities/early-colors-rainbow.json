@@ -1,0 +1,40 @@
+{
+  "id": "early-colors-rainbow",
+  "schemaVersion": 1,
+  "engine": "coloring",
+  "mechanic": "m078",
+  "titleKey": "act.early-colors-rainbow",
+  "category": "colors",
+  "ageMin": 2,
+  "ageMax": 6,
+  "difficulty": 1,
+  "skills": [
+    "creativity",
+    "fine-motor"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "lineart.bus"
+  ],
+  "params": {
+    "lineart": "lineart.bus",
+    "palette": [
+      "red",
+      "orange",
+      "yellow",
+      "green",
+      "blue",
+      "purple"
+    ]
+  },
+  "parentNoteKey": "note.early-colors-rainbow",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

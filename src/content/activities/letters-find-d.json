@@ -1,0 +1,45 @@
+{
+  "id": "letters-find-d",
+  "schemaVersion": 1,
+  "engine": "letters",
+  "mechanic": "m049",
+  "titleKey": "act.letters-find-d",
+  "category": "letters",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": [
+    "letter-recognition",
+    "visual-discrimination"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 80,
+  "assets": [],
+  "params": {
+    "mode": "find",
+    "target": "Д",
+    "grid": [
+      "Д",
+      "Л",
+      "А",
+      "Д",
+      "П",
+      "Л",
+      "Д",
+      "А",
+      "П",
+      "Д",
+      "Л",
+      "Д"
+    ]
+  },
+  "parentNoteKey": "note.letters-find-d",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

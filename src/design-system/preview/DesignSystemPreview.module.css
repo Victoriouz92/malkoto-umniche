@@ -1,0 +1,104 @@
+.section {
+  padding-block: var(--sp-8);
+  border-top: 2px solid var(--c-border);
+}
+
+.section:first-of-type {
+  border-top: none;
+}
+
+.sectionTitle {
+  font-size: var(--fs-lg);
+  color: var(--c-ink-soft);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-wide);
+  margin-bottom: var(--sp-5);
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  border: 1px solid var(--c-border);
+  background: var(--c-surface);
+}
+
+.chip {
+  height: 3rem;
+  border-radius: var(--r-sm);
+  border: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.swatchName {
+  font-size: var(--fs-xs);
+  font-family: ui-monospace, 'Cascadia Mono', 'Consolas', monospace;
+  color: var(--c-ink-soft);
+  word-break: break-all;
+}
+
+.tile {
+  background: var(--tile-bg);
+  color: var(--tile-ink);
+}
+
+.tileIcon {
+  display: grid;
+  place-items: center;
+  width: var(--tap-lg);
+  height: var(--tap-lg);
+  border-radius: var(--r-full);
+  background: var(--tile-accent);
+  color: #ffffff;
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-heavy);
+}
+
+.tileLabel {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-heavy);
+}
+
+.typeRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-4);
+  padding-block: var(--sp-2);
+  border-bottom: 1px dashed var(--c-border);
+}
+
+.typeMeta {
+  flex: none;
+  width: 5rem;
+  font-size: var(--fs-xs);
+  font-family: ui-monospace, 'Cascadia Mono', 'Consolas', monospace;
+  color: var(--c-ink-faint);
+}
+
+/* Бутонът е flex контейнер, затова надписът и кодът се нуждаят от
+   собствена колона — иначе застават един до друг. */
+.variantLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  line-height: var(--lh-tight);
+}
+
+/* Името на варианта в кода, под българския надпис. */
+.variantCode {
+  display: block;
+  font-family: ui-monospace, 'Cascadia Mono', 'Consolas', monospace;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-regular);
+  opacity: 0.7;
+}
+
+.note {
+  padding: var(--sp-4);
+  border-radius: var(--r-lg);
+  background: var(--c-info-soft);
+  color: var(--c-ink);
+  font-size: var(--fs-sm);
+}

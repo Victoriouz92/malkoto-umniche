@@ -1,0 +1,39 @@
+{
+  "id": "early-numbers-03",
+  "schemaVersion": 1,
+  "engine": "counting",
+  "mechanic": "m039",
+  "titleKey": "act.early-numbers-03",
+  "category": "numbers",
+  "ageMin": 2,
+  "ageMax": 6,
+  "difficulty": 1,
+  "skills": [
+    "counting",
+    "number-sense",
+    "visual-discrimination"
+  ],
+  "themes": [
+    "garden"
+  ],
+  "durationSec": 60,
+  "assets": [
+    "vehicle.car"
+  ],
+  "params": {
+    "rounds": [
+      {
+        "asset": "vehicle.car",
+        "count": 3
+      }
+    ],
+    "choices": 2
+  },
+  "parentNoteKey": "note.early-numbers-03",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

@@ -1,0 +1,19 @@
+{
+  "id": "memory-garden-4",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m009",
+  "titleKey": "act.memory-garden-4",
+  "category": "memory",
+  "ageMin": 3,
+  "ageMax": 5,
+  "difficulty": 1,
+  "skills": ["visual-memory", "working-memory"],
+  "themes": ["garden"],
+  "durationSec": 60,
+  "assets": ["nature.flower", "nature.mushroom"],
+  "params": { "items": ["nature.flower", "nature.mushroom"], "flipBackMs": 2200 },
+  "parentNoteKey": "note.memory-garden-4",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false },
+  "noFail": true
+}

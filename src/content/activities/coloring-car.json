@@ -1,0 +1,40 @@
+{
+  "id": "coloring-car",
+  "schemaVersion": 1,
+  "engine": "coloring",
+  "mechanic": "m078",
+  "titleKey": "act.coloring-car",
+  "category": "colors",
+  "ageMin": 2,
+  "ageMax": 6,
+  "difficulty": 1,
+  "skills": [
+    "creativity",
+    "fine-motor"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "lineart.car"
+  ],
+  "params": {
+    "lineart": "lineart.car",
+    "palette": [
+      "red",
+      "blue",
+      "yellow",
+      "green",
+      "grey",
+      "purple"
+    ]
+  },
+  "parentNoteKey": "note.coloring-car",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

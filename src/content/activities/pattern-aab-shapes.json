@@ -1,0 +1,88 @@
+{
+  "id": "pattern-aab-shapes",
+  "schemaVersion": 1,
+  "engine": "pattern",
+  "mechanic": "m023",
+  "titleKey": "act.pattern-aab-shapes",
+  "category": "puzzles",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": [
+    "pattern-recognition",
+    "logic",
+    "working-memory"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 75,
+  "assets": [],
+  "params": {
+    "sequence": [
+      {
+        "kind": "shape",
+        "shape": "triangle",
+        "color": "green",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "triangle",
+        "color": "green",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "star",
+        "color": "yellow",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "triangle",
+        "color": "green",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "triangle",
+        "color": "green",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "star",
+        "color": "yellow",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "triangle",
+        "color": "green",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "triangle",
+        "color": "green",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "star",
+        "color": "yellow",
+        "scale": 1
+      }
+    ],
+    "gapIndex": 8,
+    "choices": 2
+  },
+  "parentNoteKey": "note.pattern-aab-shapes",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

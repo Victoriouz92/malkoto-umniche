@@ -1,0 +1,43 @@
+.columns {
+  display: flex;
+  gap: calc(var(--tap-gap) * 2);
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tap-gap);
+}
+
+/**
+ * Силуетът се прави от самата картинка.
+ *
+ * `brightness(0)` смъква всеки цвят до плътно черно, а прозрачността се
+ * запазва — тоест остава чистият контур. Така механиката със сенките не
+ * изисква втори комплект графика.
+ */
+.silhouette {
+  filter: brightness(0);
+  opacity: 0.85;
+}
+
+.matched {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.matched::after {
+  content: '✓';
+  position: absolute;
+  right: var(--sp-2);
+  bottom: var(--sp-1);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-heavy);
+  color: var(--c-success-strong);
+}
+
+.slot {
+  position: relative;
+}

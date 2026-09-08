@@ -1,0 +1,25 @@
+{
+  "id": "puzzle-farm-3",
+  "schemaVersion": 1,
+  "engine": "puzzle",
+  "mechanic": "m001",
+  "titleKey": "act.puzzle-farm-3",
+  "category": "puzzles",
+  "ageMin": 2,
+  "ageMax": 4,
+  "difficulty": 1,
+  "skills": ["visual-discrimination", "spatial-reasoning", "fine-motor"],
+  "themes": ["shapes"],
+  "durationSec": 90,
+  "assets": ["animal.cow", "animal.duck", "animal.sheep"],
+  "params": {
+    "pieces": ["animal.cow", "animal.duck", "animal.sheep"]
+  },
+  "parentNoteKey": "note.puzzle-farm-3",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

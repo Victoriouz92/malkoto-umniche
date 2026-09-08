@@ -1,0 +1,89 @@
+.objects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-4);
+  max-width: 32rem;
+  min-height: calc(var(--tap-lg) * 1.2);
+}
+
+.object {
+  position: relative;
+  width: var(--tap);
+  height: var(--tap);
+  transition:
+    transform var(--dur-fast) var(--ease-spring),
+    opacity var(--dur-fast) var(--ease-out);
+}
+
+/* Преброеният предмет получава точка и остава видим. Изчезването би
+   объркало броенето — детето трябва да вижда цялата група. */
+.counted::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: var(--r-full);
+  background: var(--c-secondary);
+  box-shadow: 0 0 0 3px var(--c-bg);
+}
+
+.counted {
+  transform: scale(0.94);
+}
+
+.tally {
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-heavy);
+  font-variant-numeric: tabular-nums;
+  color: var(--c-secondary-ink);
+  min-height: 1.2em;
+}
+
+.choices {
+  display: flex;
+  gap: var(--tap-gap);
+  justify-content: center;
+}
+
+.numeral {
+  display: grid;
+  place-items: center;
+  width: var(--tap-lg);
+  height: var(--tap-lg);
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-heavy);
+  font-variant-numeric: tabular-nums;
+  color: var(--c-ink);
+  background: var(--c-surface);
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-press-sm);
+  transition: transform var(--dur-instant) var(--ease-out);
+}
+
+.numeral:active {
+  transform: translateY(2px);
+}
+
+.numeralRight {
+  background: var(--c-success-soft);
+  box-shadow: 0 0 0 4px var(--c-success);
+}
+
+.numeralLocked {
+  opacity: .38;
+  filter: grayscale(.35);
+  box-shadow: none;
+  cursor: default;
+}
+
+.countHint {
+  max-width: 28rem;
+  margin: 0;
+  color: var(--c-ink-soft);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  text-align: center;
+}

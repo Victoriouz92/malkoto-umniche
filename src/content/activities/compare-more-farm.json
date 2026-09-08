@@ -1,0 +1,82 @@
+{
+  "id": "compare-more-farm",
+  "schemaVersion": 1,
+  "engine": "compare",
+  "mechanic": "m042",
+  "titleKey": "act.compare-more-farm",
+  "category": "numbers",
+  "ageMin": 3,
+  "ageMax": 5,
+  "difficulty": 1,
+  "skills": ["number-sense", "counting"],
+  "themes": ["farm"],
+  "durationSec": 60,
+  "assets": ["animal.duck", "animal.sheep"],
+  "params": {
+    "mode": "count",
+    "ask": "more",
+    "rounds": [
+      {
+        "left": {
+          "token": {
+            "kind": "asset",
+            "id": "animal.duck",
+            "scale": 1
+          },
+          "count": 2
+        },
+        "right": {
+          "token": {
+            "kind": "asset",
+            "id": "animal.duck",
+            "scale": 1
+          },
+          "count": 5
+        }
+      },
+      {
+        "left": {
+          "token": {
+            "kind": "asset",
+            "id": "animal.sheep",
+            "scale": 1
+          },
+          "count": 6
+        },
+        "right": {
+          "token": {
+            "kind": "asset",
+            "id": "animal.sheep",
+            "scale": 1
+          },
+          "count": 2
+        }
+      },
+      {
+        "left": {
+          "token": {
+            "kind": "asset",
+            "id": "animal.duck",
+            "scale": 1
+          },
+          "count": 3
+        },
+        "right": {
+          "token": {
+            "kind": "asset",
+            "id": "animal.duck",
+            "scale": 1
+          },
+          "count": 7
+        }
+      }
+    ]
+  },
+  "parentNoteKey": "note.compare-more-farm",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

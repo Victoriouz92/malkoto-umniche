@@ -1,0 +1,88 @@
+{
+  "id": "compare-smaller",
+  "schemaVersion": 1,
+  "engine": "compare",
+  "mechanic": "m007",
+  "titleKey": "act.compare-smaller",
+  "category": "shapes",
+  "ageMin": 2,
+  "ageMax": 5,
+  "difficulty": 2,
+  "skills": ["visual-discrimination", "measurement", "vocabulary"],
+  "themes": ["shapes"],
+  "durationSec": 45,
+  "assets": [],
+  "params": {
+    "mode": "size",
+    "ask": "less",
+    "rounds": [
+      {
+        "left": {
+          "token": {
+            "kind": "shape",
+            "shape": "square",
+            "color": "blue",
+            "scale": 0.5
+          },
+          "count": 1
+        },
+        "right": {
+          "token": {
+            "kind": "shape",
+            "shape": "square",
+            "color": "blue",
+            "scale": 1
+          },
+          "count": 1
+        }
+      },
+      {
+        "left": {
+          "token": {
+            "kind": "shape",
+            "shape": "triangle",
+            "color": "green",
+            "scale": 1
+          },
+          "count": 1
+        },
+        "right": {
+          "token": {
+            "kind": "shape",
+            "shape": "triangle",
+            "color": "green",
+            "scale": 0.55
+          },
+          "count": 1
+        }
+      },
+      {
+        "left": {
+          "token": {
+            "kind": "shape",
+            "shape": "hexagon",
+            "color": "purple",
+            "scale": 0.45
+          },
+          "count": 1
+        },
+        "right": {
+          "token": {
+            "kind": "shape",
+            "shape": "hexagon",
+            "color": "purple",
+            "scale": 1
+          },
+          "count": 1
+        }
+      }
+    ]
+  },
+  "parentNoteKey": "note.compare-smaller",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

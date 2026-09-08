@@ -1,0 +1,45 @@
+{
+  "id": "letters-find-o",
+  "schemaVersion": 1,
+  "engine": "letters",
+  "mechanic": "m049",
+  "titleKey": "act.letters-find-o",
+  "category": "letters",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": [
+    "letter-recognition",
+    "visual-discrimination"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 80,
+  "assets": [],
+  "params": {
+    "mode": "find",
+    "target": "О",
+    "grid": [
+      "О",
+      "С",
+      "Ф",
+      "О",
+      "Ю",
+      "С",
+      "О",
+      "Ф",
+      "С",
+      "О",
+      "Ю",
+      "Ф"
+    ]
+  },
+  "parentNoteKey": "note.letters-find-o",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

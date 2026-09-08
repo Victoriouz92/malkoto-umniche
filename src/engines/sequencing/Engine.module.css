@@ -1,0 +1,35 @@
+.track {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  background: var(--c-surface);
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.slot {
+  display: grid;
+  place-items: center;
+  width: var(--tap);
+  height: var(--tap);
+  flex: none;
+  border: 3px dashed var(--c-border-strong);
+  border-radius: var(--r-xl);
+  background: var(--c-surface-2);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  color: var(--c-ink-faint);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+/* Заетото място престава да е дупка. Номерът изчезва, картинката остава. */
+.slotFull {
+  border-style: solid;
+  border-color: var(--c-success);
+  background: var(--c-surface);
+  padding: var(--sp-1);
+}

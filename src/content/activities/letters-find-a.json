@@ -1,0 +1,51 @@
+{
+  "id": "letters-find-a",
+  "schemaVersion": 1,
+  "engine": "letters",
+  "mechanic": "m049",
+  "titleKey": "act.letters-find-a",
+  "category": "letters",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": [
+    "letter-recognition",
+    "visual-discrimination",
+    "sustained-attention"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 90,
+  "assets": [],
+  "params": {
+    "mode": "find",
+    "target": "А",
+    "grid": [
+      "А",
+      "Д",
+      "Л",
+      "А",
+      "Ж",
+      "Д",
+      "А",
+      "Л",
+      "Ж",
+      "А",
+      "Д",
+      "Л",
+      "А",
+      "Ж",
+      "Д",
+      "А",
+      "Л"
+    ]
+  },
+  "parentNoteKey": "note.letters-find-a",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

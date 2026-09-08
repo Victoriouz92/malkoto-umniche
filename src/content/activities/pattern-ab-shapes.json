@@ -1,0 +1,64 @@
+{
+  "id": "pattern-ab-shapes",
+  "schemaVersion": 1,
+  "engine": "pattern",
+  "mechanic": "m023",
+  "titleKey": "act.pattern-ab-shapes",
+  "category": "puzzles",
+  "ageMin": 3,
+  "ageMax": 6,
+  "difficulty": 1,
+  "skills": ["pattern-recognition", "logic"],
+  "themes": ["shapes"],
+  "durationSec": 60,
+  "assets": [],
+  "params": {
+    "sequence": [
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "red",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "square",
+        "color": "blue",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "red",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "square",
+        "color": "blue",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "red",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "square",
+        "color": "blue",
+        "scale": 1
+      }
+    ],
+    "gapIndex": 5,
+    "choices": 2
+  },
+  "parentNoteKey": "note.pattern-ab-shapes",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

@@ -1,0 +1,43 @@
+{
+  "id": "counting-ocean-8",
+  "schemaVersion": 1,
+  "engine": "counting",
+  "mechanic": "m039",
+  "titleKey": "act.counting-ocean-8",
+  "category": "numbers",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": ["counting", "number-sense", "sustained-attention"],
+  "themes": ["ocean"],
+  "durationSec": 100,
+  "assets": ["animal.fish", "animal.crab", "animal.octopus"],
+  "params": {
+    "rounds": [
+      {
+        "asset": "animal.octopus",
+        "count": 5
+      },
+      {
+        "asset": "animal.fish",
+        "count": 6
+      },
+      {
+        "asset": "animal.crab",
+        "count": 7
+      },
+      {
+        "asset": "animal.fish",
+        "count": 8
+      }
+    ],
+    "choices": 3
+  },
+  "parentNoteKey": "note.counting-ocean-8",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

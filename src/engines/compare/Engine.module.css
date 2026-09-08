@@ -1,0 +1,71 @@
+.arena {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: var(--sp-4);
+  width: 100%;
+}
+
+.side {
+  flex: 1;
+  max-width: 18rem;
+  min-height: calc(var(--tap-lg) * 2);
+  padding: var(--sp-4);
+  background: var(--c-surface);
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-sm);
+  transition:
+    box-shadow var(--dur-normal) var(--ease-out),
+    opacity var(--dur-normal) var(--ease-out);
+}
+
+.sideWin {
+  box-shadow: 0 0 0 4px var(--c-success);
+}
+
+.sideDim {
+  opacity: 0.45;
+}
+
+.versus {
+  width: 3px;
+  border-radius: var(--r-full);
+  background: var(--c-border);
+  flex: none;
+}
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  height: 100%;
+}
+
+/**
+ * След отговора групата се подрежда в РЕДИЦА, а не в облак.
+ *
+ * Едно до едно двете страни се сравняват с поглед: излишъкът просто стърчи.
+ * Това е нагледното обяснение, което иначе би трябвало да се каже с думи.
+ */
+.groupLined {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: var(--sp-1);
+  justify-content: flex-end;
+  transition: gap var(--dur-normal) var(--ease-out);
+}
+
+.unit {
+  display: grid;
+  place-items: center;
+  width: var(--tap);
+  height: var(--tap);
+  flex: none;
+}
+
+.groupLined .unit {
+  width: calc(var(--tap) * 0.7);
+  height: calc(var(--tap) * 0.7);
+}

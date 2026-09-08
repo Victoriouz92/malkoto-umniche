@@ -1,0 +1,19 @@
+{
+  "id": "memory-pets-6",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m009",
+  "titleKey": "act.memory-pets-6",
+  "category": "memory",
+  "ageMin": 3,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": ["visual-memory", "working-memory"],
+  "themes": ["pets"],
+  "durationSec": 90,
+  "assets": ["animal.cat", "animal.dog", "animal.rabbit"],
+  "params": { "items": ["animal.cat", "animal.dog", "animal.rabbit"], "flipBackMs": 1900 },
+  "parentNoteKey": "note.memory-pets-6",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false },
+  "noFail": true
+}

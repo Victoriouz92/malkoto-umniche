@@ -1,0 +1,25 @@
+{
+  "id": "matching-food-2",
+  "schemaVersion": 1,
+  "engine": "matching",
+  "mechanic": "m016",
+  "titleKey": "act.matching-food-2",
+  "category": "puzzles",
+  "ageMin": 2,
+  "ageMax": 3,
+  "difficulty": 1,
+  "skills": ["visual-discrimination", "classification"],
+  "themes": ["food"],
+  "durationSec": 45,
+  "assets": ["food.apple", "food.banana"],
+  "params": {
+    "pairs": [
+      { "left": "food.apple", "right": "food.apple" },
+      { "left": "food.banana", "right": "food.banana" }
+    ],
+    "rightMode": "same"
+  },
+  "parentNoteKey": "note.matching-food-2",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false },
+  "noFail": true
+}

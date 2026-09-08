@@ -1,0 +1,29 @@
+{
+  "id": "odd-shape-5",
+  "schemaVersion": 1,
+  "engine": "odd-one-out",
+  "mechanic": "m008",
+  "titleKey": "act.odd-shape-5",
+  "category": "puzzles",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": ["visual-discrimination", "classification"],
+  "themes": ["shapes"],
+  "durationSec": 70,
+  "assets": [],
+  "params": {
+    "items": [
+      { "kind": "shape", "shape": "triangle", "color": "green", "scale": 1 },
+      { "kind": "shape", "shape": "triangle", "color": "green", "scale": 1 },
+      { "kind": "shape", "shape": "triangle", "color": "green", "scale": 1 },
+      { "kind": "shape", "shape": "diamond", "color": "green", "scale": 1 },
+      { "kind": "shape", "shape": "triangle", "color": "green", "scale": 1 }
+    ],
+    "oddIndex": 3,
+    "showGrouping": true
+  },
+  "parentNoteKey": "note.odd-shape-5",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false },
+  "noFail": true
+}

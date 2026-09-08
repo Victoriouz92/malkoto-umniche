@@ -1,0 +1,19 @@
+{
+  "id": "memory-forest-4",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m009",
+  "titleKey": "act.memory-forest-4",
+  "category": "memory",
+  "ageMin": 3,
+  "ageMax": 5,
+  "difficulty": 1,
+  "skills": ["visual-memory", "working-memory"],
+  "themes": ["forest"],
+  "durationSec": 60,
+  "assets": ["animal.fox", "animal.rabbit"],
+  "params": { "items": ["animal.fox", "animal.rabbit"], "flipBackMs": 2200 },
+  "parentNoteKey": "note.memory-forest-4",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false },
+  "noFail": true
+}

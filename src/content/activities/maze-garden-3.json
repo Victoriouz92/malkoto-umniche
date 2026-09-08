@@ -1,0 +1,29 @@
+{
+  "id": "maze-garden-3",
+  "schemaVersion": 1,
+  "engine": "maze",
+  "mechanic": "m034",
+  "titleKey": "act.maze-garden-3",
+  "category": "puzzles",
+  "ageMin": 4,
+  "ageMax": 5,
+  "difficulty": 1,
+  "skills": ["spatial-reasoning", "problem-solving", "fine-motor", "sustained-attention"],
+  "themes": ["garden"],
+  "durationSec": 120,
+  "assets": ["nature.flower", "animal.rabbit"],
+  "params": {
+    "cols": 3,
+    "rows": 3,
+    "seed": 1042,
+    "goalAsset": "nature.flower",
+    "travellerAsset": "animal.rabbit"
+  },
+  "parentNoteKey": "note.maze-garden-3",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

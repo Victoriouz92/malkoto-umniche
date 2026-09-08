@@ -1,0 +1,45 @@
+/**
+ * Бутон, който иска задържане.
+ *
+ * Съществува заради една конкретна ситуация: тригодишно тапва по екрана
+ * стотици пъти и рано или късно ще уцели изхода. Задържането е движение,
+ * което малкото дете не прави случайно.
+ */
+
+.root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  min-height: var(--tap);
+  padding: var(--sp-3) var(--sp-6);
+  font-weight: var(--fw-bold);
+  color: var(--c-ink-soft);
+  background: var(--c-surface);
+  border: 2px solid var(--c-border);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Пълнежът расте отляво надясно. Ширината се задава инлайн от компонента. */
+.fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--c-secondary-soft);
+  pointer-events: none;
+  transition: width 60ms linear;
+}
+
+.holding {
+  border-color: var(--c-secondary);
+  color: var(--c-secondary-ink);
+}
+
+.text {
+  position: relative;
+  z-index: 1;
+}

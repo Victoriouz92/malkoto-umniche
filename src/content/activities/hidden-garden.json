@@ -1,0 +1,36 @@
+{
+  "id": "hidden-garden",
+  "schemaVersion": 1,
+  "engine": "spot-difference",
+  "mechanic": "m004",
+  "titleKey": "act.hidden-garden",
+  "category": "puzzles",
+  "ageMin": 4,
+  "ageMax": 5,
+  "difficulty": 2,
+  "skills": ["visual-discrimination", "sustained-attention"],
+  "themes": ["garden"],
+  "durationSec": 90,
+  "assets": [
+    "scene.farm",
+    "nature.flower",
+    "nature.mushroom",
+    "food.carrot",
+    "food.strawberry",
+    "animal.rabbit"
+  ],
+  "params": {
+    "mode": "hidden-objects",
+    "scene": "scene.farm",
+    "targets": [
+      { "id": "nature.flower", "x": 18, "y": 76, "size": 48, "opacity": 0.72 },
+      { "id": "nature.mushroom", "x": 80, "y": 64, "size": 46, "opacity": 0.68 },
+      { "id": "food.carrot", "x": 52, "y": 84, "size": 43, "rotate": 15, "opacity": 0.66 },
+      { "id": "food.strawberry", "x": 68, "y": 72, "size": 42, "opacity": 0.68 }
+    ],
+    "decoys": [{ "id": "animal.rabbit", "x": 34, "y": 70, "size": 58, "opacity": 0.88 }]
+  },
+  "parentNoteKey": "note.hidden-garden",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false },
+  "noFail": true
+}

@@ -1,0 +1,42 @@
+<svg viewBox="0 0 960 640" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="640" fill="#BCD8D8"/>
+
+  <rect width="960" height="120" fill="#D9EAF1"/>
+  <circle cx="120" cy="58" r="34" fill="#F0E3B0"/>
+
+  <path d="M0 120c60-14 120 14 180 14s120-28 180-28 120 28 180 28 120-28 180-28 180 14 240 14v34H0z"
+        fill="#C6DCDA"/>
+
+  <rect y="154" width="960" height="200" fill="#B3D0CF"/>
+  <rect y="354" width="960" height="180" fill="#A2C2C1"/>
+
+  <g fill="#C2DAD8" opacity=".7">
+    <path d="M0 210c90-10 150 10 240 10s160-18 250-18 150 16 240 16 160-10 230-14v14H0z"/>
+    <path d="M0 372c100-8 170 12 260 12s150-16 240-16 160 14 250 14 130-8 210-12v12H0z"/>
+  </g>
+
+  <path d="M0 534c110-24 190 6 300 14 96 6 170-18 260-22 92-4 240 14 400 22v92H0z" fill="#D6C9A8"/>
+  <path d="M0 578c130-18 210 8 320 12 100 4 180-14 270-14 92 0 250 10 370 14v50H0z" fill="#E2D7BA"/>
+
+  <g fill="#8FB89C">
+    <path d="M136 596c-14-40-6-84 10-118 8 34 4 82-4 118z"/>
+    <path d="M164 598c-10-32-2-70 12-98 4 30-2 68-6 98z"/>
+    <path d="M812 600c-16-46-8-96 10-136 10 40 4 94-4 136z"/>
+    <path d="M842 602c-10-34-4-74 10-104 4 32-2 72-6 104z"/>
+  </g>
+
+  <g fill="#BFB79C">
+    <ellipse cx="418" cy="600" rx="52" ry="26"/>
+    <ellipse cx="472" cy="608" rx="34" ry="18"/>
+    <ellipse cx="676" cy="606" rx="42" ry="20"/>
+  </g>
+
+  <g fill="#DCEDF3" opacity=".75">
+    <circle cx="256" cy="300" r="9"/>
+    <circle cx="276" cy="262" r="6"/>
+    <circle cx="262" cy="222" r="4"/>
+    <circle cx="704" cy="404" r="8"/>
+    <circle cx="722" cy="368" r="5"/>
+    <circle cx="710" cy="334" r="3"/>
+  </g>
+</svg>

@@ -1,0 +1,32 @@
+.strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  background: var(--c-surface);
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.cell {
+  display: grid;
+  place-items: center;
+  width: var(--tap);
+  height: var(--tap);
+  flex: none;
+}
+
+/* Дупката е ясно очертана — детето вижда къде липсва, без да му се казва. */
+.cellGap {
+  border: 3px dashed var(--c-border-strong);
+  border-radius: var(--r-xl);
+  background: var(--c-surface-2);
+}
+
+.question {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-heavy);
+  color: var(--c-ink-faint);
+}

@@ -1,0 +1,47 @@
+{
+  "id": "sequence-size-animals",
+  "schemaVersion": 1,
+  "engine": "sequencing",
+  "mechanic": "m101",
+  "titleKey": "act.sequence-size-animals",
+  "category": "shapes",
+  "ageMin": 3,
+  "ageMax": 5,
+  "difficulty": 2,
+  "skills": ["measurement", "sequencing"],
+  "themes": ["farm"],
+  "durationSec": 75,
+  "assets": ["animal.cow"],
+  "params": {
+    "items": [
+      {
+        "kind": "asset",
+        "id": "animal.cow",
+        "scale": 0.4
+      },
+      {
+        "kind": "asset",
+        "id": "animal.cow",
+        "scale": 0.65
+      },
+      {
+        "kind": "asset",
+        "id": "animal.cow",
+        "scale": 0.85
+      },
+      {
+        "kind": "asset",
+        "id": "animal.cow",
+        "scale": 1
+      }
+    ],
+    "kind": "size-asc"
+  },
+  "parentNoteKey": "note.sequence-size-animals",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

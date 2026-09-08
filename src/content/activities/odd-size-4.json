@@ -1,0 +1,52 @@
+{
+  "id": "odd-size-4",
+  "schemaVersion": 1,
+  "engine": "odd-one-out",
+  "mechanic": "m008",
+  "titleKey": "act.odd-size-4",
+  "category": "puzzles",
+  "ageMin": 3,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": ["visual-discrimination", "measurement"],
+  "themes": ["shapes"],
+  "durationSec": 60,
+  "assets": [],
+  "params": {
+    "items": [
+      {
+        "kind": "shape",
+        "shape": "square",
+        "color": "teal",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "square",
+        "color": "teal",
+        "scale": 0.5
+      },
+      {
+        "kind": "shape",
+        "shape": "square",
+        "color": "teal",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "square",
+        "color": "teal",
+        "scale": 1
+      }
+    ],
+    "oddIndex": 1,
+    "showGrouping": true
+  },
+  "parentNoteKey": "note.odd-size-4",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

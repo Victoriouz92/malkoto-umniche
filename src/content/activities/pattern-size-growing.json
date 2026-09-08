@@ -1,0 +1,82 @@
+{
+  "id": "pattern-size-growing",
+  "schemaVersion": 1,
+  "engine": "pattern",
+  "mechanic": "m024",
+  "titleKey": "act.pattern-size-growing",
+  "category": "puzzles",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 4,
+  "skills": [
+    "pattern-recognition",
+    "logic",
+    "measurement"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 100,
+  "assets": [],
+  "params": {
+    "sequence": [
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "orange",
+        "scale": 0.4
+      },
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "orange",
+        "scale": 0.7
+      },
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "orange",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "orange",
+        "scale": 0.4
+      },
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "orange",
+        "scale": 0.7
+      },
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "orange",
+        "scale": 1
+      },
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "orange",
+        "scale": 0.4
+      },
+      {
+        "kind": "shape",
+        "shape": "circle",
+        "color": "orange",
+        "scale": 0.7
+      }
+    ],
+    "gapIndex": 7,
+    "choices": 3
+  },
+  "parentNoteKey": "note.pattern-size-growing",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

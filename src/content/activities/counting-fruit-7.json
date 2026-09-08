@@ -1,0 +1,26 @@
+{
+  "id": "counting-fruit-7",
+  "schemaVersion": 1,
+  "engine": "counting",
+  "mechanic": "m039",
+  "titleKey": "act.counting-fruit-7",
+  "category": "numbers",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": ["counting", "number-sense"],
+  "themes": ["food"],
+  "durationSec": 100,
+  "assets": ["food.apple", "food.pear", "food.grapes"],
+  "params": {
+    "rounds": [
+      { "asset": "food.apple", "count": 5 },
+      { "asset": "food.pear", "count": 6 },
+      { "asset": "food.grapes", "count": 7 }
+    ],
+    "choices": 3
+  },
+  "parentNoteKey": "note.counting-fruit-7",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false },
+  "noFail": true
+}

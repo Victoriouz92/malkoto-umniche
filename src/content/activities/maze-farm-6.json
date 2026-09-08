@@ -1,0 +1,39 @@
+{
+  "id": "maze-farm-6",
+  "schemaVersion": 1,
+  "engine": "maze",
+  "mechanic": "m034",
+  "titleKey": "act.maze-farm-6",
+  "category": "puzzles",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 4,
+  "skills": [
+    "spatial-reasoning",
+    "problem-solving",
+    "fine-motor",
+    "sustained-attention"
+  ],
+  "themes": [
+    "garden"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "nature.tree",
+    "animal.duck"
+  ],
+  "params": {
+    "cols": 6,
+    "rows": 6,
+    "seed": 1618,
+    "goalAsset": "nature.tree",
+    "travellerAsset": "animal.duck"
+  },
+  "parentNoteKey": "note.maze-farm-6",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

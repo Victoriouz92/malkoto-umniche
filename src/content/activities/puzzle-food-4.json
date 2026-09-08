@@ -1,0 +1,25 @@
+{
+  "id": "puzzle-food-4",
+  "schemaVersion": 1,
+  "engine": "puzzle",
+  "mechanic": "m001",
+  "titleKey": "act.puzzle-food-4",
+  "category": "puzzles",
+  "ageMin": 3,
+  "ageMax": 4,
+  "difficulty": 2,
+  "skills": ["visual-discrimination", "spatial-reasoning", "fine-motor"],
+  "themes": ["shapes"],
+  "durationSec": 90,
+  "assets": ["food.apple", "food.banana", "food.carrot", "food.pear"],
+  "params": {
+    "pieces": ["food.apple", "food.banana", "food.carrot", "food.pear"]
+  },
+  "parentNoteKey": "note.puzzle-food-4",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

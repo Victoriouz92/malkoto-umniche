@@ -1,0 +1,26 @@
+{
+  "id": "drawing-free-small",
+  "schemaVersion": 1,
+  "engine": "drawing",
+  "mechanic": "m069",
+  "titleKey": "act.drawing-free-small",
+  "category": "colors",
+  "ageMin": 2,
+  "ageMax": 5,
+  "difficulty": 1,
+  "skills": ["creativity", "fine-motor", "hand-eye-coordination"],
+  "themes": ["shapes"],
+  "durationSec": 180,
+  "assets": [],
+  "params": {
+    "palette": ["red", "blue", "yellow", "green"],
+    "widths": [16, 28]
+  },
+  "parentNoteKey": "note.drawing-free-small",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

@@ -1,0 +1,40 @@
+{
+  "id": "coloring-fish",
+  "schemaVersion": 1,
+  "engine": "coloring",
+  "mechanic": "m078",
+  "titleKey": "act.coloring-fish",
+  "category": "colors",
+  "ageMin": 3,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": [
+    "creativity",
+    "fine-motor"
+  ],
+  "themes": [
+    "ocean"
+  ],
+  "durationSec": 130,
+  "assets": [
+    "lineart.fish"
+  ],
+  "params": {
+    "lineart": "lineart.fish",
+    "palette": [
+      "blue",
+      "teal",
+      "purple",
+      "yellow",
+      "orange",
+      "pink"
+    ]
+  },
+  "parentNoteKey": "note.coloring-fish",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

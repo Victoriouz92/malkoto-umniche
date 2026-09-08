@@ -1,0 +1,47 @@
+{
+  "id": "matching-shadow-vehicles",
+  "schemaVersion": 1,
+  "engine": "matching",
+  "mechanic": "m002",
+  "titleKey": "act.matching-shadow-vehicles",
+  "category": "puzzles",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 4,
+  "skills": ["visual-discrimination", "spatial-reasoning"],
+  "themes": ["vehicles"],
+  "durationSec": 90,
+  "assets": ["vehicle.car", "vehicle.bus", "vehicle.truck", "vehicle.tractor", "vehicle.train"],
+  "params": {
+    "pairs": [
+      {
+        "left": "vehicle.car",
+        "right": "vehicle.car"
+      },
+      {
+        "left": "vehicle.bus",
+        "right": "vehicle.bus"
+      },
+      {
+        "left": "vehicle.truck",
+        "right": "vehicle.truck"
+      },
+      {
+        "left": "vehicle.tractor",
+        "right": "vehicle.tractor"
+      },
+      {
+        "left": "vehicle.train",
+        "right": "vehicle.train"
+      }
+    ],
+    "rightMode": "silhouette"
+  },
+  "parentNoteKey": "note.matching-shadow-vehicles",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

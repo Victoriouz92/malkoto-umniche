@@ -1,0 +1,56 @@
+{
+  "id": "math-add-5",
+  "schemaVersion": 1,
+  "engine": "math",
+  "mechanic": "m044",
+  "titleKey": "act.math-add-5",
+  "category": "numbers",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": [
+    "arithmetic",
+    "counting",
+    "number-sense"
+  ],
+  "themes": [
+    "food"
+  ],
+  "durationSec": 100,
+  "assets": [
+    "food.apple"
+  ],
+  "params": {
+    "op": "add",
+    "choices": 3,
+    "rounds": [
+      {
+        "asset": "food.apple",
+        "a": 1,
+        "b": 2
+      },
+      {
+        "asset": "food.apple",
+        "a": 2,
+        "b": 2
+      },
+      {
+        "asset": "food.apple",
+        "a": 3,
+        "b": 2
+      },
+      {
+        "asset": "food.apple",
+        "a": 2,
+        "b": 3
+      }
+    ]
+  },
+  "parentNoteKey": "note.math-add-5",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

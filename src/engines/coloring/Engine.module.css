@@ -1,0 +1,66 @@
+.canvas {
+  width: min(82vw, 30rem);
+  aspect-ratio: 1;
+  background: var(--c-surface);
+  border-radius: var(--r-3xl);
+  box-shadow: var(--shadow-sm);
+  padding: var(--sp-4);
+  display: grid;
+  place-items: center;
+}
+
+.canvas svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Зоните са натискаеми; всичко останало от рисунката не е. */
+.canvas [data-region] {
+  cursor: pointer;
+  transition: fill var(--dur-fast) var(--ease-out);
+}
+
+.palette {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: var(--tap-gap);
+  width: min(100%, 52rem);
+  padding: var(--sp-2) var(--sp-3) var(--sp-4);
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
+}
+
+.palette::before,
+.palette::after {
+  content: '';
+  flex: 0 0 1px;
+}
+
+.crayon {
+  flex: 0 0 var(--tap);
+  width: var(--tap);
+  height: var(--tap);
+  border-radius: var(--r-full);
+  border: 4px solid var(--c-surface);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--dur-fast) var(--ease-spring);
+}
+
+.crayon:active {
+  transform: scale(0.92);
+}
+
+/* Избраният молив се вдига и получава пръстен — различим и без цвят. */
+.crayonOn {
+  transform: scale(1.14);
+  border-color: var(--c-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crayon,
+  .crayonOn {
+    transition: none;
+  }
+}

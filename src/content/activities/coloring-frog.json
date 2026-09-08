@@ -1,0 +1,40 @@
+{
+  "id": "coloring-frog",
+  "schemaVersion": 1,
+  "engine": "coloring",
+  "mechanic": "m078",
+  "titleKey": "act.coloring-frog",
+  "category": "colors",
+  "ageMin": 2,
+  "ageMax": 6,
+  "difficulty": 1,
+  "skills": [
+    "creativity",
+    "fine-motor"
+  ],
+  "themes": [
+    "garden"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "lineart.frog"
+  ],
+  "params": {
+    "lineart": "lineart.frog",
+    "palette": [
+      "green",
+      "yellow",
+      "teal",
+      "blue",
+      "pink",
+      "purple"
+    ]
+  },
+  "parentNoteKey": "note.coloring-frog",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

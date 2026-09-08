@@ -1,0 +1,44 @@
+{
+  "id": "memory-fruit-10",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m009",
+  "titleKey": "act.memory-fruit-10",
+  "category": "memory",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 4,
+  "skills": [
+    "visual-memory",
+    "working-memory",
+    "sustained-attention"
+  ],
+  "themes": [
+    "food"
+  ],
+  "durationSec": 150,
+  "assets": [
+    "food.apple",
+    "food.pear",
+    "food.banana",
+    "food.grapes",
+    "food.strawberry"
+  ],
+  "params": {
+    "items": [
+      "food.apple",
+      "food.pear",
+      "food.banana",
+      "food.grapes",
+      "food.strawberry"
+    ],
+    "flipBackMs": 1400
+  },
+  "parentNoteKey": "note.memory-fruit-10",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

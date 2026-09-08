@@ -1,0 +1,26 @@
+{
+  "id": "sound-vehicles-2",
+  "schemaVersion": 1,
+  "engine": "sound-match",
+  "mechanic": "m085",
+  "titleKey": "act.sound-vehicles-2",
+  "category": "vehicles",
+  "ageMin": 2,
+  "ageMax": 3,
+  "difficulty": 1,
+  "skills": ["listening", "vocabulary", "everyday-knowledge"],
+  "themes": ["vehicles"],
+  "durationSec": 60,
+  "assets": ["vehicle.car", "vehicle.train"],
+  "params": {
+    "autoPlay": true,
+    "rounds": [
+      { "sound": "vehicle.car", "choices": ["vehicle.car", "vehicle.train"] },
+      { "sound": "vehicle.train", "choices": ["vehicle.train", "vehicle.car"] },
+      { "sound": "vehicle.car", "choices": ["vehicle.car", "vehicle.train"] }
+    ]
+  },
+  "parentNoteKey": "note.sound-vehicles-2",
+  "a11y": { "colorIndependent": true, "requiresAudio": true, "requiresPrecision": false },
+  "noFail": true
+}

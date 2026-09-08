@@ -1,0 +1,42 @@
+{
+  "id": "coloring-flower",
+  "schemaVersion": 1,
+  "engine": "coloring",
+  "mechanic": "m078",
+  "titleKey": "act.coloring-flower",
+  "category": "colors",
+  "ageMin": 2,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": [
+    "creativity",
+    "fine-motor"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "lineart.flower"
+  ],
+  "params": {
+    "lineart": "lineart.flower",
+    "palette": [
+      "pink",
+      "yellow",
+      "red",
+      "purple",
+      "green",
+      "orange",
+      "blue",
+      "teal"
+    ]
+  },
+  "parentNoteKey": "note.coloring-flower",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

@@ -1,0 +1,66 @@
+{
+  "id": "odd-not-vehicle",
+  "schemaVersion": 1,
+  "engine": "odd-one-out",
+  "mechanic": "m025",
+  "titleKey": "act.odd-not-vehicle",
+  "category": "puzzles",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "logic",
+    "classification",
+    "everyday-knowledge"
+  ],
+  "themes": [
+    "vehicles",
+    "forest"
+  ],
+  "durationSec": 75,
+  "assets": [
+    "vehicle.car",
+    "vehicle.bus",
+    "vehicle.train",
+    "vehicle.airplane",
+    "animal.horse"
+  ],
+  "params": {
+    "items": [
+      {
+        "kind": "asset",
+        "id": "vehicle.car",
+        "scale": 1
+      },
+      {
+        "kind": "asset",
+        "id": "vehicle.bus",
+        "scale": 1
+      },
+      {
+        "kind": "asset",
+        "id": "vehicle.train",
+        "scale": 1
+      },
+      {
+        "kind": "asset",
+        "id": "vehicle.airplane",
+        "scale": 1
+      },
+      {
+        "kind": "asset",
+        "id": "animal.horse",
+        "scale": 1
+      }
+    ],
+    "oddIndex": 4,
+    "showGrouping": true
+  },
+  "parentNoteKey": "note.odd-not-vehicle",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

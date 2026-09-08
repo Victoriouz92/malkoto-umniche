@@ -1,0 +1,50 @@
+{
+  "id": "letters-find-r",
+  "schemaVersion": 1,
+  "engine": "letters",
+  "mechanic": "m049",
+  "titleKey": "act.letters-find-r",
+  "category": "letters",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "letter-recognition",
+    "visual-discrimination",
+    "sustained-attention"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 90,
+  "assets": [],
+  "params": {
+    "mode": "find",
+    "target": "Р",
+    "grid": [
+      "Р",
+      "В",
+      "Ь",
+      "Р",
+      "Б",
+      "В",
+      "Р",
+      "Ь",
+      "В",
+      "Р",
+      "Б",
+      "Ь",
+      "Р",
+      "В",
+      "Б",
+      "Р"
+    ]
+  },
+  "parentNoteKey": "note.letters-find-r",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

@@ -1,0 +1,25 @@
+{
+  "id": "puzzle-farm-2",
+  "schemaVersion": 1,
+  "engine": "puzzle",
+  "mechanic": "m001",
+  "titleKey": "act.puzzle-farm-2",
+  "category": "puzzles",
+  "ageMin": 2,
+  "ageMax": 3,
+  "difficulty": 1,
+  "skills": ["visual-discrimination", "spatial-reasoning", "fine-motor"],
+  "themes": ["shapes"],
+  "durationSec": 90,
+  "assets": ["animal.cow", "animal.pig"],
+  "params": {
+    "pieces": ["animal.cow", "animal.pig"]
+  },
+  "parentNoteKey": "note.puzzle-farm-2",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

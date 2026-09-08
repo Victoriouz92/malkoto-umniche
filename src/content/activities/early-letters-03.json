@@ -1,0 +1,40 @@
+{
+  "id": "early-letters-03",
+  "schemaVersion": 1,
+  "engine": "letters",
+  "mechanic": "m049",
+  "titleKey": "act.early-letters-03",
+  "category": "letters",
+  "ageMin": 2,
+  "ageMax": 6,
+  "difficulty": 1,
+  "skills": [
+    "letter-recognition",
+    "visual-discrimination",
+    "sustained-attention"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 60,
+  "assets": [],
+  "params": {
+    "mode": "find",
+    "target": "В",
+    "grid": [
+      "В",
+      "Г",
+      "В",
+      "Д",
+      "Е",
+      "В"
+    ]
+  },
+  "parentNoteKey": "note.early-letters-03",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

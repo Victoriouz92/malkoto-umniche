@@ -1,0 +1,94 @@
+{
+  "id": "sorting-water-land-sky",
+  "schemaVersion": 1,
+  "engine": "sorting",
+  "mechanic": "m018",
+  "titleKey": "act.sorting-water-land-sky",
+  "category": "animals",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 4,
+  "skills": [
+    "classification",
+    "everyday-knowledge",
+    "logic"
+  ],
+  "themes": [
+    "ocean",
+    "forest",
+    "weather"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "animal.fish",
+    "animal.whale",
+    "animal.crab",
+    "animal.bear",
+    "animal.fox",
+    "animal.rabbit",
+    "animal.owl",
+    "animal.duck",
+    "vehicle.airplane"
+  ],
+  "params": {
+    "bins": [
+      {
+        "id": "water",
+        "asset": "animal.octopus"
+      },
+      {
+        "id": "land",
+        "asset": "nature.tree"
+      },
+      {
+        "id": "sky",
+        "asset": "nature.cloud"
+      }
+    ],
+    "items": [
+      {
+        "asset": "animal.fish",
+        "bin": "water"
+      },
+      {
+        "asset": "animal.whale",
+        "bin": "water"
+      },
+      {
+        "asset": "animal.crab",
+        "bin": "water"
+      },
+      {
+        "asset": "animal.bear",
+        "bin": "land"
+      },
+      {
+        "asset": "animal.fox",
+        "bin": "land"
+      },
+      {
+        "asset": "animal.rabbit",
+        "bin": "land"
+      },
+      {
+        "asset": "animal.owl",
+        "bin": "sky"
+      },
+      {
+        "asset": "animal.duck",
+        "bin": "sky"
+      },
+      {
+        "asset": "vehicle.airplane",
+        "bin": "sky"
+      }
+    ]
+  },
+  "parentNoteKey": "note.sorting-water-land-sky",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

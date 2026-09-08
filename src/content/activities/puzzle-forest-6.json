@@ -1,0 +1,39 @@
+{
+  "id": "puzzle-forest-6",
+  "schemaVersion": 1,
+  "engine": "puzzle",
+  "mechanic": "m001",
+  "titleKey": "act.puzzle-forest-6",
+  "category": "puzzles",
+  "ageMin": 4,
+  "ageMax": 4,
+  "difficulty": 3,
+  "skills": ["visual-discrimination", "spatial-reasoning", "fine-motor"],
+  "themes": ["shapes"],
+  "durationSec": 90,
+  "assets": [
+    "animal.bear",
+    "animal.fox",
+    "animal.owl",
+    "animal.squirrel",
+    "animal.hedgehog",
+    "animal.frog"
+  ],
+  "params": {
+    "pieces": [
+      "animal.bear",
+      "animal.fox",
+      "animal.owl",
+      "animal.squirrel",
+      "animal.hedgehog",
+      "animal.frog"
+    ]
+  },
+  "parentNoteKey": "note.puzzle-forest-6",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

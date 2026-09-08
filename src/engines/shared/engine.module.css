@@ -1,0 +1,162 @@
+/**
+ * Общи стилове за всички двигатели.
+ *
+ * Всичко тук е едро нарочно: това е екранът, по който тапва тригодишно.
+ * Размерите идват от `--tap-lg`, значи растат сами с възрастовата лента.
+ */
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+  align-items: center;
+  width: 100%;
+}
+
+.prompt {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-heavy);
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* Влаченият елемент минава над всичко останало. */
+.dragging {
+  z-index: var(--z-drag);
+}
+
+/* ── Редици и решетки от предмети ───────────────────────────────── */
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--tap-gap);
+}
+
+.grid {
+  display: grid;
+  gap: var(--tap-gap);
+  justify-content: center;
+}
+
+/* ── Един предмет ───────────────────────────────────────────────── */
+
+.item {
+  display: grid;
+  place-items: center;
+  width: var(--tap-lg);
+  height: var(--tap-lg);
+  padding: var(--sp-2);
+  background: var(--c-surface);
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--dur-fast) var(--ease-spring),
+    box-shadow var(--dur-fast) var(--ease-out),
+    opacity var(--dur-normal) var(--ease-out);
+}
+
+.itemPlain {
+  background: transparent;
+  box-shadow: none;
+}
+
+.itemSelected {
+  box-shadow: 0 0 0 4px var(--c-secondary);
+  transform: scale(1.06);
+}
+
+/* Настанен на мястото си: остава видим, но отстъпва назад. */
+.itemPlaced {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.itemGone {
+  opacity: 0;
+  transform: scale(0.7);
+  pointer-events: none;
+}
+
+/* ── Цели за пускане ────────────────────────────────────────────── */
+
+.zone {
+  display: grid;
+  place-items: center;
+  min-width: calc(var(--tap-lg) * 1.4);
+  min-height: calc(var(--tap-lg) * 1.4);
+  padding: var(--sp-3);
+  background: var(--c-surface-2);
+  border: 3px dashed var(--c-border-strong);
+  border-radius: var(--r-2xl);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-spring);
+}
+
+/* Пръстът е над целта: тя се приготвя, преди детето да е пуснало. */
+.zoneOver {
+  background: var(--c-secondary-soft);
+  border-color: var(--c-secondary);
+  border-style: solid;
+  transform: scale(1.05);
+}
+
+.zoneFull {
+  border-style: solid;
+  border-color: var(--c-border);
+  background: var(--c-surface);
+}
+
+.zoneLabel {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  color: var(--c-ink-soft);
+  margin-top: var(--sp-2);
+}
+
+/* ── Обратна връзка ─────────────────────────────────────────────── */
+
+/* Меко връщане: елементът се клати леко и се прибира. Няма червено,
+   няма рязко движение. Виж правило 2 в DESIGN-BIBLE.md. */
+.nudge {
+  animation: nudge 420ms var(--ease-out);
+}
+
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  30% {
+    transform: translateX(-6px) rotate(-2deg);
+  }
+  60% {
+    transform: translateX(6px) rotate(2deg);
+  }
+}
+
+.pop {
+  animation: pop 420ms var(--ease-spring);
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.22);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nudge,
+  .pop {
+    animation: none;
+  }
+}

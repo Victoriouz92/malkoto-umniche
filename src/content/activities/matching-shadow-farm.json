@@ -1,0 +1,43 @@
+{
+  "id": "matching-shadow-farm",
+  "schemaVersion": 1,
+  "engine": "matching",
+  "mechanic": "m002",
+  "titleKey": "act.matching-shadow-farm",
+  "category": "puzzles",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": ["visual-discrimination", "classification"],
+  "themes": ["farm"],
+  "durationSec": 75,
+  "assets": ["animal.cow", "animal.horse", "animal.duck", "animal.sheep"],
+  "params": {
+    "pairs": [
+      {
+        "left": "animal.cow",
+        "right": "animal.cow"
+      },
+      {
+        "left": "animal.horse",
+        "right": "animal.horse"
+      },
+      {
+        "left": "animal.duck",
+        "right": "animal.duck"
+      },
+      {
+        "left": "animal.sheep",
+        "right": "animal.sheep"
+      }
+    ],
+    "rightMode": "silhouette"
+  },
+  "parentNoteKey": "note.matching-shadow-farm",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

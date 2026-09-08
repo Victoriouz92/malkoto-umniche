@@ -1,0 +1,82 @@
+{
+  "id": "compare-less-food",
+  "schemaVersion": 1,
+  "engine": "compare",
+  "mechanic": "m042",
+  "titleKey": "act.compare-less-food",
+  "category": "numbers",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": ["number-sense", "counting"],
+  "themes": ["food"],
+  "durationSec": 60,
+  "assets": ["food.apple", "food.strawberry"],
+  "params": {
+    "mode": "count",
+    "ask": "less",
+    "rounds": [
+      {
+        "left": {
+          "token": {
+            "kind": "asset",
+            "id": "food.apple",
+            "scale": 1
+          },
+          "count": 3
+        },
+        "right": {
+          "token": {
+            "kind": "asset",
+            "id": "food.apple",
+            "scale": 1
+          },
+          "count": 6
+        }
+      },
+      {
+        "left": {
+          "token": {
+            "kind": "asset",
+            "id": "food.strawberry",
+            "scale": 1
+          },
+          "count": 7
+        },
+        "right": {
+          "token": {
+            "kind": "asset",
+            "id": "food.strawberry",
+            "scale": 1
+          },
+          "count": 4
+        }
+      },
+      {
+        "left": {
+          "token": {
+            "kind": "asset",
+            "id": "food.apple",
+            "scale": 1
+          },
+          "count": 2
+        },
+        "right": {
+          "token": {
+            "kind": "asset",
+            "id": "food.apple",
+            "scale": 1
+          },
+          "count": 5
+        }
+      }
+    ]
+  },
+  "parentNoteKey": "note.compare-less-food",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

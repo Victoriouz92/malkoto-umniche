@@ -1,0 +1,56 @@
+{
+  "id": "math-sub-5",
+  "schemaVersion": 1,
+  "engine": "math",
+  "mechanic": "m045",
+  "titleKey": "act.math-sub-5",
+  "category": "numbers",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": [
+    "arithmetic",
+    "counting",
+    "number-sense"
+  ],
+  "themes": [
+    "food"
+  ],
+  "durationSec": 100,
+  "assets": [
+    "food.strawberry"
+  ],
+  "params": {
+    "op": "sub",
+    "choices": 3,
+    "rounds": [
+      {
+        "asset": "food.strawberry",
+        "a": 3,
+        "b": 1
+      },
+      {
+        "asset": "food.strawberry",
+        "a": 4,
+        "b": 2
+      },
+      {
+        "asset": "food.strawberry",
+        "a": 5,
+        "b": 2
+      },
+      {
+        "asset": "food.strawberry",
+        "a": 5,
+        "b": 4
+      }
+    ]
+  },
+  "parentNoteKey": "note.math-sub-5",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

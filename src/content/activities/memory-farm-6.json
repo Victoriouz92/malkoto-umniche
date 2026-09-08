@@ -1,0 +1,26 @@
+{
+  "id": "memory-farm-6",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m009",
+  "titleKey": "act.memory-farm-6",
+  "category": "memory",
+  "ageMin": 3,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": ["visual-memory", "working-memory", "sustained-attention"],
+  "themes": ["farm"],
+  "durationSec": 90,
+  "assets": ["animal.cow", "animal.sheep", "animal.duck"],
+  "params": {
+    "items": ["animal.cow", "animal.sheep", "animal.duck"],
+    "flipBackMs": 2000
+  },
+  "parentNoteKey": "note.memory-farm-6",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

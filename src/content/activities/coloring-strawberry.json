@@ -1,0 +1,40 @@
+{
+  "id": "coloring-strawberry",
+  "schemaVersion": 1,
+  "engine": "coloring",
+  "mechanic": "m078",
+  "titleKey": "act.coloring-strawberry",
+  "category": "colors",
+  "ageMin": 2,
+  "ageMax": 6,
+  "difficulty": 1,
+  "skills": [
+    "creativity",
+    "fine-motor"
+  ],
+  "themes": [
+    "food"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "lineart.strawberry"
+  ],
+  "params": {
+    "lineart": "lineart.strawberry",
+    "palette": [
+      "red",
+      "pink",
+      "green",
+      "yellow",
+      "purple",
+      "orange"
+    ]
+  },
+  "parentNoteKey": "note.coloring-strawberry",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

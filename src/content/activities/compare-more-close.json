@@ -1,0 +1,91 @@
+{
+  "id": "compare-more-close",
+  "schemaVersion": 1,
+  "engine": "compare",
+  "mechanic": "m042",
+  "titleKey": "act.compare-more-close",
+  "category": "numbers",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "number-sense",
+    "counting",
+    "sustained-attention"
+  ],
+  "themes": [
+    "ocean"
+  ],
+  "durationSec": 90,
+  "assets": [
+    "animal.fish",
+    "animal.crab"
+  ],
+  "params": {
+    "mode": "count",
+    "ask": "more",
+    "rounds": [
+      {
+        "left": {
+          "token": {
+            "kind": "asset",
+            "id": "animal.fish",
+            "scale": 1
+          },
+          "count": 6
+        },
+        "right": {
+          "token": {
+            "kind": "asset",
+            "id": "animal.fish",
+            "scale": 1
+          },
+          "count": 7
+        }
+      },
+      {
+        "left": {
+          "token": {
+            "kind": "asset",
+            "id": "animal.crab",
+            "scale": 1
+          },
+          "count": 8
+        },
+        "right": {
+          "token": {
+            "kind": "asset",
+            "id": "animal.crab",
+            "scale": 1
+          },
+          "count": 7
+        }
+      },
+      {
+        "left": {
+          "token": {
+            "kind": "asset",
+            "id": "animal.fish",
+            "scale": 1
+          },
+          "count": 9
+        },
+        "right": {
+          "token": {
+            "kind": "asset",
+            "id": "animal.fish",
+            "scale": 1
+          },
+          "count": 8
+        }
+      }
+    ]
+  },
+  "parentNoteKey": "note.compare-more-close",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

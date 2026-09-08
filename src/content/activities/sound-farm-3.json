@@ -1,0 +1,54 @@
+{
+  "id": "sound-farm-3",
+  "schemaVersion": 1,
+  "engine": "sound-match",
+  "mechanic": "m085",
+  "titleKey": "act.sound-farm-3",
+  "category": "animals",
+  "ageMin": 3,
+  "ageMax": 5,
+  "difficulty": 2,
+  "skills": ["listening", "vocabulary", "auditory-memory"],
+  "themes": ["farm"],
+  "durationSec": 75,
+  "assets": [
+    "animal.cow",
+    "animal.pig",
+    "animal.sheep",
+    "animal.horse",
+    "animal.chicken",
+    "animal.goat"
+  ],
+  "params": {
+    "autoPlay": true,
+    "rounds": [
+      {
+        "sound": "animal.pig",
+        "choices": ["animal.pig", "animal.sheep", "animal.horse"]
+      },
+      {
+        "sound": "animal.sheep",
+        "choices": ["animal.sheep", "animal.goat", "animal.cow"]
+      },
+      {
+        "sound": "animal.horse",
+        "choices": ["animal.horse", "animal.chicken", "animal.pig"]
+      },
+      {
+        "sound": "animal.chicken",
+        "choices": ["animal.chicken", "animal.cow", "animal.goat"]
+      },
+      {
+        "sound": "animal.goat",
+        "choices": ["animal.goat", "animal.sheep", "animal.horse"]
+      }
+    ]
+  },
+  "parentNoteKey": "note.sound-farm-3",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": true,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

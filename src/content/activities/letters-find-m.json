@@ -1,0 +1,45 @@
+{
+  "id": "letters-find-m",
+  "schemaVersion": 1,
+  "engine": "letters",
+  "mechanic": "m049",
+  "titleKey": "act.letters-find-m",
+  "category": "letters",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 1,
+  "skills": [
+    "letter-recognition",
+    "visual-discrimination"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 75,
+  "assets": [],
+  "params": {
+    "mode": "find",
+    "target": "М",
+    "grid": [
+      "М",
+      "Н",
+      "П",
+      "М",
+      "И",
+      "Ш",
+      "М",
+      "Н",
+      "П",
+      "М",
+      "Ш",
+      "И"
+    ]
+  },
+  "parentNoteKey": "note.letters-find-m",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

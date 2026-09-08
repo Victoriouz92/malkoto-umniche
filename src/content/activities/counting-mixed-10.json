@@ -1,0 +1,53 @@
+{
+  "id": "counting-mixed-10",
+  "schemaVersion": 1,
+  "engine": "counting",
+  "mechanic": "m039",
+  "titleKey": "act.counting-mixed-10",
+  "category": "numbers",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 4,
+  "skills": [
+    "counting",
+    "number-sense"
+  ],
+  "themes": [
+    "farm",
+    "food"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "animal.chicken",
+    "food.tomato",
+    "nature.flower"
+  ],
+  "params": {
+    "rounds": [
+      {
+        "asset": "animal.chicken",
+        "count": 7
+      },
+      {
+        "asset": "nature.flower",
+        "count": 9
+      },
+      {
+        "asset": "food.tomato",
+        "count": 10
+      },
+      {
+        "asset": "nature.flower",
+        "count": 10
+      }
+    ],
+    "choices": 4
+  },
+  "parentNoteKey": "note.counting-mixed-10",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

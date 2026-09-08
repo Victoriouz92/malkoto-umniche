@@ -1,0 +1,39 @@
+{
+  "id": "matching-farm-3",
+  "schemaVersion": 1,
+  "engine": "matching",
+  "mechanic": "m016",
+  "titleKey": "act.matching-farm-3",
+  "category": "puzzles",
+  "ageMin": 2,
+  "ageMax": 4,
+  "difficulty": 1,
+  "skills": ["visual-discrimination", "classification"],
+  "themes": ["farm"],
+  "durationSec": 45,
+  "assets": ["animal.cow", "animal.pig", "animal.duck"],
+  "params": {
+    "pairs": [
+      {
+        "left": "animal.cow",
+        "right": "animal.cow"
+      },
+      {
+        "left": "animal.pig",
+        "right": "animal.pig"
+      },
+      {
+        "left": "animal.duck",
+        "right": "animal.duck"
+      }
+    ],
+    "rightMode": "same"
+  },
+  "parentNoteKey": "note.matching-farm-3",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

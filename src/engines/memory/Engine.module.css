@@ -1,0 +1,91 @@
+.board {
+  display: grid;
+  gap: var(--tap-gap);
+  justify-content: center;
+}
+
+.card {
+  position: relative;
+  width: var(--tap-lg);
+  height: var(--tap-lg);
+  border-radius: var(--r-2xl);
+  transform-style: preserve-3d;
+  transition: transform var(--dur-fast) var(--ease-settle), opacity var(--dur-fast) var(--ease-out);
+  touch-action: manipulation;
+}
+
+.cardOpen {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--sp-2);
+  border-radius: var(--r-2xl);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.back {
+  background: var(--c-secondary);
+  color: var(--c-on-secondary);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-heavy);
+}
+
+.front {
+  background: var(--c-surface);
+  transform: rotateY(180deg);
+}
+
+/* Намерената двойка има отделно завършено състояние. Така не зависим от
+   3D обръщането, което в някои браузъри показваше отново гърба. */
+.matched {
+  transform: none;
+  pointer-events: none;
+}
+
+.completedFace {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--sp-2);
+  background: var(--c-success-soft);
+  border: 4px solid var(--c-success);
+  border-radius: var(--r-2xl);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--c-success) 24%, transparent);
+  animation: pairComplete 420ms var(--ease-spring);
+}
+
+.check {
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  color: white;
+  background: var(--c-success);
+  border: 3px solid var(--c-bg);
+  border-radius: var(--r-full);
+  font-size: 1.15rem;
+  font-weight: var(--fw-heavy);
+}
+
+@keyframes pairComplete {
+  0% { transform: scale(.9); }
+  70% { transform: scale(1.07); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition-duration: 1ms;
+  }
+}

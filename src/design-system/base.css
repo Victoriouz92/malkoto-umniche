@@ -1,0 +1,187 @@
+/**
+ * Малкото Умниче — базов слой
+ * Reset + елементни подразбирания. Никакви компонентни стилове тук.
+ */
+
+/* ── Шрифт ───────────────────────────────────────────────────────
+   Файловете НЕ са в репото (виж docs/FONTS.md). Ако липсват,
+   `font-display: swap` + стекът в --font-body падат меко към
+   системния шрифт и приложението изглежда добре без тях.
+   ──────────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Nunito';
+  src: url('/fonts/nunito-variable.woff2') format('woff2-variations');
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F, U+2122;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('/fonts/nunito-variable-cyrillic.woff2') format('woff2-variations');
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+/* ── Reset ───────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Детето ще влачи елементи из целия екран — страницата не бива да
+     се дърпа заедно с тях. */
+  overscroll-behavior: none;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-normal);
+  color: var(--c-ink);
+  background: var(--c-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  height: 100%;
+  isolation: isolate;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* Иконите наследяват цвета на текста — никога не носят свой.
+   `:not([fill])` е задължително: CSS правилото бие presentation атрибута,
+   така че без него всеки <svg fill="none"> (пръстени, контури, щрихови
+   илюстрации) се запълва плътно. */
+svg:not([fill]) {
+  fill: currentColor;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  /* 300ms забавянето на тап в мобилни браузъри убива усещането за
+     отзивчивост, което е ядрото на juicy feedback. */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-heavy);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  color: var(--c-secondary-ink);
+  text-underline-offset: 0.2em;
+}
+
+/* ── Фокус ────────────────────────────────────────────────────────
+   Видим само при клавиатура/асистивна технология. Детето, което тапва,
+   не вижда фокусни рамки; родителят с клавиатура — вижда.
+   ──────────────────────────────────────────────────────────────── */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus);
+  border-radius: var(--r-sm);
+}
+
+/* ── Селекция ─────────────────────────────────────────────────────
+   Дългото задържане върху картинка не бива да маркира текст или да
+   вдига контекстно меню — това е една от най-честите причини детето
+   да „счупи" екрана.
+   ──────────────────────────────────────────────────────────────── */
+.tm-nonselect,
+[data-draggable] {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+::selection {
+  background: var(--c-secondary-soft);
+  color: var(--c-ink);
+}
+
+/* ── Помощни ─────────────────────────────────────────────────── */
+
+/* Текст само за екранни четци. */
+.tm-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Пълноекранен слой за игрова сцена. */
+.tm-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: calc(var(--safe-t) + var(--sp-4)) calc(var(--safe-r) + var(--sp-4))
+    calc(var(--safe-b) + var(--sp-4)) calc(var(--safe-l) + var(--sp-4));
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+}

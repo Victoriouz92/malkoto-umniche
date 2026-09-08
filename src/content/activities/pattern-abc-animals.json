@@ -1,0 +1,83 @@
+{
+  "id": "pattern-abc-animals",
+  "schemaVersion": 1,
+  "engine": "pattern",
+  "mechanic": "m023",
+  "titleKey": "act.pattern-abc-animals",
+  "category": "puzzles",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "pattern-recognition",
+    "logic",
+    "sustained-attention"
+  ],
+  "themes": [
+    "farm"
+  ],
+  "durationSec": 90,
+  "assets": [
+    "animal.cow",
+    "animal.duck",
+    "animal.sheep"
+  ],
+  "params": {
+    "sequence": [
+      {
+        "kind": "asset",
+        "id": "animal.cow",
+        "scale": 1
+      },
+      {
+        "kind": "asset",
+        "id": "animal.duck",
+        "scale": 1
+      },
+      {
+        "kind": "asset",
+        "id": "animal.sheep",
+        "scale": 1
+      },
+      {
+        "kind": "asset",
+        "id": "animal.cow",
+        "scale": 1
+      },
+      {
+        "kind": "asset",
+        "id": "animal.duck",
+        "scale": 1
+      },
+      {
+        "kind": "asset",
+        "id": "animal.sheep",
+        "scale": 1
+      },
+      {
+        "kind": "asset",
+        "id": "animal.cow",
+        "scale": 1
+      },
+      {
+        "kind": "asset",
+        "id": "animal.duck",
+        "scale": 1
+      },
+      {
+        "kind": "asset",
+        "id": "animal.sheep",
+        "scale": 1
+      }
+    ],
+    "gapIndex": 8,
+    "choices": 3
+  },
+  "parentNoteKey": "note.pattern-abc-animals",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

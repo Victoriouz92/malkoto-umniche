@@ -1,0 +1,25 @@
+/* След отговора останалите се събират плътно — виждат се като ЕДНА група. */
+.grouped {
+  gap: var(--sp-2);
+}
+
+.same {
+  box-shadow: 0 0 0 3px var(--c-success);
+  transition:
+    box-shadow var(--dur-normal) var(--ease-out),
+    transform var(--dur-normal) var(--ease-settle);
+}
+
+/* Изключението се отделя настрани и леко се накланя. */
+.odd {
+  transform: translateY(-14px) rotate(-6deg);
+  opacity: 0.55;
+  transition: transform var(--dur-normal) var(--ease-spring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .odd {
+    transform: none;
+    opacity: 0.4;
+  }
+}

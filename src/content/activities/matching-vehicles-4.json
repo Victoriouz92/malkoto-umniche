@@ -1,0 +1,27 @@
+{
+  "id": "matching-vehicles-4",
+  "schemaVersion": 1,
+  "engine": "matching",
+  "mechanic": "m016",
+  "titleKey": "act.matching-vehicles-4",
+  "category": "puzzles",
+  "ageMin": 3,
+  "ageMax": 5,
+  "difficulty": 2,
+  "skills": ["visual-discrimination", "classification"],
+  "themes": ["vehicles"],
+  "durationSec": 75,
+  "assets": ["vehicle.car", "vehicle.bus", "vehicle.train", "vehicle.truck"],
+  "params": {
+    "pairs": [
+      { "left": "vehicle.car", "right": "vehicle.car" },
+      { "left": "vehicle.bus", "right": "vehicle.bus" },
+      { "left": "vehicle.train", "right": "vehicle.train" },
+      { "left": "vehicle.truck", "right": "vehicle.truck" }
+    ],
+    "rightMode": "same"
+  },
+  "parentNoteKey": "note.matching-vehicles-4",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false },
+  "noFail": true
+}

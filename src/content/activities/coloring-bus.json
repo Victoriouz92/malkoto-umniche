@@ -1,0 +1,41 @@
+{
+  "id": "coloring-bus",
+  "schemaVersion": 1,
+  "engine": "coloring",
+  "mechanic": "m078",
+  "titleKey": "act.coloring-bus",
+  "category": "colors",
+  "ageMin": 3,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": [
+    "creativity",
+    "fine-motor"
+  ],
+  "themes": [
+    "city"
+  ],
+  "durationSec": 150,
+  "assets": [
+    "lineart.bus"
+  ],
+  "params": {
+    "lineart": "lineart.bus",
+    "palette": [
+      "red",
+      "orange",
+      "yellow",
+      "green",
+      "blue",
+      "purple",
+      "grey"
+    ]
+  },
+  "parentNoteKey": "note.coloring-bus",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

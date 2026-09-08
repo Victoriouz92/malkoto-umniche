@@ -1,0 +1,25 @@
+{
+  "id": "matching-pets-2",
+  "schemaVersion": 1,
+  "engine": "matching",
+  "mechanic": "m016",
+  "titleKey": "act.matching-pets-2",
+  "category": "puzzles",
+  "ageMin": 2,
+  "ageMax": 3,
+  "difficulty": 1,
+  "skills": ["visual-discrimination", "classification"],
+  "themes": ["pets"],
+  "durationSec": 45,
+  "assets": ["animal.cat", "animal.dog"],
+  "params": {
+    "pairs": [
+      { "left": "animal.cat", "right": "animal.cat" },
+      { "left": "animal.dog", "right": "animal.dog" }
+    ],
+    "rightMode": "same"
+  },
+  "parentNoteKey": "note.matching-pets-2",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false },
+  "noFail": true
+}

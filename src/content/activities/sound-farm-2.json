@@ -1,0 +1,43 @@
+{
+  "id": "sound-farm-2",
+  "schemaVersion": 1,
+  "engine": "sound-match",
+  "mechanic": "m085",
+  "titleKey": "act.sound-farm-2",
+  "category": "animals",
+  "ageMin": 2,
+  "ageMax": 4,
+  "difficulty": 1,
+  "skills": ["listening", "vocabulary", "auditory-memory"],
+  "themes": ["farm"],
+  "durationSec": 60,
+  "assets": ["animal.cow", "animal.cat", "animal.dog", "animal.duck"],
+  "params": {
+    "autoPlay": true,
+    "rounds": [
+      {
+        "sound": "animal.cow",
+        "choices": ["animal.cow", "animal.cat"]
+      },
+      {
+        "sound": "animal.dog",
+        "choices": ["animal.dog", "animal.duck"]
+      },
+      {
+        "sound": "animal.cat",
+        "choices": ["animal.cat", "animal.cow"]
+      },
+      {
+        "sound": "animal.duck",
+        "choices": ["animal.duck", "animal.dog"]
+      }
+    ]
+  },
+  "parentNoteKey": "note.sound-farm-2",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": true,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

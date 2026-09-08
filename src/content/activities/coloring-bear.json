@@ -1,0 +1,42 @@
+{
+  "id": "coloring-bear",
+  "schemaVersion": 1,
+  "engine": "coloring",
+  "mechanic": "m078",
+  "titleKey": "act.coloring-bear",
+  "category": "colors",
+  "ageMin": 3,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": [
+    "creativity",
+    "fine-motor"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "lineart.bear"
+  ],
+  "params": {
+    "lineart": "lineart.bear",
+    "palette": [
+      "brown",
+      "grey",
+      "orange",
+      "yellow",
+      "pink",
+      "red",
+      "purple",
+      "teal"
+    ]
+  },
+  "parentNoteKey": "note.coloring-bear",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

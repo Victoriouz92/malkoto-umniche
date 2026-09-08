@@ -1,0 +1,520 @@
+.homePage {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 7% 12%, #fff4a8 0 3.2rem, transparent 3.3rem),
+    radial-gradient(circle at 92% 18%, #d9f3ef 0 5rem, transparent 5.1rem),
+    linear-gradient(180deg, #f6fbff 0%, #fffdf8 36%, #f4fbef 100%);
+  overflow: hidden;
+}
+
+.homeContent { position: relative; z-index: 1; width: 100%; }
+
+.homeIntro {
+  position: relative;
+  width: min(38rem, 100%);
+  margin-inline: auto;
+  padding: var(--sp-5) var(--sp-6);
+  text-align: center;
+  background: color-mix(in srgb, var(--c-surface) 88%, transparent);
+  border-radius: var(--r-3xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.introMascot {
+  width: clamp(4.25rem, 8vw, 5.75rem);
+  margin: calc(var(--sp-8) * -1.25) auto var(--sp-2);
+  border: 4px solid var(--c-surface);
+  border-radius: 28%;
+  box-shadow: var(--shadow-md);
+  transform: rotate(-3deg);
+}
+
+.homeIntro h1 { text-wrap: balance; }
+
+.miniBrand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  color: #286f69;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-heavy);
+}
+
+.miniBrand img { width: 34px; height: 34px; border-radius: 10px; box-shadow: var(--shadow-sm); }
+
+.ageRange {
+  padding: var(--sp-2) var(--sp-4);
+  color: #815022;
+  background: #fff0c8;
+  border-radius: var(--r-full);
+  font-weight: var(--fw-heavy);
+}
+
+.homeDecor { pointer-events: none; position: absolute; inset: 0; z-index: -1; }
+.homeDecor span { position: fixed; width: clamp(3rem, 7vw, 6rem); opacity: .72; }
+.homeDecor span:nth-child(1) { top: 7rem; left: 2vw; }
+.homeDecor span:nth-child(2) { top: 10rem; right: 3vw; }
+.homeDecor span:nth-child(3) { bottom: 3rem; left: 1vw; }
+.homeDecor span:nth-child(4) { bottom: 2rem; right: 2vw; }
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--tap-gap);
+  width: 100%;
+}
+
+@media (max-width: 42rem) {
+  .tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  min-height: calc(var(--tap-lg) * 1.8);
+  padding: var(--sp-5);
+  background:
+    radial-gradient(circle at 85% 12%, color-mix(in srgb, white 45%, transparent) 0 2.2rem, transparent 2.3rem),
+    var(--tile-bg);
+  color: var(--tile-ink);
+  border-radius: var(--r-3xl);
+  box-shadow: var(--shadow-md);
+  transition:
+    transform var(--dur-fast) var(--ease-spring),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.tile:nth-child(3n + 1) { transform: rotate(-.35deg); }
+.tile:nth-child(3n + 2) { transform: rotate(.35deg); }
+
+.tile:active {
+  transform: scale(0.96);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (hover: hover) {
+  .tile:hover {
+    transform: translateY(-3px) rotate(0deg);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+@media (max-width: 42rem) {
+  .homeDecor span { opacity: .32; }
+  .homeIntro { padding-inline: var(--sp-4); }
+}
+
+/* Плоскостта носи И картинка, И надпис. Цветът никога не е единственият
+   носител на смисъла (правило 6). */
+.tileArt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--sp-2) * -1);
+  height: var(--tap-lg);
+}
+
+.tileArt > * {
+  margin-inline: -6px;
+}
+
+.categoryGlyph {
+  display: grid;
+  place-items: center;
+  min-width: var(--tap-lg);
+  height: var(--tap-lg);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-heavy);
+  letter-spacing: var(--ls-wide);
+}
+
+.categoryAsset {
+  display: grid;
+  place-items: center;
+  width: var(--tap-lg);
+  height: var(--tap-lg);
+}
+
+.colorPalette {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-width: calc(var(--tap-lg) * 1.65);
+  height: var(--tap-lg);
+  padding: var(--sp-3);
+  background: color-mix(in srgb, var(--c-surface) 82%, transparent);
+  border-radius: var(--r-full);
+  box-shadow: var(--shadow-sm);
+}
+
+.colorDot {
+  width: clamp(1.15rem, 2.5vw, 1.75rem);
+  aspect-ratio: 1;
+  border: 2px solid var(--c-surface);
+  border-radius: var(--r-full);
+  box-shadow: var(--shadow-sm);
+}
+
+.tileLabel {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-heavy);
+}
+
+.tileCount {
+  font-size: var(--fs-sm);
+  opacity: 0.75;
+}
+
+/* ── Списък с активности ───────────────────────────────────────── */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 40vw), 1fr));
+  gap: var(--tap-gap);
+  width: 100%;
+}
+
+.categoryPage {
+  position: relative;
+}
+
+/* Shared catalogue: large task previews, calm typography, clear navigation. */
+.catalogue { width: 100%; }
+.catalogueNav { padding-block: .25rem .75rem; }
+.worldHero {
+  isolation: isolate;
+  position: relative;
+  overflow: hidden;
+  min-height: 18rem;
+  display: flex;
+  align-items: center;
+  border-radius: 2rem;
+  background: var(--category-bg);
+  box-shadow: 0 12px 36px color-mix(in srgb, var(--category-ink) 9%, transparent);
+}
+.worldImage { position: absolute; inset: 0 0 0 auto; width: 66%; height: 100%; object-fit: cover; object-position: 78% 62%; z-index: -2; }
+.worldHero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, var(--category-bg) 25%, color-mix(in srgb, var(--category-bg) 96%, transparent) 40%, transparent 78%); }
+.worldCopy { padding: 2.5rem; width: 62%; text-align: left; color: var(--category-ink); }
+.worldCopy h1 { font-size: clamp(2.4rem, 4.6vw, 4rem); line-height: 1.08; margin-block: .6rem .8rem; }
+.worldCopy p { font-size: 1.05rem; line-height: 1.6; max-width: 23rem; margin-left: 0; }
+.worldEyebrow { font-size: .72rem; font-weight: 900; letter-spacing: .14em; }
+.worldFacts { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1.4rem; }
+.worldFacts span { background: color-mix(in srgb, var(--c-surface) 80%, transparent); border: 1px solid color-mix(in srgb, var(--category-ink) 9%, transparent); padding: .38rem .8rem; border-radius: 2rem; font-size: .85rem; font-weight: 800; }
+.catalogueToolbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-top: .8rem; text-align: left; }
+.catalogueToolbar h2 { font-size: clamp(1.3rem, 3vw, 1.7rem); margin: 0; }
+.catalogueToolbar p { font-size: .95rem; color: var(--c-ink-soft); margin-top: .4rem; }
+.catalogueCount { flex-shrink: 0; color: var(--category-ink); font-size: .85rem; font-weight: 800; }
+.playFilters { display: flex; flex-wrap: wrap; gap: .5rem; }
+.playFilters button { min-height: 48px; padding: .55rem 1.05rem; border: 1px solid var(--c-border); border-radius: 2rem; color: var(--c-ink-soft); background: var(--c-surface); font-weight: 800; font-size: .9rem; }
+.playFilters button[aria-pressed='true'] { background: var(--category-ink); border-color: var(--category-ink); color: white; }
+.catalogueCards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; }
+.gameCard { display: flex; flex-direction: column; min-width: 0; padding: .65rem; border: 1px solid var(--c-border); border-radius: 1.8rem; background: var(--c-surface); box-shadow: 0 5px 16px rgba(48, 65, 55, .045); text-align: center; transition: transform 180ms ease, box-shadow 180ms ease; }
+.gameCardBody { display: flex; flex: 1; flex-direction: column; padding: .85rem .65rem .35rem; }
+.gameCardType { text-transform: uppercase; letter-spacing: .09em; font-size: .65rem; font-weight: 900; color: var(--category-ink); }
+.gameCardTitle { display: block; font-size: 1.18rem; line-height: 1.35; font-weight: 900; margin-block: .45rem .9rem; text-wrap: balance; }
+.gameCardMeta { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-top: auto; color: var(--c-ink-soft); font-size: .82rem; font-weight: 700; }
+.gameCardPlay { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--category-bg); color: var(--category-ink); font-size: 1.2rem; }
+.gameCard:active { transform: scale(.98); }
+.worldFooter { margin-top: 1rem; padding: 1.6rem 1rem; border-top: 1px solid var(--c-border); color: var(--c-ink-soft); }
+.worldFooter img { display: block; width: 3rem; border-radius: 1rem; margin: 0 auto .6rem; }
+.worldFooter p { font-size: .9rem; }
+@media (hover: hover) { .gameCard:hover { transform: translateY(-4px); box-shadow: 0 14px 28px rgba(48, 65, 55, .11); } }
+@media (max-width: 52rem) {
+  .catalogueCards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .worldCopy { padding: 1.5rem; width: 70%; }
+}
+@media (max-width: 30rem) {
+  .catalogueNav { gap: .6rem; }
+  .catalogueNav .miniBrand { font-size: .75rem; }
+  .catalogueNav .miniBrand img { width: 26px; height: 26px; }
+  .worldHero { min-height: 15rem; border-radius: 1.4rem; }
+  .worldCopy { width: 90%; padding: 1.25rem; }
+  .worldCopy p { font-size: .9rem; max-width: 17rem; }
+  .worldImage { width: 100%; opacity: .28; }
+  .catalogueToolbar p { font-size: .85rem; }
+  .catalogueCards { gap: .7rem; }
+  .gameCard { padding: .4rem; border-radius: 1.3rem; }
+  .gameCardBody { padding: .6rem .2rem .25rem; }
+  .gameCardTitle { font-size: 1rem; }
+  .gameCardMeta .dots { gap: 2px; }
+  .gameCardMeta .dot { width: 5px; height: 5px; }
+}
+@media (prefers-reduced-motion: reduce) { .gameCard { transition: none; } .gameCard:hover, .gameCard:active { transform: none; } }
+
+.categoryPanel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  padding: clamp(var(--sp-4), 3vw, var(--sp-8));
+  border-radius: var(--r-3xl);
+  background:
+    radial-gradient(circle at 92% 4%, color-mix(in srgb, var(--c-surface) 62%, transparent) 0 8rem, transparent 8.1rem),
+    linear-gradient(150deg, color-mix(in srgb, var(--c-surface) 54%, var(--category-bg)), var(--category-bg));
+  box-shadow: var(--shadow-md);
+}
+
+.categoryPanel > :not(.categoryAtmosphere) { position: relative; z-index: 1; }
+
+.categoryAtmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.categoryAtmosphere span {
+  position: absolute;
+  width: clamp(5rem, 10vw, 8rem);
+  opacity: .11;
+  filter: saturate(.8);
+}
+
+.categoryAtmosphere span:nth-child(1) { top: 1rem; right: 3%; transform: rotate(10deg); }
+.categoryAtmosphere span:nth-child(2) { top: 42%; left: -2rem; transform: rotate(-12deg); }
+.categoryAtmosphere span:nth-child(3) { right: 1%; bottom: 2%; transform: rotate(8deg); }
+
+.categoryHeader { min-height: 7rem; }
+
+.categoryHeading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  text-align: left;
+}
+
+.categoryEmblem {
+  display: grid;
+  place-items: center;
+  width: clamp(4rem, 9vw, 6rem);
+  aspect-ratio: 1;
+  color: var(--category-ink);
+  background: color-mix(in srgb, var(--c-surface) 82%, var(--category-bg));
+  border: 3px solid color-mix(in srgb, var(--c-surface) 78%, transparent);
+  border-radius: 30%;
+  box-shadow: var(--shadow-sm);
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  font-weight: var(--fw-heavy);
+}
+
+.categoryEyebrow,
+.categorySummary {
+  display: block;
+  color: var(--category-ink);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  opacity: .72;
+}
+
+.categoryEyebrow { letter-spacing: var(--ls-wide); text-transform: uppercase; }
+.categoryHeading h1 { margin-block: var(--sp-1); }
+
+.categoryPanel h1 {
+  color: var(--category-ink);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  position: relative;
+  min-height: 13rem;
+  justify-content: center;
+  background: color-mix(in srgb, var(--c-surface) 92%, var(--category-bg));
+  border: 3px solid color-mix(in srgb, var(--c-surface) 74%, var(--category-bg));
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur-fast) var(--ease-spring);
+}
+
+.card:active {
+  transform: scale(0.96);
+}
+
+.cardArt {
+  display: grid;
+  place-items: center;
+  min-width: var(--tap-lg);
+  min-height: var(--tap-lg);
+  padding-inline: var(--sp-3);
+  color: var(--category-ink);
+  background: var(--category-bg);
+  border-radius: var(--r-2xl);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-heavy);
+  line-height: 1;
+  overflow: hidden;
+}
+
+.coverScene {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: calc(var(--tap-lg) + var(--sp-6));
+  height: var(--tap-lg);
+}
+
+.coverAssets {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 76%;
+}
+
+.coverAsset {
+  display: grid;
+  place-items: center;
+  width: 52%;
+  height: 100%;
+  margin-inline: -7%;
+  filter: drop-shadow(0 4px 5px rgba(54, 42, 31, .12));
+}
+
+.coverAssets[data-count='1'] .coverAsset { width: 70%; margin: 0; }
+.coverAssets[data-count='3'] .coverAsset { width: 42%; margin-inline: -6%; }
+
+.coverMechanic,
+.coverNumber,
+.coverQuestion {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  min-width: 1.85rem;
+  height: 1.85rem;
+  padding-inline: .35rem;
+  color: var(--category-ink);
+  background: color-mix(in srgb, white 86%, var(--category-bg));
+  border: 2px solid rgba(255, 255, 255, .9);
+  border-radius: var(--r-full);
+  box-shadow: var(--shadow-sm);
+  font-size: .82rem;
+  font-weight: var(--fw-heavy);
+  line-height: 1;
+}
+
+.coverNumber,
+.coverQuestion { font-size: 1.05rem; }
+
+.coverLetter,
+.coverFallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: var(--fw-heavy);
+}
+
+.coverScene .coverLetter {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 2rem;
+  height: 2rem;
+  color: var(--category-ink);
+  background: color-mix(in srgb, white 88%, var(--category-bg));
+  border: 2px solid rgba(255, 255, 255, .92);
+  border-radius: var(--r-full);
+  box-shadow: var(--shadow-sm);
+  font-size: 1.15rem;
+}
+
+.cardTitle {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-bold);
+  color: var(--c-ink);
+  text-wrap: balance;
+}
+
+/* Точките показват трудността без числа — детето не чете „ниво 3“. */
+.dots {
+  display: flex;
+  gap: 3px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-full);
+  background: var(--c-border-strong);
+}
+
+.dotOn {
+  background: var(--category-accent);
+}
+
+.ageBadge {
+  padding: var(--sp-1) var(--sp-3);
+  color: var(--category-ink);
+  background: var(--category-bg);
+  border-radius: var(--r-full);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+}
+
+.emptyCategory {
+  padding: var(--sp-8);
+  color: var(--category-ink);
+  background: color-mix(in srgb, var(--c-surface) 72%, transparent);
+  border-radius: var(--r-xl);
+}
+
+/* Завършена поне веднъж. Знакът се ДОБАВЯ, никога не се маха. */
+.playedMark {
+  font-size: var(--fs-sm);
+  color: var(--c-success-strong);
+  font-weight: var(--fw-bold);
+}
+
+@media (max-width: 42rem) {
+  .categoryHeader { align-items: flex-start; }
+  .categoryHeading { flex-direction: column; gap: var(--sp-2); text-align: center; }
+  .categoryEmblem { width: 4.25rem; }
+}
+
+/* ── Албум с картини-пъзели ───────────────────────────────────── */
+.puzzleAlbumPage { background: radial-gradient(circle at 8% 12%, #fff1ad 0 3rem, transparent 3.1rem), radial-gradient(circle at 92% 16%, #d5f2ed 0 5rem, transparent 5.1rem), linear-gradient(180deg, #f7fcff, #fffaf2 52%, #f0faee); }
+.puzzleAlbumContent { width: 100%; }
+.albumHeading { display: flex; align-items: center; gap: var(--sp-3); }
+.albumHeading img { width: 54px; height: 54px; border-radius: 16px; box-shadow: var(--shadow-sm); }
+.albumHeading span { color: var(--c-ink-soft); font-size: var(--fs-sm); font-weight: var(--fw-bold); }
+.albumHeading h1 { margin: 0; }
+.albumIntro { width: min(42rem, 100%); margin-inline: auto; padding: var(--sp-4) var(--sp-6); text-align: center; background: color-mix(in srgb, var(--c-surface) 86%, transparent); border-radius: var(--r-2xl); box-shadow: var(--shadow-sm); }
+.albumIntro strong { color: #267f76; font-size: var(--fs-lg); }
+.albumIntro p { margin-top: var(--sp-1); color: var(--c-ink-soft); }
+.puzzleGallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-6); }
+.puzzleBoard { padding: var(--sp-4); background: color-mix(in srgb, var(--c-surface) 91%, #dff5ef); border-radius: var(--r-3xl); box-shadow: var(--shadow-md); }
+.puzzleComplete { box-shadow: 0 12px 34px color-mix(in srgb, #267f76 24%, transparent); }
+.puzzleMeta { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); margin-bottom: var(--sp-3); }
+.puzzleMeta span { color: var(--c-ink-soft); font-size: var(--fs-sm); font-weight: var(--fw-bold); }
+.puzzleMeta h2 { margin: 0; font-size: var(--fs-lg); }
+.puzzleMeta > strong { flex: 0 0 auto; padding: var(--sp-2) var(--sp-3); color: #286f69; background: #d9f3ef; border-radius: var(--r-full); }
+.puzzlePieces { display: grid; grid-template-columns: repeat(4, 1fr); overflow: hidden; aspect-ratio: 16 / 9; background: #e9e5de; border: 4px solid var(--c-surface); border-radius: var(--r-2xl); box-shadow: inset 0 0 0 1px var(--c-border); }
+.puzzlePiece { display: grid; place-items: center; color: #b4ada3; background: color-mix(in srgb, var(--c-surface-2) 82%, #e8ddd2); border: 1px dashed color-mix(in srgb, var(--c-ink-soft) 24%, transparent); font-size: var(--fs-lg); }
+.puzzlePieceVisible { background-repeat: no-repeat; border-style: solid; border-color: rgba(255,255,255,.35); animation: puzzleReveal .48s var(--ease-spring) both; }
+@keyframes puzzleReveal { from { opacity: 0; transform: scale(.78) rotate(-3deg); } }
+@media (max-width: 52rem) { .puzzleGallery { grid-template-columns: 1fr; } .albumHeading { flex-direction: column; text-align: center; } }
+@media (prefers-reduced-motion: reduce) { .puzzlePieceVisible { animation: none; } }
+
+/* ── Адаптивна препоръка ─────────────────────────────────────── */
+.nextPage { min-height: 100vh; background: linear-gradient(145deg, #dff5ef, #fff4d8 55%, #f4e8f7); }
+.nextContent { width: min(48rem, 100%); }
+.nextCard { display: grid; justify-items: center; gap: var(--sp-4); padding: clamp(1.5rem, 5vw, 3.5rem); text-align: center; background: rgba(255,255,255,.82); border: 3px solid rgba(255,255,255,.9); border-radius: var(--r-3xl); box-shadow: var(--shadow-xl); backdrop-filter: blur(12px); }
+.nextEyebrow { color: #267f76; font-weight: var(--fw-heavy); letter-spacing: var(--ls-wide); text-transform: uppercase; }
+.nextCard h1, .nextCard h2 { margin: 0; text-wrap: balance; }
+.nextCard p { color: var(--c-ink-soft); }
+.nextArt { display: grid; place-items: center; width: min(13rem, 44vw); aspect-ratio: 1; padding: var(--sp-4); background: #eef8f3; border-radius: 34%; box-shadow: var(--shadow-md); font-size: 5rem; }
+.nextAgain { color: #286f69; font-weight: var(--fw-bold); text-decoration: underline; text-underline-offset: 4px; }

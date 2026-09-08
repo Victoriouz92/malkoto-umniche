@@ -1,0 +1,47 @@
+{
+  "id": "drawing-free-big",
+  "schemaVersion": 1,
+  "engine": "drawing",
+  "mechanic": "m069",
+  "titleKey": "act.drawing-free-big",
+  "category": "colors",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 1,
+  "skills": [
+    "creativity",
+    "fine-motor"
+  ],
+  "themes": [
+    "shapes"
+  ],
+  "durationSec": 240,
+  "assets": [],
+  "params": {
+    "palette": [
+      "red",
+      "orange",
+      "yellow",
+      "green",
+      "teal",
+      "blue",
+      "purple",
+      "pink",
+      "brown",
+      "grey"
+    ],
+    "widths": [
+      6,
+      12,
+      22,
+      36
+    ]
+  },
+  "parentNoteKey": "note.drawing-free-big",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

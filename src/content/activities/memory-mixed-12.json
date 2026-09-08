@@ -1,0 +1,48 @@
+{
+  "id": "memory-mixed-12",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m009",
+  "titleKey": "act.memory-mixed-12",
+  "category": "memory",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 5,
+  "skills": [
+    "visual-memory",
+    "working-memory",
+    "sustained-attention"
+  ],
+  "themes": [
+    "farm",
+    "food",
+    "vehicles"
+  ],
+  "durationSec": 180,
+  "assets": [
+    "animal.horse",
+    "animal.fox",
+    "animal.owl",
+    "food.grapes",
+    "food.tomato",
+    "vehicle.train"
+  ],
+  "params": {
+    "items": [
+      "animal.horse",
+      "animal.fox",
+      "animal.owl",
+      "food.grapes",
+      "food.tomato",
+      "vehicle.train"
+    ],
+    "flipBackMs": 1200
+  },
+  "parentNoteKey": "note.memory-mixed-12",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

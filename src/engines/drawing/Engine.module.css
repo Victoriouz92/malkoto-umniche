@@ -1,0 +1,39 @@
+.canvas {
+  width: min(92vw, 52rem);
+  height: clamp(18rem, 52vh, 36rem);
+  background: var(--c-surface);
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-sm);
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+}
+
+.width {
+  display: grid;
+  place-items: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  background: var(--c-surface);
+  border: 2px solid var(--c-border);
+  border-radius: var(--r-lg);
+}
+
+.width span {
+  display: block;
+  border-radius: var(--r-full);
+  background: var(--c-ink);
+}
+
+/* Избраното е и с рамка, и с фон — различимо без цвят. */
+.widthOn {
+  border-color: var(--c-secondary);
+  background: var(--c-secondary-soft);
+}

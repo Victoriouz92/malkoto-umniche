@@ -1,0 +1,29 @@
+{
+  "id": "maze-forest-4",
+  "schemaVersion": 1,
+  "engine": "maze",
+  "mechanic": "m034",
+  "titleKey": "act.maze-forest-4",
+  "category": "puzzles",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": ["spatial-reasoning", "problem-solving", "fine-motor", "sustained-attention"],
+  "themes": ["garden"],
+  "durationSec": 120,
+  "assets": ["nature.tree", "animal.squirrel"],
+  "params": {
+    "cols": 4,
+    "rows": 4,
+    "seed": 2718,
+    "goalAsset": "nature.tree",
+    "travellerAsset": "animal.squirrel"
+  },
+  "parentNoteKey": "note.maze-forest-4",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

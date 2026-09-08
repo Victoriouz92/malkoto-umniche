@@ -1,0 +1,19 @@
+{
+  "id": "memory-vehicles-6",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m009",
+  "titleKey": "act.memory-vehicles-6",
+  "category": "memory",
+  "ageMin": 3,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": ["visual-memory", "working-memory"],
+  "themes": ["vehicles"],
+  "durationSec": 90,
+  "assets": ["vehicle.car", "vehicle.bus", "vehicle.train"],
+  "params": { "items": ["vehicle.car", "vehicle.bus", "vehicle.train"], "flipBackMs": 1900 },
+  "parentNoteKey": "note.memory-vehicles-6",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false },
+  "noFail": true
+}

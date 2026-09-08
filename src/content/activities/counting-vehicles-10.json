@@ -1,0 +1,53 @@
+{
+  "id": "counting-vehicles-10",
+  "schemaVersion": 1,
+  "engine": "counting",
+  "mechanic": "m039",
+  "titleKey": "act.counting-vehicles-10",
+  "category": "numbers",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 4,
+  "skills": [
+    "counting",
+    "number-sense",
+    "sustained-attention"
+  ],
+  "themes": [
+    "vehicles"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "vehicle.car",
+    "vehicle.bus",
+    "vehicle.truck"
+  ],
+  "params": {
+    "rounds": [
+      {
+        "asset": "vehicle.bus",
+        "count": 6
+      },
+      {
+        "asset": "vehicle.car",
+        "count": 8
+      },
+      {
+        "asset": "vehicle.truck",
+        "count": 9
+      },
+      {
+        "asset": "vehicle.car",
+        "count": 10
+      }
+    ],
+    "choices": 4
+  },
+  "parentNoteKey": "note.counting-vehicles-10",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

@@ -1,0 +1,78 @@
+{
+  "id": "letters-initial-food",
+  "schemaVersion": 1,
+  "engine": "letters",
+  "mechanic": "m051",
+  "titleKey": "act.letters-initial-food",
+  "category": "letters",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "phonological-awareness",
+    "letter-recognition",
+    "vocabulary"
+  ],
+  "themes": [
+    "food"
+  ],
+  "durationSec": 100,
+  "assets": [
+    "food.apple",
+    "food.banana",
+    "food.carrot",
+    "food.bread"
+  ],
+  "params": {
+    "mode": "initial",
+    "rounds": [
+      {
+        "asset": "food.apple",
+        "letter": "Я",
+        "choices": [
+          "Я",
+          "А",
+          "Ю",
+          "Е"
+        ]
+      },
+      {
+        "asset": "food.banana",
+        "letter": "Б",
+        "choices": [
+          "П",
+          "Б",
+          "В",
+          "Д"
+        ]
+      },
+      {
+        "asset": "food.carrot",
+        "letter": "М",
+        "choices": [
+          "Н",
+          "М",
+          "К",
+          "Л"
+        ]
+      },
+      {
+        "asset": "food.bread",
+        "letter": "Х",
+        "choices": [
+          "К",
+          "Х",
+          "Ж",
+          "Г"
+        ]
+      }
+    ]
+  },
+  "parentNoteKey": "note.letters-initial-food",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

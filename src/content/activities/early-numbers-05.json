@@ -1,0 +1,39 @@
+{
+  "id": "early-numbers-05",
+  "schemaVersion": 1,
+  "engine": "counting",
+  "mechanic": "m039",
+  "titleKey": "act.early-numbers-05",
+  "category": "numbers",
+  "ageMin": 2,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": [
+    "counting",
+    "number-sense",
+    "visual-discrimination"
+  ],
+  "themes": [
+    "garden"
+  ],
+  "durationSec": 60,
+  "assets": [
+    "food.strawberry"
+  ],
+  "params": {
+    "rounds": [
+      {
+        "asset": "food.strawberry",
+        "count": 5
+      }
+    ],
+    "choices": 3
+  },
+  "parentNoteKey": "note.early-numbers-05",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

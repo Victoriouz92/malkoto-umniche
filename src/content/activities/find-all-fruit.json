@@ -1,0 +1,102 @@
+{
+  "id": "find-all-fruit",
+  "schemaVersion": 1,
+  "engine": "spot-difference",
+  "mechanic": "m071",
+  "titleKey": "act.find-all-fruit",
+  "category": "puzzles",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "sustained-attention",
+    "visual-discrimination",
+    "classification"
+  ],
+  "themes": [
+    "garden",
+    "food"
+  ],
+  "durationSec": 105,
+  "assets": [
+    "scene.farm",
+    "food.apple",
+    "food.pear",
+    "food.strawberry",
+    "food.grapes",
+    "food.carrot",
+    "food.bread",
+    "food.tomato"
+  ],
+  "params": {
+    "mode": "find-all",
+    "scene": "scene.farm",
+    "targets": [
+      {
+        "id": "food.apple",
+        "x": 18,
+        "y": 73,
+        "size": 46,
+        "rotate": -8,
+        "opacity": 0.7
+      },
+      {
+        "id": "food.pear",
+        "x": 44,
+        "y": 81,
+        "size": 45,
+        "rotate": 11,
+        "opacity": 0.68
+      },
+      {
+        "id": "food.strawberry",
+        "x": 67,
+        "y": 61,
+        "size": 44,
+        "rotate": -4,
+        "opacity": 0.65
+      },
+      {
+        "id": "food.grapes",
+        "x": 87,
+        "y": 76,
+        "size": 46,
+        "rotate": 7,
+        "opacity": 0.66
+      }
+    ],
+    "decoys": [
+      {
+        "id": "food.carrot",
+        "x": 32,
+        "y": 62,
+        "size": 47,
+        "rotate": 15,
+        "opacity": 0.78
+      },
+      {
+        "id": "food.bread",
+        "x": 57,
+        "y": 73,
+        "size": 50,
+        "rotate": -5,
+        "opacity": 0.8
+      },
+      {
+        "id": "food.tomato",
+        "x": 77,
+        "y": 84,
+        "size": 43,
+        "rotate": 4,
+        "opacity": 0.76
+      }
+    ]
+  },
+  "parentNoteKey": "note.find-all-fruit",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

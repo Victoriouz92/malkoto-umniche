@@ -1,0 +1,47 @@
+{
+  "id": "sound-wild-3",
+  "schemaVersion": 1,
+  "engine": "sound-match",
+  "mechanic": "m085",
+  "titleKey": "act.sound-wild-3",
+  "category": "animals",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": ["listening", "vocabulary", "everyday-knowledge"],
+  "themes": ["forest", "ocean"],
+  "durationSec": 90,
+  "assets": ["animal.bear", "animal.fox", "animal.owl", "animal.frog", "animal.whale"],
+  "params": {
+    "autoPlay": true,
+    "rounds": [
+      {
+        "sound": "animal.owl",
+        "choices": ["animal.owl", "animal.frog", "animal.fox"]
+      },
+      {
+        "sound": "animal.frog",
+        "choices": ["animal.frog", "animal.bear", "animal.owl"]
+      },
+      {
+        "sound": "animal.bear",
+        "choices": ["animal.bear", "animal.whale", "animal.fox"]
+      },
+      {
+        "sound": "animal.whale",
+        "choices": ["animal.whale", "animal.owl", "animal.bear"]
+      },
+      {
+        "sound": "animal.fox",
+        "choices": ["animal.fox", "animal.frog", "animal.whale"]
+      }
+    ]
+  },
+  "parentNoteKey": "note.sound-wild-3",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": true,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

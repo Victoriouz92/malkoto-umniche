@@ -1,0 +1,46 @@
+{
+  "id": "memory-wild-12",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m009",
+  "titleKey": "act.memory-wild-12",
+  "category": "memory",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 5,
+  "skills": [
+    "visual-memory",
+    "working-memory",
+    "sustained-attention"
+  ],
+  "themes": [
+    "forest"
+  ],
+  "durationSec": 180,
+  "assets": [
+    "animal.fox",
+    "animal.bear",
+    "animal.owl",
+    "animal.rabbit",
+    "animal.squirrel",
+    "animal.hedgehog"
+  ],
+  "params": {
+    "items": [
+      "animal.fox",
+      "animal.bear",
+      "animal.owl",
+      "animal.rabbit",
+      "animal.squirrel",
+      "animal.hedgehog"
+    ],
+    "flipBackMs": 1200
+  },
+  "parentNoteKey": "note.memory-wild-12",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

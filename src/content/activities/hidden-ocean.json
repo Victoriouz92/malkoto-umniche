@@ -1,0 +1,74 @@
+{
+  "id": "hidden-ocean",
+  "schemaVersion": 1,
+  "engine": "spot-difference",
+  "mechanic": "m004",
+  "titleKey": "act.hidden-ocean",
+  "category": "puzzles",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "visual-discrimination",
+    "sustained-attention",
+    "vocabulary"
+  ],
+  "themes": [
+    "ocean"
+  ],
+  "durationSec": 110,
+  "assets": [
+    "scene.ocean",
+    "animal.fish",
+    "animal.crab",
+    "animal.octopus",
+    "animal.whale",
+    "nature.mushroom"
+  ],
+  "params": {
+    "mode": "hidden-objects",
+    "scene": "scene.ocean",
+    "targets": [
+      {
+        "id": "animal.fish",
+        "x": 24,
+        "y": 37,
+        "size": 50,
+        "rotate": -9,
+        "opacity": 0.62
+      },
+      {
+        "id": "animal.crab",
+        "x": 73,
+        "y": 84,
+        "size": 48,
+        "rotate": 4,
+        "opacity": 0.68
+      },
+      {
+        "id": "animal.octopus",
+        "x": 88,
+        "y": 53,
+        "size": 47,
+        "rotate": -6,
+        "opacity": 0.65
+      },
+      {
+        "id": "animal.whale",
+        "x": 53,
+        "y": 27,
+        "size": 68,
+        "rotate": 2,
+        "opacity": 0.58
+      }
+    ],
+    "decoys": []
+  },
+  "parentNoteKey": "note.hidden-ocean",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

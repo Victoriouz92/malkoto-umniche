@@ -1,0 +1,42 @@
+{
+  "id": "memory-forest-8",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m009",
+  "titleKey": "act.memory-forest-8",
+  "category": "memory",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "visual-memory",
+    "working-memory",
+    "sustained-attention"
+  ],
+  "themes": [
+    "forest"
+  ],
+  "durationSec": 110,
+  "assets": [
+    "animal.fox",
+    "animal.owl",
+    "animal.squirrel",
+    "animal.hedgehog"
+  ],
+  "params": {
+    "items": [
+      "animal.fox",
+      "animal.owl",
+      "animal.squirrel",
+      "animal.hedgehog"
+    ],
+    "flipBackMs": 1600
+  },
+  "parentNoteKey": "note.memory-forest-8",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

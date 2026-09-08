@@ -1,0 +1,74 @@
+{
+  "id": "letters-initial-farm",
+  "schemaVersion": 1,
+  "engine": "letters",
+  "mechanic": "m051",
+  "titleKey": "act.letters-initial-farm",
+  "category": "letters",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": [
+    "phonological-awareness",
+    "letter-recognition",
+    "listening"
+  ],
+  "themes": [
+    "farm"
+  ],
+  "durationSec": 100,
+  "assets": [
+    "animal.cow",
+    "animal.duck",
+    "animal.bear",
+    "animal.sheep"
+  ],
+  "params": {
+    "mode": "initial",
+    "rounds": [
+      {
+        "asset": "animal.cow",
+        "letter": "К",
+        "choices": [
+          "К",
+          "М",
+          "П"
+        ]
+      },
+      {
+        "asset": "animal.duck",
+        "letter": "П",
+        "choices": [
+          "Б",
+          "П",
+          "Т"
+        ]
+      },
+      {
+        "asset": "animal.bear",
+        "letter": "М",
+        "choices": [
+          "Н",
+          "М",
+          "В"
+        ]
+      },
+      {
+        "asset": "animal.sheep",
+        "letter": "О",
+        "choices": [
+          "О",
+          "А",
+          "Е"
+        ]
+      }
+    ]
+  },
+  "parentNoteKey": "note.letters-initial-farm",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

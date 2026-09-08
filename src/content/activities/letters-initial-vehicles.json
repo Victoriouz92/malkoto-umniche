@@ -1,0 +1,64 @@
+{
+  "id": "letters-initial-vehicles",
+  "schemaVersion": 1,
+  "engine": "letters",
+  "mechanic": "m051",
+  "titleKey": "act.letters-initial-vehicles",
+  "category": "letters",
+  "ageMin": 5,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "phonological-awareness",
+    "letter-recognition",
+    "vocabulary"
+  ],
+  "themes": [
+    "vehicles"
+  ],
+  "durationSec": 100,
+  "assets": [
+    "vehicle.bus",
+    "vehicle.train",
+    "vehicle.tractor"
+  ],
+  "params": {
+    "mode": "initial",
+    "rounds": [
+      {
+        "asset": "vehicle.bus",
+        "letter": "А",
+        "choices": [
+          "А",
+          "О",
+          "У"
+        ]
+      },
+      {
+        "asset": "vehicle.train",
+        "letter": "В",
+        "choices": [
+          "В",
+          "Ф",
+          "Б"
+        ]
+      },
+      {
+        "asset": "vehicle.tractor",
+        "letter": "Т",
+        "choices": [
+          "Т",
+          "Д",
+          "П"
+        ]
+      }
+    ]
+  },
+  "parentNoteKey": "note.letters-initial-vehicles",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

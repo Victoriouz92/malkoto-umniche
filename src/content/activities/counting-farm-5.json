@@ -1,0 +1,43 @@
+{
+  "id": "counting-farm-5",
+  "schemaVersion": 1,
+  "engine": "counting",
+  "mechanic": "m039",
+  "titleKey": "act.counting-farm-5",
+  "category": "numbers",
+  "ageMin": 3,
+  "ageMax": 5,
+  "difficulty": 1,
+  "skills": ["counting", "number-sense"],
+  "themes": ["farm"],
+  "durationSec": 75,
+  "assets": ["animal.duck", "animal.sheep", "animal.cow"],
+  "params": {
+    "rounds": [
+      {
+        "asset": "animal.duck",
+        "count": 2
+      },
+      {
+        "asset": "animal.sheep",
+        "count": 3
+      },
+      {
+        "asset": "animal.cow",
+        "count": 4
+      },
+      {
+        "asset": "animal.duck",
+        "count": 5
+      }
+    ],
+    "choices": 2
+  },
+  "parentNoteKey": "note.counting-farm-5",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

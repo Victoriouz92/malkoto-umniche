@@ -1,0 +1,40 @@
+/* Scoped to game content: parent controls and large answer glyphs stay unchanged. */
+.playful-game {
+  --game-instruction: clamp(1.35rem, 2.5vw, 1.85rem);
+  --game-heading: clamp(1.75rem, 3.5vw, 2.65rem);
+  font-family: var(--font-body);
+  font-size: var(--game-instruction);
+}
+div.playful-game h2 {
+  font-family: var(--font-display);
+  font-size: var(--game-heading);
+  font-weight: 900;
+  line-height: 1.18;
+  text-wrap: balance;
+  color: var(--activity-ink, var(--c-primary-ink));
+}
+div.playful-game p {
+  font-size: var(--game-instruction);
+  line-height: 1.45;
+  font-weight: 750;
+  text-align: center;
+  text-wrap: pretty;
+}
+.playful-game button {
+  font-family: inherit;
+  font-weight: 850;
+  transition: box-shadow 160ms ease, background-color 160ms ease;
+}
+.playful-game button:focus-visible {
+  outline: 3px solid var(--activity-ink, var(--c-primary-ink));
+  outline-offset: 4px;
+}
+@media (hover: hover) {
+  .playful-game button:not(:disabled):hover {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--activity-ink, var(--c-primary-ink)) 28%, transparent);
+  }
+}
+.playful-game button:not(:disabled):active { filter: brightness(.94); }
+@media (prefers-reduced-motion: reduce) {
+  .playful-game button { transition: none; }
+}

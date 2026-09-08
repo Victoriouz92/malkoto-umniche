@@ -1,0 +1,56 @@
+{
+  "id": "math-add-10",
+  "schemaVersion": 1,
+  "engine": "math",
+  "mechanic": "m044",
+  "titleKey": "act.math-add-10",
+  "category": "numbers",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": [
+    "arithmetic",
+    "counting",
+    "number-sense"
+  ],
+  "themes": [
+    "farm"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "animal.duck"
+  ],
+  "params": {
+    "op": "add",
+    "choices": 4,
+    "rounds": [
+      {
+        "asset": "animal.duck",
+        "a": 4,
+        "b": 3
+      },
+      {
+        "asset": "animal.duck",
+        "a": 5,
+        "b": 4
+      },
+      {
+        "asset": "animal.duck",
+        "a": 6,
+        "b": 3
+      },
+      {
+        "asset": "animal.duck",
+        "a": 5,
+        "b": 5
+      }
+    ]
+  },
+  "parentNoteKey": "note.math-add-10",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": false
+}

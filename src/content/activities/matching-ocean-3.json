@@ -1,0 +1,26 @@
+{
+  "id": "matching-ocean-3",
+  "schemaVersion": 1,
+  "engine": "matching",
+  "mechanic": "m016",
+  "titleKey": "act.matching-ocean-3",
+  "category": "puzzles",
+  "ageMin": 2,
+  "ageMax": 4,
+  "difficulty": 1,
+  "skills": ["visual-discrimination", "classification"],
+  "themes": ["ocean"],
+  "durationSec": 55,
+  "assets": ["animal.fish", "animal.crab", "animal.octopus"],
+  "params": {
+    "pairs": [
+      { "left": "animal.fish", "right": "animal.fish" },
+      { "left": "animal.crab", "right": "animal.crab" },
+      { "left": "animal.octopus", "right": "animal.octopus" }
+    ],
+    "rightMode": "same"
+  },
+  "parentNoteKey": "note.matching-ocean-3",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false },
+  "noFail": true
+}

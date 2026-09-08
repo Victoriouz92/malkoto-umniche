@@ -1,0 +1,91 @@
+.pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-3);
+  width: min(20rem, 100%);
+  margin-inline: auto;
+}
+
+.key {
+  min-height: var(--tap);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--c-ink);
+  background: var(--c-surface);
+  border: 2px solid var(--c-border);
+  border-radius: var(--r-lg);
+  transition:
+    transform var(--dur-instant) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.key:active:not(:disabled) {
+  transform: scale(0.95);
+  background: var(--c-surface-2);
+}
+
+.key:disabled {
+  opacity: 0.4;
+}
+
+.wide {
+  font-size: var(--fs-md);
+}
+
+/* ── Точките ───────────────────────────────────────────────────── */
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-4);
+  padding-block: var(--sp-4);
+}
+
+.dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: var(--r-full);
+  border: 2px solid var(--c-border-strong);
+  background: transparent;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-spring);
+}
+
+.dotFilled {
+  background: var(--c-secondary);
+  border-color: var(--c-secondary);
+  transform: scale(1.15);
+}
+
+/* Разтърсване при грешен PIN. Единственият случай в продукта, в който
+   нещо се разтърсва — и той е в родителския режим, не пред детето. */
+.shake {
+  animation: shake 380ms var(--ease-out);
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-8px);
+  }
+  40% {
+    transform: translateX(8px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shake {
+    animation: none;
+  }
+}

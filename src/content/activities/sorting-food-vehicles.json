@@ -1,0 +1,77 @@
+{
+  "id": "sorting-food-vehicles",
+  "schemaVersion": 1,
+  "engine": "sorting",
+  "mechanic": "m018",
+  "titleKey": "act.sorting-food-vehicles",
+  "category": "puzzles",
+  "ageMin": 3,
+  "ageMax": 6,
+  "difficulty": 2,
+  "skills": ["classification", "vocabulary"],
+  "themes": ["food", "vehicles"],
+  "durationSec": 90,
+  "assets": [
+    "food.apple",
+    "food.bread",
+    "food.tomato",
+    "food.grapes",
+    "vehicle.car",
+    "vehicle.bus",
+    "vehicle.airplane",
+    "vehicle.train"
+  ],
+  "params": {
+    "bins": [
+      {
+        "id": "food",
+        "asset": "food.pear"
+      },
+      {
+        "id": "vehicle",
+        "asset": "vehicle.truck"
+      }
+    ],
+    "items": [
+      {
+        "asset": "food.apple",
+        "bin": "food"
+      },
+      {
+        "asset": "food.bread",
+        "bin": "food"
+      },
+      {
+        "asset": "food.tomato",
+        "bin": "food"
+      },
+      {
+        "asset": "food.grapes",
+        "bin": "food"
+      },
+      {
+        "asset": "vehicle.car",
+        "bin": "vehicle"
+      },
+      {
+        "asset": "vehicle.bus",
+        "bin": "vehicle"
+      },
+      {
+        "asset": "vehicle.airplane",
+        "bin": "vehicle"
+      },
+      {
+        "asset": "vehicle.train",
+        "bin": "vehicle"
+      }
+    ]
+  },
+  "parentNoteKey": "note.sorting-food-vehicles",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

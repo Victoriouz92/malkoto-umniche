@@ -1,0 +1,17 @@
+{
+  /**
+   * Node страната: скриптовете и конфигурацията на Vite.
+   *
+   * Отделен проект нарочно — ако сложим `node` в types на приложението,
+   * `process`, `Buffer` и `__dirname` стават видими в браузърния код и
+   * TypeScript спира да лови най-честата грешка при PWA: код, който
+   * работи локално и гърми на устройството.
+   */
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "lib": ["ES2023"],
+    "noEmit": true
+  },
+  "include": ["scripts/**/*.ts", "vite.config.ts"]
+}

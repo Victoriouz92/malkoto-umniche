@@ -1,0 +1,12 @@
+{
+  "id": "matching-fruit-3", "schemaVersion": 1, "engine": "matching", "mechanic": "m016",
+  "titleKey": "act.matching-fruit-3", "category": "puzzles", "ageMin": 3, "ageMax": 5, "difficulty": 2,
+  "skills": ["visual-discrimination", "classification"], "themes": ["food"], "durationSec": 60,
+  "assets": ["food.apple", "food.banana", "food.pear"],
+  "params": { "pairs": [
+    { "left": "food.apple", "right": "food.apple" }, { "left": "food.banana", "right": "food.banana" },
+    { "left": "food.pear", "right": "food.pear" }
+  ], "rightMode": "same" },
+  "parentNoteKey": "note.matching-fruit-3",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false }, "noFail": true
+}

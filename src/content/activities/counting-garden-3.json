@@ -1,0 +1,26 @@
+{
+  "id": "counting-garden-3",
+  "schemaVersion": 1,
+  "engine": "counting",
+  "mechanic": "m039",
+  "titleKey": "act.counting-garden-3",
+  "category": "numbers",
+  "ageMin": 3,
+  "ageMax": 4,
+  "difficulty": 1,
+  "skills": ["counting", "number-sense"],
+  "themes": ["garden"],
+  "durationSec": 60,
+  "assets": ["nature.flower", "nature.mushroom"],
+  "params": {
+    "rounds": [
+      { "asset": "nature.flower", "count": 1 },
+      { "asset": "nature.mushroom", "count": 2 },
+      { "asset": "nature.flower", "count": 3 }
+    ],
+    "choices": 2
+  },
+  "parentNoteKey": "note.counting-garden-3",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false },
+  "noFail": true
+}

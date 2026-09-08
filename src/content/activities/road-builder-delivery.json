@@ -1,0 +1,8 @@
+{
+  "id": "road-builder-delivery", "schemaVersion": 1, "engine": "road-builder", "mechanic": "m104",
+  "titleKey": "act.road-builder-delivery", "category": "vehicles", "ageMin": 4, "ageMax": 6,
+  "difficulty": 3, "skills": ["spatial-reasoning", "problem-solving", "sustained-attention"],
+  "themes": ["vehicles", "city"], "durationSec": 180, "assets": ["vehicle.car"],
+  "params": {"vehicle":"vehicle.car", "paths":[[3,4,5],[3,0,1,2,5],[3,6,7,4,1,2,5]]},
+  "parentNoteKey":"note.road-builder-delivery", "a11y":{"colorIndependent":true,"requiresAudio":false,"requiresPrecision":false}, "noFail":true
+}

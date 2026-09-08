@@ -1,0 +1,80 @@
+.scene {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  padding: var(--sp-4);
+  background: var(--c-surface);
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-sm);
+  max-width: 34rem;
+}
+
+.group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-2);
+  max-width: 13rem;
+}
+
+/* Отнетите ОСТАВАТ видими, само избледняват. Изчезването скрива какво се
+   е случило, а точно то е урокът при изваждането. */
+.taken {
+  opacity: 0.3;
+  filter: grayscale(1);
+}
+
+.unit {
+  display: grid;
+  place-items: center;
+  width: calc(var(--tap) * 0.7);
+  height: calc(var(--tap) * 0.7);
+}
+
+.sign {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-heavy);
+  color: var(--c-ink-soft);
+}
+
+.equation {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.blank {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2ch;
+  padding-inline: var(--sp-2);
+  color: var(--c-primary-ink);
+  background: var(--c-primary-softer);
+  border-radius: var(--r-md);
+}
+
+.numeral {
+  display: grid;
+  place-items: center;
+  width: var(--tap-lg);
+  height: var(--tap-lg);
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-heavy);
+  font-variant-numeric: tabular-nums;
+  color: var(--c-ink);
+  background: var(--c-surface);
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-press-sm);
+  transition: transform var(--dur-instant) var(--ease-out);
+}
+
+.numeral:active {
+  transform: translateY(2px);
+}
+
+.numeralRight {
+  background: var(--c-success-soft);
+  box-shadow: 0 0 0 4px var(--c-success);
+}

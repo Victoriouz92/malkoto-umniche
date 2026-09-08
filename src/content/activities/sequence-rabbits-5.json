@@ -1,0 +1,28 @@
+{
+  "id": "sequence-rabbits-5",
+  "schemaVersion": 1,
+  "engine": "sequencing",
+  "mechanic": "m101",
+  "titleKey": "act.sequence-rabbits-5",
+  "category": "shapes",
+  "ageMin": 4,
+  "ageMax": 6,
+  "difficulty": 3,
+  "skills": ["measurement", "sequencing", "visual-discrimination"],
+  "themes": ["forest"],
+  "durationSec": 90,
+  "assets": ["animal.rabbit"],
+  "params": {
+    "kind": "size-asc",
+    "items": [
+      { "kind": "asset", "id": "animal.rabbit", "scale": 0.35 },
+      { "kind": "asset", "id": "animal.rabbit", "scale": 0.5 },
+      { "kind": "asset", "id": "animal.rabbit", "scale": 0.68 },
+      { "kind": "asset", "id": "animal.rabbit", "scale": 0.84 },
+      { "kind": "asset", "id": "animal.rabbit", "scale": 1 }
+    ]
+  },
+  "parentNoteKey": "note.sequence-rabbits-5",
+  "a11y": { "colorIndependent": true, "requiresAudio": false, "requiresPrecision": false },
+  "noFail": true
+}
