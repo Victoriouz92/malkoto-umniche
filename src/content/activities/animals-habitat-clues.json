@@ -1,0 +1,72 @@
+{
+  "id": "animals-habitat-clues",
+  "schemaVersion": 1,
+  "engine": "semantic-choice",
+  "mechanic": "m102",
+  "titleKey": "act.animals-habitat-clues",
+  "category": "animals",
+  "ageMin": 5,
+  "ageMax": 5,
+  "difficulty": 4,
+  "skills": [
+    "logic",
+    "everyday-knowledge",
+    "vocabulary"
+  ],
+  "themes": [
+    "forest"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "animal.owl",
+    "animal.bear",
+    "animal.fish",
+    "animal.hedgehog",
+    "animal.rabbit",
+    "animal.crab",
+    "animal.octopus",
+    "animal.whale",
+    "animal.duck"
+  ],
+  "params": {
+    "rounds": [
+      {
+        "prompt": "Има пера, лети и е буден през нощта. Кой е?",
+        "choices": [
+          "animal.owl",
+          "animal.bear",
+          "animal.fish"
+        ],
+        "answer": "animal.owl",
+        "explanation": "Бухалът има пера и ловува през нощта."
+      },
+      {
+        "prompt": "Има бодли и живее на сушата. Кой е?",
+        "choices": [
+          "animal.hedgehog",
+          "animal.rabbit",
+          "animal.crab"
+        ],
+        "answer": "animal.hedgehog",
+        "explanation": "Таралежът се защитава с бодлите си."
+      },
+      {
+        "prompt": "Живее във водата и има осем ръце. Кой е?",
+        "choices": [
+          "animal.octopus",
+          "animal.whale",
+          "animal.duck"
+        ],
+        "answer": "animal.octopus",
+        "explanation": "Октоподът има осем ръце."
+      }
+    ]
+  },
+  "parentNoteKey": "note.animals-habitat-clues",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

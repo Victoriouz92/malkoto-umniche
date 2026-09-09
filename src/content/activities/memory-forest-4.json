@@ -6,7 +6,7 @@
   "titleKey": "act.memory-forest-4",
   "category": "memory",
   "ageMin": 3,
-  "ageMax": 5,
+  "ageMax": 3,
   "difficulty": 1,
   "skills": ["visual-memory", "working-memory"],
   "themes": ["forest"],

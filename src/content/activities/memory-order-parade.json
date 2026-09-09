@@ -1,0 +1,48 @@
+{
+  "id": "memory-order-parade",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m012",
+  "titleKey": "act.memory-order-parade",
+  "category": "memory",
+  "ageMin": 5,
+  "ageMax": 5,
+  "difficulty": 4,
+  "skills": [
+    "visual-memory",
+    "working-memory",
+    "sustained-attention"
+  ],
+  "themes": [
+    "forest"
+  ],
+  "durationSec": 150,
+  "assets": [
+    "animal.cow",
+    "animal.pig",
+    "animal.duck",
+    "animal.horse",
+    "animal.sheep",
+    "animal.chicken"
+  ],
+  "params": {
+    "mode": "sequence",
+    "length": 4,
+    "items": [
+      "animal.cow",
+      "animal.pig",
+      "animal.duck",
+      "animal.horse",
+      "animal.sheep",
+      "animal.chicken"
+    ],
+    "flipBackMs": 1600
+  },
+  "parentNoteKey": "note.memory-order-parade",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

@@ -5,8 +5,8 @@
   "mechanic": "m049",
   "titleKey": "act.early-letters-01",
   "category": "letters",
-  "ageMin": 2,
-  "ageMax": 6,
+  "ageMin": 3,
+  "ageMax": 4,
   "difficulty": 1,
   "skills": [
     "letter-recognition",

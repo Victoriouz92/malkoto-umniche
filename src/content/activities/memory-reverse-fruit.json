@@ -1,0 +1,44 @@
+{
+  "id": "memory-reverse-fruit",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m012",
+  "titleKey": "act.memory-reverse-fruit",
+  "category": "memory",
+  "ageMin": 5,
+  "ageMax": 5,
+  "difficulty": 4,
+  "skills": [
+    "visual-memory",
+    "working-memory",
+    "sustained-attention"
+  ],
+  "themes": [
+    "forest"
+  ],
+  "durationSec": 150,
+  "assets": [
+    "food.pear",
+    "food.banana",
+    "food.grapes",
+    "food.apple"
+  ],
+  "params": {
+    "mode": "reverse",
+    "length": 3,
+    "items": [
+      "food.pear",
+      "food.banana",
+      "food.grapes",
+      "food.apple"
+    ],
+    "flipBackMs": 1600
+  },
+  "parentNoteKey": "note.memory-reverse-fruit",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

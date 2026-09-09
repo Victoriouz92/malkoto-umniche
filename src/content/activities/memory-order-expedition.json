@@ -1,0 +1,48 @@
+{
+  "id": "memory-order-expedition",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m012",
+  "titleKey": "act.memory-order-expedition",
+  "category": "memory",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 5,
+  "skills": [
+    "visual-memory",
+    "working-memory",
+    "sustained-attention"
+  ],
+  "themes": [
+    "forest"
+  ],
+  "durationSec": 150,
+  "assets": [
+    "animal.fox",
+    "animal.owl",
+    "animal.rabbit",
+    "animal.bear",
+    "animal.squirrel",
+    "animal.hedgehog"
+  ],
+  "params": {
+    "mode": "sequence",
+    "length": 5,
+    "items": [
+      "animal.fox",
+      "animal.owl",
+      "animal.rabbit",
+      "animal.bear",
+      "animal.squirrel",
+      "animal.hedgehog"
+    ],
+    "flipBackMs": 1600
+  },
+  "parentNoteKey": "note.memory-order-expedition",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

@@ -6,7 +6,7 @@
   "titleKey": "act.sound-vehicles",
   "category": "vehicles",
   "ageMin": 3,
-  "ageMax": 6,
+  "ageMax": 4,
   "difficulty": 2,
   "skills": ["listening", "vocabulary", "everyday-knowledge"],
   "themes": ["vehicles"],

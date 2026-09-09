@@ -7,6 +7,7 @@ import type { Activity } from '@/content/schema/activity';
 import { ageLabel, allowedAgeRange, isActivityAllowed } from '@/content/ageAccess';
 import { CATEGORIES } from '@/content/schema/constants';
 import { CATEGORY_IDENTITY } from '@/content/categoryIdentity';
+import { AGE_STAGES } from '@/content/ageStages';
 import type { Category } from '@/content/schema/constants';
 import { useApp, activeProfile } from '@/core/store/app';
 import { useSessionClock } from '@/core/time/session';
@@ -84,6 +85,7 @@ function CategoryContent({ category }: { category: Category }) {
             <span className={s.worldEyebrow}>{CATEGORY_IDENTITY[category].name}</span>
             <h1>{t(`cat.${category}`)}</h1>
             <p>{CATEGORY_IDENTITY[category].purpose}</p>
+            <p>{AGE_STAGES[range.min]}</p>
             <div className={s.worldFacts}>
               <span>За {ageLabel(range.min, range.max)}</span>
               <span>{fitting.length} {fitting.length === 1 ? 'игра' : 'игри'}</span>
@@ -123,7 +125,9 @@ function ActivityCard({ activity, index, played, onOpen }: {
   return <button type="button" className={s.gameCard} onClick={onOpen} data-activity={activity.id}>
     <ActivityArtwork activity={activity} index={index} />
     <span className={s.gameCardBody}>
-      <span className={s.gameCardType}>{PLAY_TYPES[activity.engine]}</span>
+      <span className={s.gameCardType}>{activity.engine === 'memory' && activity.params.mode && activity.params.mode !== 'pairs'
+        ? activity.params.mode === 'missing' ? 'Липсваща картинка' : activity.params.mode === 'reverse' ? 'Обратен ред' : 'Редица по памет'
+        : PLAY_TYPES[activity.engine]}</span>
       <span className={s.gameCardTitle}>{t(activity.titleKey as never)}</span>
       <span className={s.gameCardMeta}>
         <span>{ageLabel(activity.ageMin, activity.ageMax)}</span>

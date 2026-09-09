@@ -6,7 +6,7 @@
   "titleKey": "act.compare-bigger",
   "category": "shapes",
   "ageMin": 2,
-  "ageMax": 4,
+  "ageMax": 3,
   "difficulty": 1,
   "skills": ["visual-discrimination", "measurement", "vocabulary"],
   "themes": ["shapes"],

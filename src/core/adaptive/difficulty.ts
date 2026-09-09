@@ -41,7 +41,8 @@ export function scoreFromResult(result: ActivityResult, expectedSec: number): nu
 /** Средното ниво на детето по дадените умения, 0–1. */
 export function levelFor(profile: ChildProfile, skills: readonly Skill[]): number {
   if (skills.length === 0) return UNKNOWN_LEVEL;
-  const sum = skills.reduce((acc, s) => acc + (profile.skillRatings[s] ?? UNKNOWN_LEVEL), 0);
+  const startingLevel = Math.max(0, Math.min(1, (profile.age - 2) / 4));
+  const sum = skills.reduce((acc, s) => acc + (profile.skillRatings[s] ?? startingLevel), 0);
   return sum / skills.length;
 }
 

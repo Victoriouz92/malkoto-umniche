@@ -7,6 +7,7 @@ import type { EngineProps } from '../types';
 import type { MemoryParams } from './schema';
 import shared from '../shared/engine.module.css';
 import s from './Engine.module.css';
+import { RecallEngine } from './RecallEngine';
 
 type Card = { key: string; asset: string };
 
@@ -18,7 +19,11 @@ type Card = { key: string; asset: string };
  *   • съвпадналите остават отворени и избледняват — нищо не изчезва
  *   • няма брояч на ходовете и няма ограничение във времето
  */
-export function MemoryEngine({ params, api, onComplete, onProgress }: EngineProps<MemoryParams>) {
+export function MemoryEngine(props: EngineProps<MemoryParams>) {
+  return props.params.mode === 'pairs' ? <PairsEngine {...props} /> : <RecallEngine {...props} />;
+}
+
+function PairsEngine({ params, api, onComplete, onProgress }: EngineProps<MemoryParams>) {
   const cards = useMemo<Card[]>(
     () =>
       shuffle(
@@ -38,7 +43,7 @@ export function MemoryEngine({ params, api, onComplete, onProgress }: EngineProp
   const attempts = useRef(0);
   const finished = useRef(false);
 
-  const columns = cards.length <= 4 ? 2 : cards.length <= 8 ? 4 : cards.length <= 12 ? 4 : 6;
+  const columns = cards.length <= 4 ? 2 : 4;
   const pairsFound = matched.length / 2;
 
   useEffect(() => {
@@ -98,6 +103,8 @@ export function MemoryEngine({ params, api, onComplete, onProgress }: EngineProp
 
   return (
     <div className={shared.stage}>
+      <h2>Открий {params.items.length} еднакви двойки</h2>
+      <p>Обръщай по две карти и запомняй местата им.</p>
       <div className={s.board} style={{ gridTemplateColumns: `repeat(${columns}, auto)` }}>
         {cards.map((card) => {
           const isOpen = open.includes(card.key) || matched.includes(card.key);

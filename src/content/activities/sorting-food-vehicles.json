@@ -6,7 +6,7 @@
   "titleKey": "act.sorting-food-vehicles",
   "category": "puzzles",
   "ageMin": 3,
-  "ageMax": 6,
+  "ageMax": 4,
   "difficulty": 2,
   "skills": ["classification", "vocabulary"],
   "themes": ["food", "vehicles"],

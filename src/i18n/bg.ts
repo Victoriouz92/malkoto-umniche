@@ -8,8 +8,10 @@
  * Интерполация: `{име}`.
  */
 import { generatedActivityBg } from './generatedActivities';
+import { ageActivityBg } from './ageActivities';
 
 export const bg = {
+  ...ageActivityBg,
   ...generatedActivityBg,
   'app.name': 'Малкото Умниче',
   'app.tagline': 'Малки игри. Големи открития.',

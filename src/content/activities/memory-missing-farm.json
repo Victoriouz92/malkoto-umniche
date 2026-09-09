@@ -1,0 +1,48 @@
+{
+  "id": "memory-missing-farm",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m010",
+  "titleKey": "act.memory-missing-farm",
+  "category": "memory",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 5,
+  "skills": [
+    "visual-memory",
+    "working-memory",
+    "sustained-attention"
+  ],
+  "themes": [
+    "forest"
+  ],
+  "durationSec": 150,
+  "assets": [
+    "animal.cow",
+    "animal.pig",
+    "animal.duck",
+    "animal.horse",
+    "animal.sheep",
+    "animal.chicken"
+  ],
+  "params": {
+    "mode": "missing",
+    "length": 6,
+    "items": [
+      "animal.cow",
+      "animal.pig",
+      "animal.duck",
+      "animal.horse",
+      "animal.sheep",
+      "animal.chicken"
+    ],
+    "flipBackMs": 1600
+  },
+  "parentNoteKey": "note.memory-missing-farm",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

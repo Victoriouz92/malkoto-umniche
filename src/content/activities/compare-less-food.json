@@ -6,7 +6,7 @@
   "titleKey": "act.compare-less-food",
   "category": "numbers",
   "ageMin": 4,
-  "ageMax": 6,
+  "ageMax": 4,
   "difficulty": 2,
   "skills": ["number-sense", "counting"],
   "themes": ["food"],

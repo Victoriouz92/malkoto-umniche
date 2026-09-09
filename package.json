@@ -19,7 +19,7 @@
     "check:assets": "node scripts/check-assets.mjs",
     "check:mechanics": "node scripts/check-mechanics.mjs",
     "check:audio": "node scripts/check-audio.mjs",
-    "check:ages": "node scripts/check-age-fit.mjs",
+    "check:ages": "node scripts/check-age-fit.mjs && tsx scripts/check-age-progression.ts",
     "check:covers": "tsx scripts/check-covers.ts",
     "check:practical": "tsx scripts/check-practical-games.ts",
     "check:categories": "tsx scripts/check-category-identity.ts",

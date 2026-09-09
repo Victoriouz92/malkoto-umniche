@@ -6,7 +6,7 @@
   "titleKey": "act.odd-size-4",
   "category": "puzzles",
   "ageMin": 3,
-  "ageMax": 6,
+  "ageMax": 4,
   "difficulty": 2,
   "skills": ["visual-discrimination", "measurement"],
   "themes": ["shapes"],

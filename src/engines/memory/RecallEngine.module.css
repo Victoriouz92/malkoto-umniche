@@ -1,0 +1,13 @@
+.stage { display: grid; justify-items: center; gap: 18px; width: min(100%, 850px); margin: auto; text-align: center; }
+.stage h2, .stage p { margin: 0; }
+.badge { padding: 8px 18px; border-radius: 24px; background: #eee5fa; color: #594184; font-weight: 800; }
+.row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.slot, .answer { display: grid; place-items: center; min-width: 80px; min-height: 92px; padding: 10px; border: 2px dashed #b5a1d4; border-radius: 22px; background: #f5f0fb; font-size: 2rem; color: #65478c; }
+.slot small { font-size: .8rem; }
+.answer { min-width: 65px; min-height: 65px; border-style: solid; background: #e9f6ed; }
+.choice { padding: 14px; background: white; border: 2px solid #d7cae7; border-radius: 22px; box-shadow: 0 5px 0 #d7cae7; }
+.choice:disabled { opacity: .45; }
+.action { background: #287e76; color: white; padding: 16px 26px; border-radius: 24px; font-size: 1.25rem; font-weight: 900; }
+.hint { padding: 12px; color: #65478c; text-decoration: underline; text-underline-offset: 4px; }
+.stage button:focus-visible { outline: 3px solid #cc6a2e; outline-offset: 4px; }
+@media (max-width: 480px) { .row { gap: 8px; } .slot { min-width: 68px; } .choice { padding: 8px; } }

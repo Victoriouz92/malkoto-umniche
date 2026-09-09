@@ -1,0 +1,44 @@
+{
+  "id": "memory-missing-garden",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m010",
+  "titleKey": "act.memory-missing-garden",
+  "category": "memory",
+  "ageMin": 4,
+  "ageMax": 4,
+  "difficulty": 3,
+  "skills": [
+    "visual-memory",
+    "working-memory",
+    "sustained-attention"
+  ],
+  "themes": [
+    "forest"
+  ],
+  "durationSec": 150,
+  "assets": [
+    "nature.flower",
+    "nature.mushroom",
+    "nature.leaf",
+    "nature.sun"
+  ],
+  "params": {
+    "mode": "missing",
+    "length": 3,
+    "items": [
+      "nature.flower",
+      "nature.mushroom",
+      "nature.leaf",
+      "nature.sun"
+    ],
+    "flipBackMs": 1600
+  },
+  "parentNoteKey": "note.memory-missing-garden",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

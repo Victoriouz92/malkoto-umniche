@@ -1,0 +1,74 @@
+{
+  "id": "vehicle-route-reasoning",
+  "schemaVersion": 1,
+  "engine": "semantic-choice",
+  "mechanic": "m102",
+  "titleKey": "act.vehicle-route-reasoning",
+  "category": "vehicles",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 5,
+  "skills": [
+    "everyday-knowledge",
+    "vocabulary",
+    "logic"
+  ],
+  "themes": [
+    "vehicles",
+    "city",
+    "farm"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "vehicle.train",
+    "vehicle.bus",
+    "vehicle.truck",
+    "vehicle.car",
+    "vehicle.airplane",
+    "vehicle.tractor"
+  ],
+  "params": {
+    "rounds": [
+      {
+        "prompt": "Има жп линия между градовете, но пътят е затворен. Кое може да пътува?",
+        "choices": [
+          "vehicle.train",
+          "vehicle.bus",
+          "vehicle.truck",
+          "vehicle.car"
+        ],
+        "answer": "vehicle.train",
+        "explanation": "Влакът използва релсите, а не затворения път."
+      },
+      {
+        "prompt": "Товарът трябва да стигне до ферма без релси и летище. Кое ще го закара по пътя?",
+        "choices": [
+          "vehicle.truck",
+          "vehicle.train",
+          "vehicle.airplane",
+          "vehicle.bus"
+        ],
+        "answer": "vehicle.truck",
+        "explanation": "Камионът превозва товар по пътищата."
+      },
+      {
+        "prompt": "След пристигане със самолет група пътници отива заедно до хотела по шосето. Какво следва?",
+        "choices": [
+          "vehicle.bus",
+          "vehicle.airplane",
+          "vehicle.tractor",
+          "vehicle.train"
+        ],
+        "answer": "vehicle.bus",
+        "explanation": "Пътуването продължава с автобус от летището."
+      }
+    ]
+  },
+  "parentNoteKey": "note.vehicle-route-reasoning",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

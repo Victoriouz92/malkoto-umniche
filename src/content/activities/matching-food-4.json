@@ -6,7 +6,7 @@
   "titleKey": "act.matching-food-4",
   "category": "puzzles",
   "ageMin": 3,
-  "ageMax": 5,
+  "ageMax": 4,
   "difficulty": 2,
   "skills": ["visual-discrimination", "classification"],
   "themes": ["food"],

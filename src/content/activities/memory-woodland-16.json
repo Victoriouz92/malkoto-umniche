@@ -1,0 +1,50 @@
+{
+  "id": "memory-woodland-16",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m009",
+  "titleKey": "act.memory-woodland-16",
+  "category": "memory",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 5,
+  "skills": [
+    "visual-memory",
+    "working-memory",
+    "sustained-attention"
+  ],
+  "themes": [
+    "forest"
+  ],
+  "durationSec": 150,
+  "assets": [
+    "animal.fox",
+    "animal.owl",
+    "animal.rabbit",
+    "animal.bear",
+    "animal.squirrel",
+    "animal.hedgehog",
+    "animal.frog",
+    "animal.goat"
+  ],
+  "params": {
+    "items": [
+      "animal.fox",
+      "animal.owl",
+      "animal.rabbit",
+      "animal.bear",
+      "animal.squirrel",
+      "animal.hedgehog",
+      "animal.frog",
+      "animal.goat"
+    ],
+    "flipBackMs": 1200
+  },
+  "parentNoteKey": "note.memory-woodland-16",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

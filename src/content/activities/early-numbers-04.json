@@ -5,8 +5,8 @@
   "mechanic": "m039",
   "titleKey": "act.early-numbers-04",
   "category": "numbers",
-  "ageMin": 2,
-  "ageMax": 6,
+  "ageMin": 3,
+  "ageMax": 4,
   "difficulty": 2,
   "skills": [
     "counting",

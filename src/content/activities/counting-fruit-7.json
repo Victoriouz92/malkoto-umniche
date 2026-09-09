@@ -6,13 +6,14 @@
   "titleKey": "act.counting-fruit-7",
   "category": "numbers",
   "ageMin": 4,
-  "ageMax": 6,
+  "ageMax": 5,
   "difficulty": 3,
   "skills": ["counting", "number-sense"],
   "themes": ["food"],
   "durationSec": 100,
   "assets": ["food.apple", "food.pear", "food.grapes"],
   "params": {
+    "guided": false,
     "rounds": [
       { "asset": "food.apple", "count": 5 },
       { "asset": "food.pear", "count": 6 },

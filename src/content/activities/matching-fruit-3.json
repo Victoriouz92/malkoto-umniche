@@ -1,6 +1,6 @@
 {
   "id": "matching-fruit-3", "schemaVersion": 1, "engine": "matching", "mechanic": "m016",
-  "titleKey": "act.matching-fruit-3", "category": "puzzles", "ageMin": 3, "ageMax": 5, "difficulty": 2,
+  "titleKey": "act.matching-fruit-3", "category": "puzzles", "ageMin": 3, "ageMax": 4, "difficulty": 2,
   "skills": ["visual-discrimination", "classification"], "themes": ["food"], "durationSec": 60,
   "assets": ["food.apple", "food.banana", "food.pear"],
   "params": { "pairs": [

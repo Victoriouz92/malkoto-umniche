@@ -6,7 +6,7 @@
   "titleKey": "act.sound-wild-3",
   "category": "animals",
   "ageMin": 4,
-  "ageMax": 6,
+  "ageMax": 5,
   "difficulty": 3,
   "skills": ["listening", "vocabulary", "everyday-knowledge"],
   "themes": ["forest", "ocean"],

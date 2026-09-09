@@ -13,6 +13,8 @@ export function ProfilesTab() {
   const updateProfile = useApp((st) => st.updateProfile);
   const removeProfile = useApp((st) => st.removeProfile);
   const setActiveProfile = useApp((st) => st.setActiveProfile);
+  const filter = useApp((st) => st.settings.filter);
+  const updateSettings = useApp((st) => st.updateSettings);
 
   const [name, setName] = useState('');
   const [age, setAge] = useState(5);
@@ -145,12 +147,13 @@ export function ProfilesTab() {
                   min={2}
                   max={6}
                   format={(v) => `${v} години`}
-                  onChange={(next) =>
+                  onChange={(next) => {
                     updateProfile(p.id, {
                       age: next,
                       unlockedAgeMax: next,
-                    })
-                  }
+                    });
+                    updateSettings({ filter: { ...filter, ageOverride: null } });
+                  }}
                 />
               ))}
           </Stack>

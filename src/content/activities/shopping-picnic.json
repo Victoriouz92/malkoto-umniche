@@ -1,6 +1,6 @@
 {
   "id": "shopping-picnic", "schemaVersion": 1, "engine": "shopping", "mechanic": "m103",
-  "titleKey": "act.shopping-picnic", "category": "food", "ageMin": 4, "ageMax": 6,
+  "titleKey": "act.shopping-picnic", "category": "food", "ageMin": 4, "ageMax": 4,
   "difficulty": 2, "skills": ["counting", "working-memory", "everyday-knowledge", "problem-solving"],
   "themes": ["food"], "durationSec": 180,
   "assets": ["food.apple", "food.banana", "food.carrot", "food.bread", "food.strawberry"],

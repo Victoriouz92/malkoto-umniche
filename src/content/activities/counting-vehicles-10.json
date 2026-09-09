@@ -23,6 +23,7 @@
     "vehicle.truck"
   ],
   "params": {
+    "guided": false,
     "rounds": [
       {
         "asset": "vehicle.bus",

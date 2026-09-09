@@ -6,7 +6,7 @@
   "titleKey": "act.pattern-hearts-stars",
   "category": "puzzles",
   "ageMin": 3,
-  "ageMax": 6,
+  "ageMax": 3,
   "difficulty": 1,
   "skills": ["pattern-recognition", "logic"],
   "themes": ["shapes"],

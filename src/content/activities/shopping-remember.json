@@ -1,0 +1,79 @@
+{
+  "id": "shopping-remember",
+  "schemaVersion": 1,
+  "engine": "shopping",
+  "mechanic": "m103",
+  "titleKey": "act.shopping-remember",
+  "category": "food",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 4,
+  "skills": [
+    "counting",
+    "working-memory",
+    "everyday-knowledge",
+    "problem-solving"
+  ],
+  "themes": [
+    "food"
+  ],
+  "durationSec": 180,
+  "assets": [
+    "food.apple",
+    "food.pear",
+    "food.bread",
+    "food.carrot",
+    "food.grapes",
+    "food.banana"
+  ],
+  "params": {
+    "rememberList": true,
+    "shelf": [
+      "food.apple",
+      "food.pear",
+      "food.bread",
+      "food.carrot",
+      "food.grapes",
+      "food.banana"
+    ],
+    "orders": [
+      {
+        "title": "Поръчката на пандата",
+        "items": [
+          {
+            "asset": "food.grapes",
+            "count": 2
+          },
+          {
+            "asset": "food.banana",
+            "count": 3
+          }
+        ]
+      },
+      {
+        "title": "Поръчката на приятелите",
+        "items": [
+          {
+            "asset": "food.pear",
+            "count": 2
+          },
+          {
+            "asset": "food.bread",
+            "count": 1
+          },
+          {
+            "asset": "food.carrot",
+            "count": 3
+          }
+        ]
+      }
+    ]
+  },
+  "parentNoteKey": "note.shopping-remember",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

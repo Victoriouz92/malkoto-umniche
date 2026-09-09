@@ -6,8 +6,8 @@
 
 .card {
   position: relative;
-  width: var(--tap-lg);
-  height: var(--tap-lg);
+  width: min(var(--tap-lg), calc((100vw - 88px) / 4));
+  height: min(var(--tap-lg), calc((100vw - 88px) / 4));
   border-radius: var(--r-2xl);
   transform-style: preserve-3d;
   transition: transform var(--dur-fast) var(--ease-settle), opacity var(--dur-fast) var(--ease-out);

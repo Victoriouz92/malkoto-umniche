@@ -1,0 +1,74 @@
+{
+  "id": "food-follow-recipe",
+  "schemaVersion": 1,
+  "engine": "semantic-choice",
+  "mechanic": "m102",
+  "titleKey": "act.food-follow-recipe",
+  "category": "food",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 5,
+  "skills": [
+    "logic",
+    "everyday-knowledge",
+    "vocabulary"
+  ],
+  "themes": [
+    "food"
+  ],
+  "durationSec": 100,
+  "assets": [
+    "food.banana",
+    "food.pear",
+    "food.bread",
+    "food.carrot",
+    "food.apple",
+    "food.tomato",
+    "food.grapes",
+    "food.strawberry"
+  ],
+  "params": {
+    "rounds": [
+      {
+        "prompt": "Рецептата е само с плодове, без банан. Кое подхожда?",
+        "choices": [
+          "food.banana",
+          "food.pear",
+          "food.bread",
+          "food.carrot"
+        ],
+        "answer": "food.pear",
+        "explanation": "Крушата е плод и не нарушава условието „без банан“."
+      },
+      {
+        "prompt": "Търсим продукт, който се пече и се прави от брашно. Кой е?",
+        "choices": [
+          "food.bread",
+          "food.apple",
+          "food.tomato",
+          "food.grapes"
+        ],
+        "answer": "food.bread",
+        "explanation": "Хлябът се прави от брашно и се пече."
+      },
+      {
+        "prompt": "За салатата ни трябва червен продукт, който обикновено слагаме със зеленчуци. Кой е?",
+        "choices": [
+          "food.tomato",
+          "food.strawberry",
+          "food.banana",
+          "food.carrot"
+        ],
+        "answer": "food.tomato",
+        "explanation": "Доматът е червен и се използва в зеленчукова салата."
+      }
+    ]
+  },
+  "parentNoteKey": "note.food-follow-recipe",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

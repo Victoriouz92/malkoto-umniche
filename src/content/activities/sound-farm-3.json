@@ -6,7 +6,7 @@
   "titleKey": "act.sound-farm-3",
   "category": "animals",
   "ageMin": 3,
-  "ageMax": 5,
+  "ageMax": 4,
   "difficulty": 2,
   "skills": ["listening", "vocabulary", "auditory-memory"],
   "themes": ["farm"],

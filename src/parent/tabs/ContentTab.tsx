@@ -4,6 +4,7 @@ import { SKILLS, THEMES } from '@/content/schema/constants';
 import type { Skill, Theme } from '@/content/schema/constants';
 import { skillLabel, themeLabel, t } from '@/i18n';
 import s from '../parent.module.css';
+import { AGE_STAGES } from '@/content/ageStages';
 
 /**
  * Филтри на съдържанието.
@@ -33,6 +34,7 @@ export function ContentTab() {
         <Card variant="flat">
           <Stack gap={4}>
             <strong>{t('parent.content.forChild', { name: profile.name })}</strong>
+            <p>{AGE_STAGES[range?.min ?? profile.age]}</p>
             <p className={s.muted}>
               {range
                 ? t('parent.content.manualActive', { min: range.min, max: range.max })

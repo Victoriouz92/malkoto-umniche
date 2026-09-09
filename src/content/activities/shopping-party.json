@@ -1,0 +1,82 @@
+{
+  "id": "shopping-party",
+  "schemaVersion": 1,
+  "engine": "shopping",
+  "mechanic": "m103",
+  "titleKey": "act.shopping-party",
+  "category": "food",
+  "ageMin": 5,
+  "ageMax": 5,
+  "difficulty": 3,
+  "skills": [
+    "counting",
+    "working-memory",
+    "everyday-knowledge",
+    "problem-solving"
+  ],
+  "themes": [
+    "food"
+  ],
+  "durationSec": 180,
+  "assets": [
+    "food.apple",
+    "food.pear",
+    "food.bread",
+    "food.carrot",
+    "food.grapes",
+    "food.banana"
+  ],
+  "params": {
+    "shelf": [
+      "food.apple",
+      "food.pear",
+      "food.bread",
+      "food.carrot",
+      "food.grapes",
+      "food.banana"
+    ],
+    "orders": [
+      {
+        "title": "Закуска за приятелите",
+        "items": [
+          {
+            "asset": "food.pear",
+            "count": 3
+          },
+          {
+            "asset": "food.bread",
+            "count": 2
+          },
+          {
+            "asset": "food.apple",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "title": "Пикник за всички",
+        "items": [
+          {
+            "asset": "food.carrot",
+            "count": 4
+          },
+          {
+            "asset": "food.grapes",
+            "count": 3
+          },
+          {
+            "asset": "food.banana",
+            "count": 2
+          }
+        ]
+      }
+    ]
+  },
+  "parentNoteKey": "note.shopping-party",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

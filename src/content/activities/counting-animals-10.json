@@ -23,6 +23,7 @@
     "animal.fox"
   ],
   "params": {
+    "guided": false,
     "rounds": [
       {
         "asset": "animal.rabbit",

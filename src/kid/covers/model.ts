@@ -65,6 +65,12 @@ export function describeCover(source: CoverSource, palette: number): CoverModel 
     }
     case 'memory': {
       const items = array(p.items).map(String);
+      if (p.mode && p.mode !== 'pairs') {
+        row([items[0], p.mode === 'missing' ? '?' : items[1], items[2]], 70, 48);
+        put(text(p.mode === 'reverse' ? '←' : p.mode === 'missing' ? '?' : '→'), 150, 126, 30);
+        model.caption = `${p.mode === 'missing' ? 'Кой се скри?' : p.mode === 'reverse' ? 'Отзад напред' : 'Запомни реда'} · ${num(p.length)} картинки`;
+        break;
+      }
       const sample = items[0] ?? '';
       [70, 150, 230].forEach((x, i) => put(i === 2 ? text('?') : asset(sample), x, 77, 54));
       model.caption = `${items.length} двойки`;

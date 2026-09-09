@@ -6,7 +6,7 @@
   "titleKey": "act.compare-more-farm",
   "category": "numbers",
   "ageMin": 3,
-  "ageMax": 5,
+  "ageMax": 3,
   "difficulty": 1,
   "skills": ["number-sense", "counting"],
   "themes": ["farm"],

@@ -5,8 +5,8 @@
   "mechanic": "m039",
   "titleKey": "act.early-numbers-05",
   "category": "numbers",
-  "ageMin": 2,
-  "ageMax": 6,
+  "ageMin": 3,
+  "ageMax": 4,
   "difficulty": 2,
   "skills": [
     "counting",
@@ -21,6 +21,7 @@
     "food.strawberry"
   ],
   "params": {
+    "guided": false,
     "rounds": [
       {
         "asset": "food.strawberry",

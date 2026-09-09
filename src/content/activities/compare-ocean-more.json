@@ -6,7 +6,7 @@
   "titleKey": "act.compare-ocean-more",
   "category": "numbers",
   "ageMin": 3,
-  "ageMax": 5,
+  "ageMax": 4,
   "difficulty": 2,
   "skills": ["number-sense", "visual-discrimination"],
   "themes": ["ocean"],

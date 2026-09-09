@@ -2,6 +2,7 @@ import { z } from 'zod';
 import type { EngineSchema } from '../types';
 const ingredient = z.object({ asset: z.string().min(1), count: z.number().int().min(1).max(5) });
 export const shoppingParams = z.object({
+  rememberList: z.boolean().default(false),
   shelf: z.array(z.string().min(1)).min(3).max(6),
   orders: z.array(z.object({ title: z.string().min(1), items: z.array(ingredient).min(2).max(3) })).min(2).max(5),
 }).superRefine((p, ctx) => {

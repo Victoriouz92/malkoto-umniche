@@ -8,6 +8,7 @@ import type { EngineSchema } from '../types';
  * най-важната връзка в ранната математика.
  */
 export const countingParams = z.object({
+  guided: z.boolean().default(true),
   rounds: z
     .array(
       z.object({

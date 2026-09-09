@@ -1,0 +1,71 @@
+{
+  "id": "vehicle-rescue-plans",
+  "schemaVersion": 1,
+  "engine": "semantic-choice",
+  "mechanic": "m102",
+  "titleKey": "act.vehicle-rescue-plans",
+  "category": "vehicles",
+  "ageMin": 5,
+  "ageMax": 5,
+  "difficulty": 4,
+  "skills": [
+    "everyday-knowledge",
+    "vocabulary",
+    "logic"
+  ],
+  "themes": [
+    "vehicles",
+    "city",
+    "farm"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "vehicle.truck",
+    "vehicle.car",
+    "vehicle.bus",
+    "vehicle.airplane",
+    "vehicle.tractor",
+    "vehicle.train"
+  ],
+  "params": {
+    "rounds": [
+      {
+        "prompt": "Трябва да пренесем много тежки кашони по пътя. Какво ще изпратим?",
+        "choices": [
+          "vehicle.truck",
+          "vehicle.car",
+          "vehicle.bus"
+        ],
+        "answer": "vehicle.truck",
+        "explanation": "Камионът има място за тежък товар."
+      },
+      {
+        "prompt": "Пътниците трябва да стигнат бързо до далечна страна отвъд морето. С какво?",
+        "choices": [
+          "vehicle.airplane",
+          "vehicle.tractor",
+          "vehicle.train"
+        ],
+        "answer": "vehicle.airplane",
+        "explanation": "Самолетът може да прелети над морето."
+      },
+      {
+        "prompt": "Цялата детска група тръгва на екскурзия по шосето. Кое ще побере всички?",
+        "choices": [
+          "vehicle.bus",
+          "vehicle.car",
+          "vehicle.tractor"
+        ],
+        "answer": "vehicle.bus",
+        "explanation": "Автобусът има много места за пътници."
+      }
+    ]
+  },
+  "parentNoteKey": "note.vehicle-rescue-plans",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

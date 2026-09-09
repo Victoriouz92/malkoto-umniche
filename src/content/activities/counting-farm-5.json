@@ -6,13 +6,14 @@
   "titleKey": "act.counting-farm-5",
   "category": "numbers",
   "ageMin": 3,
-  "ageMax": 5,
+  "ageMax": 4,
   "difficulty": 1,
   "skills": ["counting", "number-sense"],
   "themes": ["farm"],
   "durationSec": 75,
   "assets": ["animal.duck", "animal.sheep", "animal.cow"],
   "params": {
+    "guided": false,
     "rounds": [
       {
         "asset": "animal.duck",

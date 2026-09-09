@@ -6,7 +6,7 @@
   "titleKey": "act.puzzle-farm-3",
   "category": "puzzles",
   "ageMin": 2,
-  "ageMax": 4,
+  "ageMax": 3,
   "difficulty": 1,
   "skills": ["visual-discrimination", "spatial-reasoning", "fine-motor"],
   "themes": ["shapes"],

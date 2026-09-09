@@ -1,0 +1,48 @@
+{
+  "id": "memory-missing-forest",
+  "schemaVersion": 1,
+  "engine": "memory",
+  "mechanic": "m010",
+  "titleKey": "act.memory-missing-forest",
+  "category": "memory",
+  "ageMin": 5,
+  "ageMax": 5,
+  "difficulty": 4,
+  "skills": [
+    "visual-memory",
+    "working-memory",
+    "sustained-attention"
+  ],
+  "themes": [
+    "forest"
+  ],
+  "durationSec": 150,
+  "assets": [
+    "animal.fox",
+    "animal.owl",
+    "animal.rabbit",
+    "animal.bear",
+    "animal.squirrel",
+    "animal.hedgehog"
+  ],
+  "params": {
+    "mode": "missing",
+    "length": 5,
+    "items": [
+      "animal.fox",
+      "animal.owl",
+      "animal.rabbit",
+      "animal.bear",
+      "animal.squirrel",
+      "animal.hedgehog"
+    ],
+    "flipBackMs": 1600
+  },
+  "parentNoteKey": "note.memory-missing-forest",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

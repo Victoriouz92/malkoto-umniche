@@ -6,13 +6,14 @@
   "titleKey": "act.counting-food-5",
   "category": "numbers",
   "ageMin": 3,
-  "ageMax": 5,
+  "ageMax": 4,
   "difficulty": 2,
   "skills": ["counting", "number-sense"],
   "themes": ["food"],
   "durationSec": 75,
   "assets": ["food.apple", "food.strawberry", "food.grapes"],
   "params": {
+    "guided": false,
     "rounds": [
       {
         "asset": "food.grapes",

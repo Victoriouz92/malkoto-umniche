@@ -3,7 +3,7 @@ import type { Category } from './schema/constants';
 /** Ownership follows the learning task, never the decorative animal or object. */
 export const CATEGORY_IDENTITY: Record<Category, { name: string; purpose: string }> = {
   puzzles: { name: 'Клуб на откривателите', purpose: 'Търсим, свързваме и разгадаваме логически загадки.' },
-  memory: { name: 'Малки майстори на паметта', purpose: 'Запомняме скрити картинки и откриваме техните двойки.' },
+  memory: { name: 'Малки майстори на паметта', purpose: 'Откриваме двойки, помним редици и разгадаваме какво се е скрило.' },
   numbers: { name: 'Лаборатория за числа', purpose: 'Броим, сравняваме количества и откриваме как се събират.' },
   letters: { name: 'Приключения с буквите', purpose: 'Разпознаваме букви, свързваме ги със звукове и строим думи.' },
   colors: { name: 'Ателие на въображението', purpose: 'Рисуваме, оцветяваме и оставяме своя цветна следа.' },
@@ -30,8 +30,9 @@ export function categoryOwner(engine: string, params: unknown): Category | undef
 }
 
 export function sameSessionFamily(
-  first: { category: string; engine: string },
-  next: { category: string; engine: string },
+  first: { category: string; engine: string; params?: Record<string, unknown> },
+  next: { category: string; engine: string; params?: Record<string, unknown> },
 ): boolean {
-  return first.category === next.category && first.engine === next.engine;
+  return first.category === next.category && first.engine === next.engine &&
+    first.params?.mode === next.params?.mode;
 }

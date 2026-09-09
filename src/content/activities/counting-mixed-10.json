@@ -23,6 +23,7 @@
     "nature.flower"
   ],
   "params": {
+    "guided": false,
     "rounds": [
       {
         "asset": "animal.chicken",

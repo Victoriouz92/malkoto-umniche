@@ -6,7 +6,7 @@
   "titleKey": "act.maze-forest-4",
   "category": "puzzles",
   "ageMin": 4,
-  "ageMax": 6,
+  "ageMax": 4,
   "difficulty": 2,
   "skills": ["spatial-reasoning", "problem-solving", "fine-motor", "sustained-attention"],
   "themes": ["garden"],

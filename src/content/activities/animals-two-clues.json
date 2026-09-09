@@ -1,0 +1,74 @@
+{
+  "id": "animals-two-clues",
+  "schemaVersion": 1,
+  "engine": "semantic-choice",
+  "mechanic": "m102",
+  "titleKey": "act.animals-two-clues",
+  "category": "animals",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 5,
+  "skills": [
+    "logic",
+    "everyday-knowledge",
+    "vocabulary"
+  ],
+  "themes": [
+    "forest"
+  ],
+  "durationSec": 120,
+  "assets": [
+    "animal.whale",
+    "animal.fish",
+    "animal.owl",
+    "animal.rabbit",
+    "animal.bear",
+    "animal.duck",
+    "animal.chicken",
+    "animal.frog"
+  ],
+  "params": {
+    "rounds": [
+      {
+        "prompt": "Живее във водата, но не е риба. Диша въздух. Кой е?",
+        "choices": [
+          "animal.whale",
+          "animal.fish",
+          "animal.owl",
+          "animal.rabbit"
+        ],
+        "answer": "animal.whale",
+        "explanation": "Китът живее във водата, но излиза да диша въздух."
+      },
+      {
+        "prompt": "Има козина и дълги уши. Кой е?",
+        "choices": [
+          "animal.rabbit",
+          "animal.bear",
+          "animal.owl",
+          "animal.fish"
+        ],
+        "answer": "animal.rabbit",
+        "explanation": "Заекът има козина и дълги уши."
+      },
+      {
+        "prompt": "Има пера, може да плува и казва „квак“. Кой е?",
+        "choices": [
+          "animal.duck",
+          "animal.chicken",
+          "animal.frog",
+          "animal.owl"
+        ],
+        "answer": "animal.duck",
+        "explanation": "Патицата има пера и плува. Жабата няма пера."
+      }
+    ]
+  },
+  "parentNoteKey": "note.animals-two-clues",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

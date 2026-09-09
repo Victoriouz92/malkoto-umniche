@@ -6,7 +6,7 @@
   "titleKey": "act.memory-fruit-10",
   "category": "memory",
   "ageMin": 5,
-  "ageMax": 6,
+  "ageMax": 5,
   "difficulty": 4,
   "skills": [
     "visual-memory",

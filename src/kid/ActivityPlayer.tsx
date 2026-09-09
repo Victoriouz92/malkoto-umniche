@@ -170,6 +170,10 @@ function ActivityScreen() {
   const series = useMemo<SeriesRound[]>(() => {
     if (!activity) return [];
     const desiredRounds = SESSION_ROUNDS_BY_ENGINE[activity.engine] ?? 1;
+    // Recall games contain three complete tasks; do not append pair-matching rounds.
+    if (activity.engine === 'memory' && activity.params.mode && activity.params.mode !== 'pairs') {
+      return [{ activity, variant: pass }];
+    }
     if (desiredRounds === 1) return [{ activity, variant: pass }];
 
     /**

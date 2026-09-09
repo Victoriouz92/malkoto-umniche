@@ -78,7 +78,7 @@ export function CountingEngine({
   };
 
   const answer = (value: number) => {
-    if (answered !== null || counted.length < round.count) return;
+    if (answered !== null || (params.guided && counted.length < round.count)) return;
     attempts.current += 1;
 
     if (value !== round.count) {
@@ -132,9 +132,9 @@ export function CountingEngine({
         ))}
       </div>
 
-      <output className={s.tally} aria-live="polite">
+      {params.guided && <output className={s.tally} aria-live="polite">
         {counted.length > 0 ? counted.length : ''}
-      </output>
+      </output>}
 
       <div className={s.choices}>
         {choices.map((value) => (
@@ -143,19 +143,19 @@ export function CountingEngine({
             type="button"
             className={cx(
               s.numeral,
-              counted.length < round.count && s.numeralLocked,
+              params.guided && counted.length < round.count && s.numeralLocked,
               answered === value && s.numeralRight,
             )}
-            disabled={counted.length < round.count}
+            disabled={params.guided && counted.length < round.count}
             onClick={() => answer(value)}
           >
             {value}
           </button>
         ))}
       </div>
-      {counted.length < round.count ? (
+      {params.guided && counted.length < round.count ? (
         <p className={s.countHint}>Докосни всеки предмет, докато броиш.</p>
-      ) : null}
+      ) : <p className={s.countHint}>Колко са общо? Можеш да отбелязваш предметите, докато броиш.</p>}
     </div>
   );
 }

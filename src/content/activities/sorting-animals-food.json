@@ -6,7 +6,7 @@
   "titleKey": "act.sorting-animals-food",
   "category": "animals",
   "ageMin": 3,
-  "ageMax": 5,
+  "ageMax": 3,
   "difficulty": 1,
   "skills": ["classification", "visual-discrimination"],
   "themes": ["farm", "food"],

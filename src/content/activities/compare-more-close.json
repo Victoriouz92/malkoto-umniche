@@ -6,7 +6,7 @@
   "titleKey": "act.compare-more-close",
   "category": "numbers",
   "ageMin": 5,
-  "ageMax": 6,
+  "ageMax": 5,
   "difficulty": 3,
   "skills": [
     "number-sense",
