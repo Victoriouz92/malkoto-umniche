@@ -154,6 +154,41 @@
   padding: 0;
 }
 .support p { color: #526862; font-size: 1.1rem; line-height: 1.65; }
+.contactButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 14px 20px 14px 14px;
+  color: #1d665f;
+  background: rgba(255, 255, 255, .82);
+  border: 1px solid rgba(255, 255, 255, .94);
+  border-radius: 20px;
+  box-shadow: 0 12px 34px rgba(31, 100, 92, .14);
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.contactButton:hover {
+  background: #fff;
+  box-shadow: 0 16px 38px rgba(31, 100, 92, .2);
+  transform: translateY(-2px);
+}
+.contactButton:focus-visible { outline: 4px solid rgba(230, 96, 82, .34); outline-offset: 4px; }
+.contactIcon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: #fff;
+  background: #287e76;
+  border-radius: 15px;
+  font-size: 1.5rem;
+  box-shadow: 0 6px 16px rgba(31, 100, 92, .23);
+}
+.contactButton > span:last-child { display: grid; gap: 2px; text-align: left; }
+.contactButton small { color: #617b75; font-size: .78rem; font-weight: 800; }
+.contactButton strong { font-size: clamp(1rem, 2vw, 1.15rem); overflow-wrap: anywhere; }
 .footer {
   position: relative;
   display: flex;
@@ -203,6 +238,7 @@
   .supportVisual { inset: 0 0 auto; height: 560px; }
   .supportVisual img { object-position: 72% center; }
   .supportCopy { width: 100%; padding: 0; }
+  .contactButton { margin-inline: auto; }
   .footer { flex-direction: column; text-align: center; }
   .footerBrand { flex-direction: column; }
 }

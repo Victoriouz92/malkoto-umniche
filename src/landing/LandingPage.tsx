@@ -32,7 +32,7 @@ export function LandingPage() {
         <nav className={s.nav} aria-label="Основна навигация">
           <button className={s.navLink} type="button" onClick={() => scrollTo('games')}>Игри</button>
           <button className={s.navLink} type="button" onClick={() => scrollTo('parents')}>За родители</button>
-          <button className={s.navLink} type="button" onClick={() => scrollTo('support')}>Подкрепи ни</button>
+          <button className={s.navLink} type="button" onClick={() => scrollTo('support')}>Контакт</button>
           <button className={s.loginButton} type="button" onClick={() => navigate('/parent')}>Вход</button>
         </nav>
       </header>
@@ -92,9 +92,23 @@ export function LandingPage() {
 
       <section className={s.support} id="support">
         <div className={s.supportCopy}>
-          <span className={s.kicker}>Проект с кауза</span>
-          <h2>Помогнете ни да създаваме още безплатни игри на български</h2>
-          <p>„Малкото Умниче“ няма платени нива. Скоро тук ще добавим доброволен начин за подкрепа на развитието.</p>
+          <span className={s.kicker}>Нека го развиваме заедно</span>
+          <h2>Ще се радваме да ни пишете</h2>
+          <p>
+            Ако имате идея, предложение, забележка или просто искате да ни подкрепите,
+            можете да се свържете с нас.
+          </p>
+          <a
+            className={s.contactButton}
+            href="mailto:support@vvlabs.eu?subject=%D0%9C%D0%B0%D0%BB%D0%BA%D0%BE%D1%82%D0%BE%20%D0%A3%D0%BC%D0%BD%D0%B8%D1%87%D0%B5"
+            aria-label="Изпратете имейл до support@vvlabs.eu"
+          >
+            <span className={s.contactIcon} aria-hidden="true">✉</span>
+            <span>
+              <small>Пишете ни на</small>
+              <strong>support@vvlabs.eu</strong>
+            </span>
+          </a>
         </div>
         <div className={s.supportVisual}>
           <img src="/slide-letters-wide.png" alt="Горски животни играят с големи цветни букви" />
