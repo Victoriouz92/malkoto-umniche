@@ -18,7 +18,7 @@ export function LandingPage() {
   const profile = useApp(activeProfile);
   const start = () => navigate(profile ? '/kid' : '/parent');
   const scrollTo = (id: string) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 
   return (
     <main className={s.page}>
@@ -38,7 +38,7 @@ export function LandingPage() {
       </header>
 
       <section className={s.hero}>
-        <img src="/hero-malkoto-umniche.png" alt="Весела червена панда играе с пъзел и форми" />
+        <img src="/optimized/hero-malkoto-umniche-1600.webp" srcSet="/optimized/hero-malkoto-umniche-800.webp 800w, /optimized/hero-malkoto-umniche-1600.webp 1536w" sizes="100vw" width="1536" height="1024" fetchPriority="high" alt="Весела червена панда играе с пъзел и форми" />
         <div className={s.heroCopy}>
           <span className={s.eyebrow}>За деца от 2 до 6 години</span>
           <h1>Малки игри.<br /><em>Големи открития.</em></h1>
@@ -55,7 +55,7 @@ export function LandingPage() {
 
       <section className={s.section} id="games">
         <div className={s.slideVisual}>
-          <img src="/slide-numbers-wide.png" alt="Горски животни край водопад с цветни числа" />
+          <img src="/optimized/slide-numbers-wide-1600.webp" srcSet="/optimized/slide-numbers-wide-800.webp 800w, /optimized/slide-numbers-wide-1600.webp 1600w" sizes="100vw" width="1672" height="941" loading="lazy" decoding="async" alt="Горски животни край водопад с цветни числа" />
         </div>
         <div className={s.slideContent}>
           <span className={s.kicker}>Избираме, играем, учим</span>
@@ -75,7 +75,7 @@ export function LandingPage() {
 
       <section className={s.parents} id="parents">
         <div className={s.parentVisual}>
-          <img src="/slide-reading-wide.png" alt="Горски приятели четат книга заедно" />
+          <img src="/optimized/slide-reading-wide-1600.webp" srcSet="/optimized/slide-reading-wide-800.webp 800w, /optimized/slide-reading-wide-1600.webp 1600w" sizes="100vw" width="1672" height="941" loading="lazy" decoding="async" alt="Горски приятели четат книга заедно" />
         </div>
         <div className={s.parentContent}>
           <div>
@@ -111,7 +111,7 @@ export function LandingPage() {
           </a>
         </div>
         <div className={s.supportVisual}>
-          <img src="/slide-letters-wide.png" alt="Горски животни играят с големи цветни букви" />
+          <img src="/optimized/slide-letters-wide-1600.webp" srcSet="/optimized/slide-letters-wide-800.webp 800w, /optimized/slide-letters-wide-1600.webp 1600w" sizes="100vw" width="1672" height="941" loading="lazy" decoding="async" alt="Горски животни играят с големи цветни букви" />
         </div>
       </section>
 

@@ -20,22 +20,17 @@ const UNKNOWN_LEVEL = 0.5;
 /**
  * Превръща резултата в оценка 0–1.
  *
- * Точността тежи повече от бързината. Дете, което е решило всичко вярно, но
- * бавно, е разбрало задачата — а разбирането е целта, не скоростта.
+ * Оценяваме точност и необходима помощ, никога скоростта.
  */
-export function scoreFromResult(result: ActivityResult, expectedSec: number): number {
+export function scoreFromResult(result: ActivityResult): number {
   if (!result.completed) return 0;
 
   const accuracy = result.attempts > 0 ? result.correct / result.attempts : 0;
 
-  const actualSec = result.durationMs / 1000;
-  // Под очакваното време = 1; двойно над него = 0. Плавно между тях.
-  const pace = Math.max(0, Math.min(1, 2 - actualSec / Math.max(1, expectedSec)));
-
   // Подсказките не са провал, но показват, че задачата е била на ръба.
   const hintPenalty = Math.min(0.3, result.hintsUsed * 0.1);
 
-  return Math.max(0, Math.min(1, accuracy * 0.7 + pace * 0.3 - hintPenalty));
+  return Math.max(0, Math.min(1, accuracy - hintPenalty));
 }
 
 /** Средното ниво на детето по дадените умения, 0–1. */

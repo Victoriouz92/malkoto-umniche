@@ -263,10 +263,6 @@ function ActivityScreen() {
     }, ROUND_BREAK_MS);
     return () => window.clearTimeout(id);
   }, [pendingRound]);
-  const expectedDurationSec = series.reduce(
-    (total, entry) => total + entry.activity.durationSec,
-    0,
-  );
 
   /** Мързеливият компонент се решава веднъж, по id на двигателя. */
   const Engine = useMemo(() => {
@@ -295,7 +291,9 @@ function ActivityScreen() {
       if (!activity) return;
       setResult(r);
 
-      recordCompletion(activity.id, activity.skills, scoreFromResult(r, expectedDurationSec));
+      // Art earns completion and stickers, but is not a cognitive skill test.
+      const assessedSkills = ['coloring', 'drawing'].includes(activity.engine) ? [] : activity.skills;
+      recordCompletion(activity.id, assessedSkills, scoreFromResult(r));
 
       /**
        * Стикерът се дава по АКТИВНОСТ, не по картинка.
@@ -313,7 +311,7 @@ function ActivityScreen() {
         playEffect('sticker');
       }
     },
-    [activity, expectedDurationSec, recordCompletion, awardSticker],
+    [activity, recordCompletion, awardSticker],
   );
 
   const finishRound = useCallback(

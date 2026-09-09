@@ -19,7 +19,9 @@ export default defineConfig({
 
       // Приложението трябва да работи изцяло офлайн: всичко се precache-ва.
       workbox: {
-        globPatterns: ['**/*.{js,css,html,png,svg,woff2,json,mp3,ogg}'],
+        globPatterns: ['**/*.{js,css,html,png,webp,svg,woff2,json,mp3,ogg}'],
+        // Originals remain available for social previews, but not in offline downloads.
+        globIgnores: ['hero-malkoto-umniche.png', 'slide-*-wide.png'],
         // Активностите и графиката растат; вдигаме тавана от 2MB.
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
         cleanupOutdatedCaches: true,

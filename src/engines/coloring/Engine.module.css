@@ -1,4 +1,5 @@
 .canvas {
+  position: relative;
   width: min(82vw, 30rem);
   aspect-ratio: 1;
   background: var(--c-surface);
@@ -7,6 +8,23 @@
   padding: var(--sp-4);
   display: grid;
   place-items: center;
+}
+
+.markerLayer {
+  position: absolute;
+  inset: var(--sp-4);
+  pointer-events: none;
+}
+.marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: 3px solid #175f58;
+  border-radius: 50%;
+  background: white;
+  color: #175f58;
+  padding: 2px 7px;
+  font-size: 14px;
+  font-weight: 900;
 }
 
 .canvas canvas {

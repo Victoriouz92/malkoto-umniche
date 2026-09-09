@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://umniche.vvlabs.eu/sitemap.xml

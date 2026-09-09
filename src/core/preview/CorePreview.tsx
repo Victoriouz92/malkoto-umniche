@@ -254,9 +254,9 @@ export function CorePreview() {
             { label: 'Излязло по средата', r: { completed: false, durationMs: 20_000, correct: 2, attempts: 3, hintsUsed: 0 } },
           ].map(({ label, r }) => (
             <Cluster key={label} gap={3} center>
-              <ProgressRing value={scoreFromResult(r, 60)} size={44} thickness={6} />
+              <ProgressRing value={scoreFromResult(r)} size={44} thickness={6} />
               <span style={{ fontSize: 'var(--fs-sm)' }}>
-                {label} — <strong>{scoreFromResult(r, 60).toFixed(2)}</strong>
+                {label} — <strong>{scoreFromResult(r).toFixed(2)}</strong>
               </span>
             </Cluster>
           ))}

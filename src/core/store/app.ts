@@ -179,7 +179,7 @@ export const useApp = create<AppStore>()(
 
             const skillRatings = { ...p.skillRatings };
             for (const skill of skills) {
-              const previous = skillRatings[skill] ?? 0.5;
+              const previous = skillRatings[skill] ?? Math.max(0, Math.min(1, (p.age - 2) / 4));
               skillRatings[skill] = previous + (score - previous) * LEARNING_RATE;
             }
 

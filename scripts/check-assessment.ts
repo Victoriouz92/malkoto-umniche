@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import { scoreFromResult } from '../src/core/adaptive/difficulty';
+const result = { completed: true, attempts: 8, correct: 8, durationMs: 1000, hintsUsed: 0 };
+assert.equal(scoreFromResult(result), 1);
+assert.equal(scoreFromResult({ ...result, durationMs: 600000 }), 1, 'No penalty for slow play');
+assert.equal(scoreFromResult({ ...result, attempts: 0, correct: 0 }), 0);
+assert.equal(scoreFromResult({ ...result, completed: false }), 0);
+assert.equal(scoreFromResult({ ...result, correct: 4 }), 0.5);
+assert.ok(scoreFromResult({ ...result, hintsUsed: 1 }) < 1);
+console.log('✔ Assessment: accuracy and assistance, no speed reward.');

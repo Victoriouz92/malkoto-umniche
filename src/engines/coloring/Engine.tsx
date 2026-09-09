@@ -44,12 +44,15 @@ export function ColoringEngine({
   const [ready, setReady] = useState(false);
   const [error, setError] = useState(false);
   const [revision, setRevision] = useState(0);
+  const [selectedRegion, setSelectedRegion] = useState(1);
+  const [keyboardMode, setKeyboardMode] = useState(false);
   const palette = [...new Set([...params.palette, ...CRAYONS])];
 
   useEffect(() => {
     let cancelled = false;
     setReady(false);
     setError(false);
+    setSelectedRegion(1);
     drawing.current = undefined;
     history.current = [];
     finished.current = false;
@@ -108,6 +111,21 @@ export function ColoringEngine({
     setRevision((v) => v + 1);
   }
 
+  function paintRegion(region: number) {
+    const model = drawing.current;
+    const canvas = canvasRef.current;
+    if (!ready || !model || !canvas || finished.current || region <= 0) return;
+    const color = getComputedStyle(canvas).getPropertyValue(`--crayon-${crayon}`).trim();
+    if (!color || model.colors.get(region) === color) return;
+    history.current.push({ region, previous: model.colors.get(region) });
+    renderRegion(region, color);
+    taps.current++;
+    api.sfx('drop');
+  }
+
+  const selectedPixels = drawing.current?.regions[selectedRegion - 1];
+  const marker = selectedPixels?.[Math.floor(selectedPixels.length / 2)];
+
   return (
     <div className={shared.stage}>
       <p className={s.instruction}>Избери цвят и докосни вътре в очертанията.</p>
@@ -132,24 +150,51 @@ export function ColoringEngine({
             if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) return;
             const region = model.labels[y * SIZE + x]!;
             if (region <= 0) return;
-            const color = getComputedStyle(event.currentTarget)
-              .getPropertyValue(`--crayon-${crayon}`)
-              .trim();
-            if (!color || model.colors.get(region) === color) return;
-            history.current.push({ region, previous: model.colors.get(region) });
-            renderRegion(region, color);
-            taps.current++;
-            api.sfx('drop');
+            setSelectedRegion(region);
+            paintRegion(region);
           }}
         />
+        {keyboardMode && marker !== undefined && (
+          <div className={s.markerLayer} aria-hidden="true">
+            <span
+              className={s.marker}
+              style={{
+                left: `${((marker % SIZE) / SIZE) * 100}%`,
+                top: `${(Math.floor(marker / SIZE) / SIZE) * 100}%`,
+              }}
+            >
+              {selectedRegion}
+            </span>
+          </div>
+        )}
       </div>
-      <div className={s.palette} role="radiogroup" aria-label={t('cat.colors')}>
+      <details onToggle={(event) => setKeyboardMode(event.currentTarget.open)}>
+        <summary>Оцветяване с клавиатура</summary>
+        <div className={s.actions}>
+          <label>
+            Зона{' '}
+            <select
+              value={selectedRegion}
+              onChange={(event) => setSelectedRegion(Number(event.target.value))}
+            >
+              {drawing.current?.regions.map((_, i) => (
+                <option key={i} value={i + 1}>
+                  Зона {i + 1}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button type="button" disabled={!ready} onClick={() => paintRegion(selectedRegion)}>
+            Оцвети избраната зона
+          </button>
+        </div>
+      </details>
+      <div className={s.palette} role="group" aria-label={t('cat.colors')}>
         {palette.map((name) => (
           <button
             key={name}
             type="button"
-            role="radio"
-            aria-checked={crayon === name}
+            aria-pressed={crayon === name}
             aria-label={COLOR_NAMES[name]}
             title={COLOR_NAMES[name]}
             className={cx(s.crayon, crayon === name && s.crayonOn)}
