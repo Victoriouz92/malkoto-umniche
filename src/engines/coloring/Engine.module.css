@@ -9,22 +9,43 @@
   place-items: center;
 }
 
-.canvas svg {
+.canvas canvas {
   width: 100%;
   height: 100%;
+  display: block;
+  cursor: crosshair;
 }
 
-/* Зоните са натискаеми; всичко останало от рисунката не е. */
-.canvas [data-region] {
+.instruction {
+  text-align: center;
+  margin: 0;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+.actions button {
+  padding: 0.8rem 1.3rem;
+  border: 2px solid #299d8f;
+  border-radius: 1.5rem;
+  background: var(--c-surface);
+  color: var(--c-ink);
+  font: inherit;
+  font-weight: 800;
   cursor: pointer;
-  transition: fill var(--dur-fast) var(--ease-out);
+}
+.actions button:disabled {
+  opacity: 0.45;
+  cursor: default;
 }
 
 .palette {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  gap: var(--tap-gap);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
   width: min(100%, 52rem);
   padding: var(--sp-2) var(--sp-3) var(--sp-4);
   overflow-x: auto;
@@ -39,9 +60,9 @@
 }
 
 .crayon {
-  flex: 0 0 var(--tap);
-  width: var(--tap);
-  height: var(--tap);
+  flex: 0 0 clamp(44px, 9vw, 64px);
+  width: clamp(44px, 9vw, 64px);
+  height: clamp(44px, 9vw, 64px);
   border-radius: var(--r-full);
   border: 4px solid var(--c-surface);
   box-shadow: var(--shadow-md);

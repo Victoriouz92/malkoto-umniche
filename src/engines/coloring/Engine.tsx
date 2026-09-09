@@ -1,129 +1,148 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { loadLineart } from '@/assets/registry';
 import { cx } from '@/design-system';
 import { t } from '@/i18n';
 import type { EngineProps } from '../types';
 import { CRAYONS, type ColoringParams, type Crayon } from './schema';
+import { findRegions } from './regions';
 import shared from '../shared/engine.module.css';
 import s from './Engine.module.css';
 
-/**
- * „Оцвети с тап“.
- *
- * Контурната рисунка се вгражда в документа, а не в `<img>`: само така
- * може да се пипа `fill` на отделна зона. Файловете идват от нашия build,
- * не от потребител.
- *
- * НЯМА правилен цвят. Активността приключва, когато всяка зона е била
- * оцветена поне веднъж — но детето може да продължи да я преоцветява
- * колкото иска.
- */
+const SIZE = 768;
+const COLOR_NAMES: Record<Crayon, string> = {
+  red: 'Червено',
+  orange: 'Оранжево',
+  yellow: 'Жълто',
+  green: 'Зелено',
+  teal: 'Тюркоазено',
+  blue: 'Синьо',
+  purple: 'Лилаво',
+  pink: 'Розово',
+  brown: 'Кафяво',
+  grey: 'Сиво',
+  black: 'Черно',
+};
+type Drawing = ReturnType<typeof findRegions> & {
+  original: ImageData;
+  colors: Map<number, string>;
+};
+
+/** Bucket fill uses visible closed outlines, never shared SVG colour groups. */
 export function ColoringEngine({
   params,
-  activity,
   api,
   onComplete,
   onProgress,
 }: EngineProps<ColoringParams>) {
-  const hostRef = useRef<HTMLDivElement>(null);
-  const [crayon, setCrayon] = useState<Crayon>(params.palette[0] ?? 'red');
-  const [ready, setReady] = useState(false);
-  const [touchedCount, setTouchedCount] = useState(0);
-
-  const touched = useRef(new Set<string>());
-  const totalRegions = useRef(0);
-  const startedAt = useRef(Date.now());
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const drawing = useRef<Drawing>();
+  const history = useRef<{ region: number; previous: string | undefined }[]>([]);
+  const started = useRef(Date.now());
   const taps = useRef(0);
   const finished = useRef(false);
-  const paletteLimit = activity.ageMin <= 2 ? 8 : 10;
-  const palette = [
-    ...new Set([
-      ...params.palette.filter((name) => name !== 'black'),
-      ...CRAYONS.filter((name) => name !== 'black' && !params.palette.includes(name)),
-    ]),
-  ].slice(0, paletteLimit - 1).concat('black' as const);
+  const [crayon, setCrayon] = useState<Crayon>(params.palette[0] ?? 'red');
+  const [ready, setReady] = useState(false);
+  const [error, setError] = useState(false);
+  const [revision, setRevision] = useState(0);
+  const palette = [...new Set([...params.palette, ...CRAYONS])];
 
   useEffect(() => {
     let cancelled = false;
-
-    void loadLineart(params.lineart).then((markup) => {
-      if (cancelled || !hostRef.current) return;
-      hostRef.current.innerHTML = markup;
-
-      const regions = hostRef.current.querySelectorAll<SVGElement>('[data-region]');
-      totalRegions.current = new Set([...regions].map((el) => el.dataset['region'] ?? '')).size;
-
+    setReady(false);
+    setError(false);
+    drawing.current = undefined;
+    history.current = [];
+    finished.current = false;
+    taps.current = 0;
+    started.current = Date.now();
+    void (async () => {
+      const markup = await loadLineart(params.lineart);
+      const img = new Image();
+      img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(markup.replace('<svg ', `<svg width="${SIZE}" height="${SIZE}" `))}`;
+      await img.decode();
+      if (cancelled) return;
+      const ctx = canvasRef.current?.getContext('2d');
+      if (!ctx) throw new Error('Canvas unavailable');
+      ctx.fillStyle = 'white'; // Neutral raster paper, independent of the UI theme.
+      ctx.fillRect(0, 0, SIZE, SIZE);
+      ctx.drawImage(img, 0, 0, SIZE, SIZE);
+      const original = ctx.getImageData(0, 0, SIZE, SIZE);
+      drawing.current = {
+        original,
+        ...findRegions(original.data, SIZE, SIZE),
+        colors: new Map(),
+      };
       setReady(true);
+      setRevision((v) => v + 1);
+    })().catch(() => {
+      if (!cancelled) setError(true);
     });
-
     return () => {
       cancelled = true;
     };
   }, [params.lineart]);
 
-  /**
-   * Един слушател върху контейнера вместо по един на зона.
-   *
-   * Зоната често е няколко пътя с едно име (двете колела например) —
-   * тапваш едното, оцветяват се и двете.
-   */
-  const paint = useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      const target = event.target as Element | null;
-      const region = target?.closest<SVGElement>('[data-region]')?.dataset['region'];
-      if (!region || !hostRef.current) return;
-
-      const color = `var(--crayon-${crayon})`;
-      for (const el of hostRef.current.querySelectorAll<SVGElement>(
-        `[data-region="${region}"]`,
-      )) {
-        el.style.fill = color;
-      }
-
-      taps.current += 1;
-      api.sfx('drop');
-
-      if (!touched.current.has(region)) {
-        touched.current.add(region);
-        setTouchedCount(touched.current.size);
-      }
-    },
-    [crayon, api],
-  );
-
   useEffect(() => {
-    if (totalRegions.current === 0) return;
-    onProgress(touchedCount / totalRegions.current);
-  }, [touchedCount, onProgress]);
+    const model = drawing.current;
+    onProgress(model?.regions.length ? model.colors.size / model.regions.length : 0);
+  }, [revision, onProgress]);
 
-  useEffect(() => {
-    if (finished.current || totalRegions.current === 0) return;
-    if (touchedCount < totalRegions.current) return;
-
-    finished.current = true;
-    api.sfx('complete');
-    api.celebrate();
-
-    onComplete({
-      completed: true,
-      durationMs: Date.now() - startedAt.current,
-      // Няма верни и грешни ходове — всеки тап е успех.
-      correct: taps.current,
-      attempts: taps.current,
-      hintsUsed: 0,
-    });
-  }, [touchedCount, api, onComplete]);
+  function renderRegion(region: number, color?: string) {
+    const model = drawing.current;
+    const ctx = canvasRef.current?.getContext('2d');
+    if (!model || !ctx) return;
+    const swatch = document.createElement('canvas').getContext('2d')!;
+    swatch.fillStyle = color ?? 'white';
+    swatch.fillRect(0, 0, 1, 1);
+    const rgb = swatch.getImageData(0, 0, 1, 1).data;
+    const frame = ctx.getImageData(0, 0, SIZE, SIZE);
+    for (const p of model.regions[region - 1] ?? []) {
+      for (let c = 0; c < 3; c++) {
+        // Preserve original edge shading, even when repainting a black region.
+        frame.data[p * 4 + c] = Math.round((model.original.data[p * 4 + c]! * rgb[c]!) / 255);
+      }
+    }
+    ctx.putImageData(frame, 0, 0);
+    if (color) model.colors.set(region, color);
+    else model.colors.delete(region);
+    setRevision((v) => v + 1);
+  }
 
   return (
     <div className={shared.stage}>
-      <div
-        ref={hostRef}
-        className={s.canvas}
-        onPointerDown={paint}
-        role="img"
-        aria-label={ready ? t('cat.colors') : t('sys.loading')}
-      />
-
+      <p className={s.instruction}>Избери цвят и докосни вътре в очертанията.</p>
+      {error && <p role="alert">Рисунката не се зареди. Отвори играта отново.</p>}
+      <div className={s.canvas}>
+        <canvas
+          ref={canvasRef}
+          width={SIZE}
+          height={SIZE}
+          role="img"
+          aria-label={
+            ready
+              ? 'Рисунка за оцветяване — докосни отделна затворена област'
+              : t('sys.loading')
+          }
+          onClick={(event) => {
+            const model = drawing.current;
+            if (!model || !ready || finished.current) return;
+            const box = event.currentTarget.getBoundingClientRect();
+            const x = Math.floor(((event.clientX - box.left) * SIZE) / box.width);
+            const y = Math.floor(((event.clientY - box.top) * SIZE) / box.height);
+            if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) return;
+            const region = model.labels[y * SIZE + x]!;
+            if (region <= 0) return;
+            const color = getComputedStyle(event.currentTarget)
+              .getPropertyValue(`--crayon-${crayon}`)
+              .trim();
+            if (!color || model.colors.get(region) === color) return;
+            history.current.push({ region, previous: model.colors.get(region) });
+            renderRegion(region, color);
+            taps.current++;
+            api.sfx('drop');
+          }}
+        />
+      </div>
       <div className={s.palette} role="radiogroup" aria-label={t('cat.colors')}>
         {palette.map((name) => (
           <button
@@ -131,7 +150,8 @@ export function ColoringEngine({
             type="button"
             role="radio"
             aria-checked={crayon === name}
-            aria-label={name}
+            aria-label={COLOR_NAMES[name]}
+            title={COLOR_NAMES[name]}
             className={cx(s.crayon, crayon === name && s.crayonOn)}
             style={{ background: `var(--crayon-${name})` }}
             onClick={() => {
@@ -140,6 +160,37 @@ export function ColoringEngine({
             }}
           />
         ))}
+      </div>
+      <div className={s.actions}>
+        <button
+          type="button"
+          disabled={!history.current.length}
+          onClick={() => {
+            const last = history.current.pop();
+            if (last) renderRegion(last.region, last.previous);
+          }}
+        >
+          Върни последния цвят
+        </button>
+        <button
+          type="button"
+          disabled={!drawing.current?.colors.size}
+          onClick={() => {
+            if (finished.current) return;
+            finished.current = true;
+            api.sfx('complete');
+            api.celebrate();
+            onComplete({
+              completed: true,
+              durationMs: Date.now() - started.current,
+              correct: taps.current,
+              attempts: taps.current,
+              hintsUsed: 0,
+            });
+          }}
+        >
+          Готово!
+        </button>
       </div>
     </div>
   );
