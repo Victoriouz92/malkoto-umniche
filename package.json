@@ -22,7 +22,7 @@
     "check:audio": "node scripts/check-audio.mjs",
     "check:ages": "node scripts/check-age-fit.mjs && tsx scripts/check-age-progression.ts",
     "check:covers": "tsx scripts/check-covers.ts",
-    "check:practical": "tsx scripts/check-practical-games.ts && tsx scripts/check-coloring.ts && tsx scripts/check-assessment.ts && tsx scripts/check-route-program.ts",
+    "check:practical": "tsx scripts/check-practical-games.ts && tsx scripts/check-coloring.ts && tsx scripts/check-assessment.ts && tsx scripts/check-route-program.ts && tsx scripts/check-rhythm.ts",
     "check:categories": "tsx scripts/check-category-identity.ts",
     "build:mechanics": "node scripts/build-mechanics-index.mjs",
     "check": "npm run typecheck && npm run lint && npm run validate:content && npm run check:variants && npm run check:assets && npm run check:mechanics && npm run check:audio && npm run check:ages && npm run check:covers && npm run check:practical && npm run check:categories"

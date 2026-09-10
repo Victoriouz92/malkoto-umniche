@@ -1,0 +1,32 @@
+{
+  "id": "rhythm-studio-6",
+  "schemaVersion": 1,
+  "engine": "rhythm",
+  "mechanic": "m106",
+  "titleKey": "act.rhythm-studio-6",
+  "category": "memory",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 4,
+  "skills": ["sequencing", "pattern-recognition"],
+  "themes": ["music"],
+  "durationSec": 180,
+  "assets": [],
+  "params": {
+    "choices": ["drum", "bell", "rest"],
+    "guided": false,
+    "beatMs": 650,
+    "rounds": [
+      ["drum", "bell", "rest", "drum", "bell", "rest", "drum", "bell"],
+      ["bell", "rest", "drum", "drum", "bell", "rest", "drum", "bell"],
+      ["drum", "rest", "bell", "bell", "rest", "drum", "bell", "drum"]
+    ]
+  },
+  "parentNoteKey": "note.rhythm-studio-6",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

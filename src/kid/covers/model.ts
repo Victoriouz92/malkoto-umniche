@@ -38,6 +38,13 @@ export function describeCover(source: CoverSource, palette: number): CoverModel 
     put(picture(v), 150 + (i - (values.length - 1) / 2) * (size + 10), y, size));
 
   switch (source.engine) {
+    case 'rhythm': {
+      const beats = array(array(p.rounds)[0]);
+      put(text('♫'), 150, 46, 48);
+      beats.forEach((beat, i) => put(text(beat === 'drum' ? '●' : beat === 'bell' ? '◆' : '—'), 150 + (i - (beats.length - 1) / 2) * 29, 106, 24));
+      model.caption = `${beats.length} стъпки · звуци${array(p.choices).includes('rest') ? ' и паузи' : ''}`;
+      break;
+    }
     case 'route-program': {
       const mission = record(array(p.missions)[0]);
       put(asset('vehicle.train'), 65, 80, 65);

@@ -39,6 +39,7 @@ const PLAY_TYPES: Record<string, string> = {
   'semantic-choice': 'Познай',
   shopping: 'Пазаруване', 'road-builder': 'Построй път',
   'route-program': 'Програмирай маршрут',
+  rhythm: 'Запомни и създай ритъм',
 };
 
 export function CategoryScreen() {

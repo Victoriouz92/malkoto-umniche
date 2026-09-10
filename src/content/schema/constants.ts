@@ -35,6 +35,7 @@ export const ENGINE_IDS = [
   'shopping',
   'road-builder',
   'route-program',
+  'rhythm',
 ] as const;
 
 export const SKILLS = [

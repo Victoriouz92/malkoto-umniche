@@ -1,0 +1,127 @@
+.stage {
+  --game-instruction: 1.1rem;
+  --game-heading: clamp(1.3rem, 3vw, 1.8rem);
+  gap: 12px;
+  max-width: 800px;
+  margin-inline: auto;
+}
+.badge {
+  margin: 0;
+  padding: 8px 20px;
+  border-radius: 30px;
+  background: #eee8fc;
+  color: #493778;
+  font-weight: 800;
+}
+.intro {
+  margin: 0;
+  font-size: 1rem;
+}
+.example {
+  width: 100%;
+  border-radius: 28px;
+  padding: 12px 8px;
+  background: linear-gradient(130deg, #eee6fc, #e3f4ef);
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+.beats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.beat {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  min-height: 64px;
+  border: 2px solid #b9add2;
+  border-radius: 16px;
+  background: #fffdfa;
+  color: #493778;
+  font: inherit;
+  font-size: 1.8rem;
+}
+.beat small {
+  font-size: 0.7rem;
+}
+.beat[data-selected='true'] {
+  border-color: #493778;
+  box-shadow: 0 0 0 2px #493778;
+}
+.beat[data-active='true'] {
+  background: #ffe8a9;
+  border-color: #805321;
+}
+.instruments,
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.instruments button {
+  display: grid;
+  place-items: center;
+  gap: 4px;
+  min-width: 86px;
+  min-height: 86px;
+  border: 2px solid #b9add2;
+  border-radius: 24px;
+  background: #fff1ce;
+  color: #44366d;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 800;
+  box-shadow: 0 4px 0 #d5c9a9;
+}
+.instruments span {
+  font-size: 1.7rem;
+}
+.hint {
+  min-height: 44px;
+  background: none;
+  border: none;
+  color: #44366d;
+  font: inherit;
+  font-size: 1rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.status {
+  min-height: 2.8em;
+  margin: 0;
+  font-size: 1rem;
+  max-width: 540px;
+}
+.stage button:focus-visible {
+  outline: 3px solid #23665f;
+  outline-offset: 4px;
+}
+.stage button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+@media (max-width: 500px) {
+  .stage {
+    gap: 12px;
+  }
+  .beat {
+    width: 52px;
+    min-height: 58px;
+  }
+  .example {
+    padding-block: 12px;
+  }
+}
+@media (max-width: 500px) {
+  .beats[data-long='true'] {
+    display: grid;
+    grid-template-columns: repeat(4, 52px);
+  }
+}

@@ -25,6 +25,7 @@ import { semanticChoiceSchema } from './semantic-choice/schema';
 import { shoppingSchema } from './shopping/schema';
 import { roadBuilderSchema } from './road-builder/schema';
 import { routeProgramSchema } from './route-program/schema';
+import { rhythmSchema } from './rhythm/schema';
 
 /**
  * Схемите на параметрите, по един запис за всеки двигател.
@@ -38,6 +39,7 @@ import { routeProgramSchema } from './route-program/schema';
  */
 const SCHEMAS: Partial<Record<EngineId, EngineSchema>> = {
   'route-program': routeProgramSchema,
+  rhythm: rhythmSchema,
   puzzle: puzzleSchema,
   memory: memorySchema,
   matching: matchingSchema,
