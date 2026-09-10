@@ -24,6 +24,7 @@ import { wordsSchema } from './words/schema';
 import { semanticChoiceSchema } from './semantic-choice/schema';
 import { shoppingSchema } from './shopping/schema';
 import { roadBuilderSchema } from './road-builder/schema';
+import { routeProgramSchema } from './route-program/schema';
 
 /**
  * Схемите на параметрите, по един запис за всеки двигател.
@@ -36,6 +37,7 @@ import { roadBuilderSchema } from './road-builder/schema';
  * пусне: по-добре червен build, отколкото бял екран пред детето.
  */
 const SCHEMAS: Partial<Record<EngineId, EngineSchema>> = {
+  'route-program': routeProgramSchema,
   puzzle: puzzleSchema,
   memory: memorySchema,
   matching: matchingSchema,

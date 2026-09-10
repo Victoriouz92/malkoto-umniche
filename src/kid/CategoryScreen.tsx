@@ -38,6 +38,7 @@ const PLAY_TYPES: Record<string, string> = {
   'connect-dots': 'Свържи точките', 'shape-builder': 'Строене', words: 'Думи',
   'semantic-choice': 'Познай',
   shopping: 'Пазаруване', 'road-builder': 'Построй път',
+  'route-program': 'Програмирай маршрут',
 };
 
 export function CategoryScreen() {

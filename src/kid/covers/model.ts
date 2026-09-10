@@ -38,6 +38,14 @@ export function describeCover(source: CoverSource, palette: number): CoverModel 
     put(picture(v), 150 + (i - (values.length - 1) / 2) * (size + 10), y, size));
 
   switch (source.engine) {
+    case 'route-program': {
+      const mission = record(array(p.missions)[0]);
+      put(asset('vehicle.train'), 65, 80, 65);
+      put(text(mission.stop === undefined ? '→ ↓ →' : '→ ★ ↑'), 178, 68, 27);
+      put(text('⚑'), 250, 110, 33);
+      model.caption = `Планирай маршрут · ${num(mission.size)} × ${num(mission.size)}`;
+      break;
+    }
     case 'shopping': {
       const order = record(array(p.orders)[0]);
       const items = array(order.items).map(record);

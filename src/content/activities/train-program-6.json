@@ -1,0 +1,72 @@
+{
+  "id": "train-program-6",
+  "schemaVersion": 1,
+  "engine": "route-program",
+  "mechanic": "m105",
+  "titleKey": "act.train-program-6",
+  "category": "vehicles",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 4,
+  "skills": [
+    "sequencing",
+    "spatial-reasoning",
+    "problem-solving"
+  ],
+  "themes": [
+    "vehicles",
+    "city"
+  ],
+  "durationSec": 180,
+  "assets": [
+    "vehicle.train"
+  ],
+  "params": {
+    "maxCommands": 14,
+    "missions": [
+      {
+        "size": 5,
+        "start": 20,
+        "goal": 4,
+        "stop": 12,
+        "blocks": [
+          6,
+          7,
+          16,
+          18
+        ]
+      },
+      {
+        "size": 5,
+        "start": 0,
+        "goal": 24,
+        "stop": 14,
+        "blocks": [
+          6,
+          7,
+          11,
+          17
+        ]
+      },
+      {
+        "size": 5,
+        "start": 24,
+        "goal": 0,
+        "stop": 10,
+        "blocks": [
+          7,
+          8,
+          12,
+          17
+        ]
+      }
+    ]
+  },
+  "parentNoteKey": "note.train-program-6",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

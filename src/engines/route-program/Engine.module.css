@@ -1,0 +1,93 @@
+.stage { --game-instruction: 1rem; gap: 12px; }
+.heading {
+  margin: 0;
+  font-weight: 900;
+}
+.legend {
+  margin: 0;
+  font-size: 1rem;
+  text-align: center;
+}
+.board {
+  width: min(78vw, 20rem);
+  display: grid;
+  gap: 5px;
+  padding: 12px;
+  border: 3px solid #8cbdb0;
+  border-radius: 24px;
+  background: #e5f5ee;
+  box-shadow: 0 8px 0 #c2ddd3;
+}
+.cell {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #fffdf4;
+  color: #145b51;
+  font-size: clamp(24px, 6vw, 40px);
+}
+.cell[data-blocked='true'] {
+  background: #556e68;
+  color: white;
+}
+.cell[data-current='true'] {
+  outline: 3px solid #16756b;
+}
+.commands,
+.controls,
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 38rem;
+}
+.commands {
+  min-height: 58px;
+  align-items: center;
+}
+.commands button,
+.controls button {
+  min-width: 48px;
+  min-height: 48px;
+  padding: 4px 10px;
+  background: #e0f1f6;
+  border: 2px solid #367789;
+  border-radius: 12px;
+  color: #194f61;
+  font: inherit;
+  font-size: 1.6rem;
+  font-weight: 900;
+}
+.commands small {
+  display: block;
+  font-size: 0.65rem;
+}
+.commands [data-active='true'] {
+  background: #ffe4a0;
+  border-color: #76510b;
+}
+.controls button:disabled {
+  opacity: 0.5;
+}
+.message {
+  min-height: 3em;
+  max-width: 35rem;
+  margin: 0;
+  text-align: center;
+  font-size: 1.1rem;
+}
+.hint {
+  text-align: center;
+  letter-spacing: 0.15em;
+}
+.mapText {
+  order: 10;
+  max-width: 35rem;
+  font-size: 1rem;
+}
+.mapText summary {
+  cursor: pointer;
+  padding: 10px;
+}
