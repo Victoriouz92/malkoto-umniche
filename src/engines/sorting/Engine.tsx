@@ -46,6 +46,15 @@ export function SortingEngine({
 
   const [placed, setPlaced] = useState<Record<string, string>>({});
   const [selected, setSelected] = useState<string | null>(null);
+  /**
+   * Кошница, тапната ПРЕДИ предмета.
+   *
+   * Детето не знае, че играта очаква определен ред. Ако първо посочи
+   * кошницата, а после предмета, това е същото намерение — и трябва да
+   * работи. Иначе тапът по кошницата не прави нищо и играта изглежда
+   * счупена.
+   */
+  const [armedBin, setArmedBin] = useState<string | null>(null);
   const [nudging, setNudging] = useState<string | null>(null);
 
   const startedAt = useRef(Date.now());
@@ -81,6 +90,7 @@ export function SortingEngine({
 
     attempts.current += 1;
     setSelected(null);
+    setArmedBin(null);
 
     if (binId === item.bin) {
       correct.current += 1;
@@ -133,7 +143,15 @@ export function SortingEngine({
               )}
               aria-label={assetLabel(item.asset)}
               aria-pressed={isSelected}
-              onClick={() => setSelected(item.key)}
+              onClick={() => {
+                // Кошницата вече е посочена? Значи ходът е завършен.
+                if (armedBin) {
+                  tryPlace(item.key, armedBin);
+                  return;
+                }
+                api.sfx('pick');
+                setSelected(item.key);
+              }}
             >
               <Asset id={item.asset} size="100%" />
             </button>
@@ -150,10 +168,21 @@ export function SortingEngine({
               key={bin.id}
               type="button"
               {...dropZone(bin.id)}
-              className={cx(s.zone, isOver(bin.id) && s.zoneOver, count > 0 && s.zoneFull)}
+              className={cx(
+                s.zone,
+                (isOver(bin.id) || armedBin === bin.id) && s.zoneOver,
+                count > 0 && s.zoneFull,
+              )}
               aria-label={`кошница: ${assetLabel(bin.asset)}`}
+              aria-pressed={armedBin === bin.id}
               onClick={() => {
-                if (selected) tryPlace(selected, bin.id);
+                if (selected) {
+                  tryPlace(selected, bin.id);
+                  return;
+                }
+                // Нищо не е избрано: кошницата чака предмет, вместо да мълчи.
+                api.sfx('pick');
+                setArmedBin(bin.id);
               }}
             >
               <Asset id={bin.asset} size={64} />

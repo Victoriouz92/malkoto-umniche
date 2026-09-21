@@ -121,9 +121,18 @@
 
 /* ── Чипове за филтри ──────────────────────────────────────────── */
 
+/*
+ * Решетка, не свободно пренасяне.
+ *
+ * Трийсет и два чипа с дължина от „логика“ до „различаване на високо и
+ * ниско“ при `flex-wrap` дават назъбени редове с различен брой елементи —
+ * изглежда като разсипани, а не като списък за отмятане. Еднакви колони
+ * подреждат и левия ръб на надписите, което прави сканирането с око
+ * възможно.
+ */
 .chips {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
   gap: var(--sp-2);
 }
 
@@ -139,6 +148,7 @@
   background: var(--c-surface);
   border: 2px solid var(--c-border);
   border-radius: var(--r-full);
+  text-align: left;
   transition:
     background-color var(--dur-fast) var(--ease-out),
     border-color var(--dur-fast) var(--ease-out);
@@ -150,7 +160,15 @@
   border-color: var(--c-secondary);
 }
 
-/* Отметката прави избраното различимо и без цвят. */
+/*
+ * Отметката прави избраното различимо и без цвят.
+ *
+ * Мястото ѝ се пази и когато чипът е изключен — иначе надписът подскача
+ * настрани при всяко отмятане и окото губи реда.
+ */
 .chipMark {
+  flex: none;
+  width: 1em;
+  text-align: center;
   font-weight: var(--fw-heavy);
 }

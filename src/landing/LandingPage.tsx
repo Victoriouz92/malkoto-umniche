@@ -38,7 +38,7 @@ export function LandingPage() {
       </header>
 
       <section className={s.hero}>
-        <img src="/optimized/hero-malkoto-umniche-1600.webp" srcSet="/optimized/hero-malkoto-umniche-800.webp 800w, /optimized/hero-malkoto-umniche-1600.webp 1536w" sizes="100vw" width="1536" height="1024" fetchPriority="high" alt="Весела червена панда играе с пъзел и форми" />
+        <img src="/optimized/hero-malkoto-umniche-1600.webp" srcSet="/optimized/hero-malkoto-umniche-800.webp 800w, /optimized/hero-malkoto-umniche-1600.webp 1536w" sizes="100vw" width="1536" height="1024" {...{ fetchpriority: 'high' }} alt="Весела червена панда играе с пъзел и форми" />
         <div className={s.heroCopy}>
           <span className={s.eyebrow}>За деца от 2 до 6 години</span>
           <h1>Малки игри.<br /><em>Големи открития.</em></h1>

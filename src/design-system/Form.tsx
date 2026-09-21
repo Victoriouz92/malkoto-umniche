@@ -183,11 +183,10 @@ export function Chips<T extends string>({
               className={cx(s.chip, on && s.chipOn)}
               onClick={() => onToggle(option)}
             >
-              {on ? (
-                <span className={s.chipMark} aria-hidden="true">
-                  ✓
-                </span>
-              ) : null}
+              {/* Слотът се рисува винаги — виж бележката в CSS-а. */}
+              <span className={s.chipMark} aria-hidden="true">
+                {on ? '✓' : ''}
+              </span>
               {labelFor(option)}
             </button>
           );

@@ -8,11 +8,19 @@ import type { MatchingParams } from './schema';
 import shared from '../shared/engine.module.css';
 import s from './Engine.module.css';
 
+type Side = 'left' | 'right';
+type Pick = { side: Side; key: string };
+
 /**
  * „Свържи двойките“.
  *
  * Тап, не влачене: свързването на два далечни елемента с пръст през целия
  * екран е трудно движение. Тапваш единия, тапваш другия.
+ *
+ * Посоката НЕ е задължителна. Детето може да тръгне отдясно и да потвърди
+ * отляво — за него двете картинки са равностойни и няма как да знае, че
+ * едната колона е „първа“. Изискване за посока, която нищо на екрана не
+ * показва, е скрито правило, а скритите правила изглеждат като счупена игра.
  *
  * Дясната колона е разбъркана независимо — иначе двойките стоят една
  * срещу друга и задачата изчезва.
@@ -29,9 +37,10 @@ export function MatchingEngine({
   );
   const right = useMemo(() => shuffle(left), [left]);
 
-  const [selected, setSelected] = useState<string | null>(null);
+  /** Кое е избрано в момента и от коя колона. */
+  const [selected, setSelected] = useState<Pick | null>(null);
   const [matched, setMatched] = useState<string[]>([]);
-  const [nudging, setNudging] = useState<string | null>(null);
+  const [nudging, setNudging] = useState<Pick | null>(null);
 
   const startedAt = useRef(Date.now());
   const attempts = useRef(0);
@@ -56,16 +65,19 @@ export function MatchingEngine({
     });
   }, [matched.length, left.length, api, onComplete]);
 
-  const pickRight = (key: string) => {
-    if (!selected) {
-      // Още нищо не е избрано отляво — подсказваме, без да наказваме.
-      api.sfx('tap');
+  const tap = (side: Side, key: string) => {
+    if (matched.includes(key)) return;
+
+    // Първи избор, или прещракване в рамките на същата колона.
+    if (!selected || selected.side === side) {
+      api.sfx('pick');
+      setSelected({ side, key });
       return;
     }
 
     attempts.current += 1;
 
-    if (selected === key) {
+    if (selected.key === key) {
       api.sfx('correct');
       api.haptic('success');
       const pair = left.find((p) => p.key === key);
@@ -76,10 +88,15 @@ export function MatchingEngine({
     }
 
     api.sfx('soften');
-    setNudging(key);
+    setNudging({ side, key });
     setSelected(null);
     window.setTimeout(() => setNudging(null), 440);
   };
+
+  const isSelected = (side: Side, key: string) =>
+    selected?.side === side && selected.key === key;
+  const isNudging = (side: Side, key: string) =>
+    nudging?.side === side && nudging.key === key;
 
   return (
     <div className={shared.stage}>
@@ -94,16 +111,13 @@ export function MatchingEngine({
                 className={cx(
                   shared.item,
                   s.slot,
-                  selected === pair.key && shared.itemSelected,
+                  isSelected('left', pair.key) && shared.itemSelected,
                   isMatched && s.matched,
+                  isNudging('left', pair.key) && shared.nudge,
                 )}
                 aria-label={assetLabel(pair.left)}
-                aria-pressed={selected === pair.key}
-                onClick={() => {
-                  if (isMatched) return;
-                  api.sfx('pick');
-                  setSelected(pair.key);
-                }}
+                aria-pressed={isSelected('left', pair.key)}
+                onClick={() => tap('left', pair.key)}
               >
                 <Asset id={pair.left} size="100%" />
               </button>
@@ -121,18 +135,17 @@ export function MatchingEngine({
                 className={cx(
                   shared.item,
                   s.slot,
+                  isSelected('right', pair.key) && shared.itemSelected,
                   isMatched && s.matched,
-                  nudging === pair.key && shared.nudge,
+                  isNudging('right', pair.key) && shared.nudge,
                 )}
                 aria-label={
                   params.rightMode === 'silhouette'
                     ? `сянка: ${assetLabel(pair.right)}`
                     : assetLabel(pair.right)
                 }
-                onClick={() => {
-                  if (isMatched) return;
-                  pickRight(pair.key);
-                }}
+                aria-pressed={isSelected('right', pair.key)}
+                onClick={() => tap('right', pair.key)}
               >
                 <Asset
                   id={pair.right}

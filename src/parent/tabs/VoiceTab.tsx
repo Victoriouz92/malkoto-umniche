@@ -79,7 +79,18 @@ export function VoiceTab() {
     <div className={s.section}>
       <Card variant="flat">
         <Stack gap={3}>
-          <strong>{t('parent.voice.title', { name: profile.name })}</strong>
+          {/* Родителят вижда бутон „Запиши“ до реплика и няма откъде да
+              разбере кой записва, кога се чува и защо изобщо. Затова тук
+              се обяснява целта, после моментът, после доброволността и
+              чак накрая поверителността. */}
+          <strong>
+            {profile.name.trim()
+              ? t('parent.voice.title', { name: profile.name })
+              : t('parent.voice.titleNoName')}
+          </strong>
+          <p>{t('parent.voice.intro')}</p>
+          <p className={s.muted}>{t('parent.voice.when')}</p>
+          <p className={s.muted}>{t('parent.voice.optional')}</p>
           <p className={s.muted}>{t('parent.voice.privacy')}</p>
           {error ? <p className={s.danger}>{error}</p> : null}
         </Stack>
@@ -91,7 +102,12 @@ export function VoiceTab() {
         return (
           <Card key={phrase.id} variant="flat" className={s.voicePhrase}>
             <Cluster gap={3} between>
-              <strong>„{phrase.text}“</strong>
+              <Stack gap={1}>
+                <strong>„{phrase.text}“</strong>
+                <span className={s.muted}>
+                  {exists ? t('parent.voice.recorded') : t('parent.voice.empty')}
+                </span>
+              </Stack>
               <Cluster gap={2}>
                 {isRecording ? (
                   <Button variant="primary" onClick={stop}>{t('parent.voice.stop')}</Button>

@@ -26,6 +26,11 @@ export function PuzzleEngine({ params, api, onComplete, onProgress }: EngineProp
 
   const [placed, setPlaced] = useState<string[]>([]);
   const [selected, setSelected] = useState<string | null>(null);
+  /**
+   * Отвор, тапнат ПРЕДИ предмета. Детето не знае, че играта очаква
+   * определен ред — а тап, който не прави нищо, изглежда като счупена игра.
+   */
+  const [armedHole, setArmedHole] = useState<string | null>(null);
   const [nudging, setNudging] = useState<string | null>(null);
 
   const startedAt = useRef(Date.now());
@@ -55,6 +60,7 @@ export function PuzzleEngine({ params, api, onComplete, onProgress }: EngineProp
     if (placed.includes(piece)) return;
     attempts.current += 1;
     setSelected(null);
+    setArmedHole(null);
 
     if (piece === hole) {
       api.sfx('snap');
@@ -93,10 +99,21 @@ export function PuzzleEngine({ params, api, onComplete, onProgress }: EngineProp
               key={hole}
               type="button"
               {...dropZone(hole)}
-              className={cx(s.zone, isOver(hole) && s.zoneOver, filled && s.zoneFull)}
+              className={cx(
+                s.zone,
+                (isOver(hole) || armedHole === hole) && s.zoneOver,
+                filled && s.zoneFull,
+              )}
               aria-label={filled ? assetLabel(hole) : `отвор: ${assetLabel(hole)}`}
+              aria-pressed={armedHole === hole}
               onClick={() => {
-                if (selected) tryPlace(selected, hole);
+                if (filled) return;
+                if (selected) {
+                  tryPlace(selected, hole);
+                  return;
+                }
+                api.sfx('pick');
+                setArmedHole(hole);
               }}
             >
               <Asset
@@ -128,7 +145,14 @@ export function PuzzleEngine({ params, api, onComplete, onProgress }: EngineProp
               )}
               aria-label={assetLabel(piece)}
               aria-pressed={isSelected}
-              onClick={() => setSelected(piece)}
+              onClick={() => {
+                if (armedHole) {
+                  tryPlace(piece, armedHole);
+                  return;
+                }
+                api.sfx('pick');
+                setSelected(piece);
+              }}
             >
               <Asset id={piece} size="100%" />
             </button>
