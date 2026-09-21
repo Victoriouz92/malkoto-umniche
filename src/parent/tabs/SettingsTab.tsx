@@ -45,11 +45,9 @@ export function SettingsTab() {
           <Toggle
             label={t('parent.settings.theme')}
             checked={settings.theme === 'dark'}
-            onChange={(on) => {
-              const theme = on ? 'dark' : 'light';
-              updateSettings({ theme });
-              document.documentElement.dataset['theme'] = theme;
-            }}
+            // Самото прилагане живее в App.tsx, за да важи и след
+            // презареждане. Тук се пази само изборът.
+            onChange={(on) => updateSettings({ theme: on ? 'dark' : 'light' })}
           />
         </Stack>
       </Card>

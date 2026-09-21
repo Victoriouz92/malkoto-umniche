@@ -1,9 +1,10 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 
 import { ErrorBoundary } from './ErrorBoundary';
 import { Page, Stack } from '@/design-system';
 import { useAudioLifecycle } from '@/core/audio';
+import { useApp } from '@/core/store/app';
 import { t } from '@/i18n';
 
 /**
@@ -75,6 +76,21 @@ const router = createHashRouter([
 export function App() {
   // Отключва звука при първи допир и млъква при загуба на фокус.
   useAudioLifecycle();
+
+  /**
+   * Темата се прилага при всяко зареждане, не само при превключване.
+   *
+   * Настройката се пазеше вярно, но `data-theme` се слагаше единствено в
+   * момента на щракване върху превключвателя. След презареждане родител,
+   * избрал тъмна тема на светло устройство, я получаваше обратно светла —
+   * и обратното.
+   */
+  const theme = useApp((state) => state.settings.theme);
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'system') delete root.dataset['theme'];
+    else root.dataset['theme'] = theme;
+  }, [theme]);
 
   return (
     <ErrorBoundary>

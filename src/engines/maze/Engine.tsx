@@ -104,6 +104,48 @@ export function MazeEngine({ params, api, onComplete, onProgress }: EngineProps<
     }
   };
 
+  /**
+   * Движение със стрелки.
+   *
+   * Лабиринтът беше единствената игра без път през клавиатурата: SVG с
+   * `role="application"`, който слуша само показалеца. Дете със switch
+   * устройство или родител без мишка не можеше да я играе изобщо.
+   *
+   * Стрелките минават през същата проверка `canMove`, значи правилата са
+   * едни и същи и за двата начина на въвеждане.
+   */
+  const step = (dx: number, dy: number) => {
+    if (reached) return;
+    const target = { x: here.x + dx, y: here.y + dy };
+    if (target.x < 0 || target.y < 0 || target.x >= maze.cols || target.y >= maze.rows) return;
+
+    const previous = path[path.length - 2];
+    if (previous && previous.x === target.x && previous.y === target.y) {
+      setPath((p) => p.slice(0, -1));
+      return;
+    }
+
+    if (!canMove(maze, here, target)) {
+      bumps.current += 1;
+      api.sfx('soften');
+      return;
+    }
+
+    api.sfx('tap');
+    setPath((p) => [...p, target]);
+    if (target.x === maze.goal.x && target.y === maze.goal.y) {
+      api.haptic('success');
+      setReached(true);
+    }
+  };
+
+  const ARROWS: Readonly<Record<string, [number, number]>> = {
+    ArrowUp: [0, -1],
+    ArrowDown: [0, 1],
+    ArrowLeft: [-1, 0],
+    ArrowRight: [1, 0],
+  };
+
   const width = maze.cols * CELL;
   const height = maze.rows * CELL;
 
@@ -127,13 +169,26 @@ export function MazeEngine({ params, api, onComplete, onProgress }: EngineProps<
 
   return (
     <div className={s.stage}>
-      <div className={m.frame}>
+      {/* Фокусът и клавишите живеят на обгръщащия DIV, не на SVG-то:
+          Chrome не дава надеждно фокус на <svg tabindex="0">, а без фокус
+          няма и клавиатура. */}
+      <div
+        className={m.frame}
+        role="application"
+        tabIndex={0}
+        aria-label={`лабиринт до ${assetLabel(params.goalAsset)}; движи се със стрелките`}
+        onKeyDown={(e) => {
+          const move = ARROWS[e.key];
+          if (!move) return;
+          e.preventDefault();
+          step(move[0], move[1]);
+        }}
+      >
         <svg
           ref={svgRef}
           viewBox={`0 0 ${width} ${height}`}
           className={m.board}
-          role="application"
-          aria-label={`лабиринт до ${assetLabel(params.goalAsset)}`}
+          aria-hidden="true"
           onPointerDown={(e) => {
             e.currentTarget.setPointerCapture(e.pointerId);
             move(e.clientX, e.clientY);

@@ -36,7 +36,10 @@
   display: inline-flex;
   align-items: center;
   gap: var(--sp-2);
-  color: #286f69;
+  /* Беше 34px висок — под абсолютния под от 48px (правило 7). */
+  min-height: var(--tap-min);
+  padding: var(--sp-1) var(--sp-2);
+  color: var(--c-secondary-ink);
   font-size: var(--fs-md);
   font-weight: var(--fw-heavy);
 }

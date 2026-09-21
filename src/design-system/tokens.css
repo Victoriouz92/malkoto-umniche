@@ -19,7 +19,7 @@
   --c-surface-2: #f7f2e9;
   --c-surface-3: #efe7da;
   --c-border: #e3d9c9;
-  --c-border-strong: #cfc2ac;
+  --c-border-strong: #9e8d71; /* 3.1:1 върху --c-bg ✓ AA за граници */
 
   --c-ink: #2b2622; /* 14.0:1 върху --c-bg  ✓ AAA */
   --c-ink-soft: #6e6459; /*  5.4:1 върху --c-bg  ✓ AA  */
@@ -52,14 +52,14 @@
      лилаво: забележимо, но неосъдително.
      ───────────────────────────────────────────────────────────── */
   --c-success: #4b9b5e;
-  --c-success-strong: #37804a;
+  --c-success-strong: #2f7241; /* 5.1:1 върху --c-success-soft */
   --c-success-soft: #e4f4e8;
 
   --c-gentle: #8b80b8;
   --c-gentle-soft: #eeebf7;
 
   --c-warn: #d98a1f; /* само родителски режим */
-  --c-warn-strong: #a5670f;
+  --c-warn-strong: #965c0c; /* 4.9:1 върху --c-warn-soft */
   --c-warn-soft: #fbf0dc;
 
   --c-info: #3b82c4;
@@ -232,6 +232,83 @@
      Стойностите по-долу са минимуми, не препоръки — реалните
      интерактивни обекти в игрите са по-едри.
      ───────────────────────────────────────────────────────────── */
+
+  /* ───────────────────────────────────────────────────────────────
+     Тъмните стойности — ЕДИН източник на истина.
+     Включват се по-долу и от системното предпочитание, и от ръчния
+     превключвател. Тук само се дефинират; тук нищо не се прилага.
+     ─────────────────────────────────────────────────────────────── */
+  --dk-c-bg: #191714;
+  --dk-c-surface: #221f1b;
+  --dk-c-surface-2: #2c2823;
+  --dk-c-surface-3: #3a352e;
+  --dk-c-border: #423c34;
+  --dk-c-border-strong: #756b5e;
+  --dk-c-ink: #f5f0e8;
+  --dk-c-ink-soft: #bdb3a5;
+  --dk-c-ink-faint: #8a8175;
+  --dk-c-on-dark: #191714;
+  --dk-c-primary: #ff8a5f;
+  --dk-c-primary-strong: #ff8a5f;
+  --dk-c-primary-ink: #ffb094;
+  --dk-c-primary-soft: #4a2416;
+  --dk-c-primary-softer: #33190f;
+  --dk-c-on-primary: #33190f;
+  --dk-c-secondary: #52c4b3;
+  --dk-c-secondary-strong: #52c4b3;
+  --dk-c-secondary-ink: #7fd8c9;
+  --dk-c-secondary-soft: #16403a;
+  --dk-c-on-secondary: #0e2a26;
+  --dk-c-success: #7fcf90;
+  --dk-c-success-strong: #7fcf90;
+  --dk-c-success-soft: #1c3a23;
+  --dk-c-gentle: #a99ede;
+  --dk-c-gentle-soft: #2b2540;
+  --dk-c-warn: #e8ab52;
+  --dk-c-warn-strong: #e8ab52;
+  --dk-c-warn-soft: #3d2e14;
+  --dk-c-info: #6fa9de;
+  --dk-c-info-strong: #6fa9de;
+  --dk-c-info-soft: #1a2d3f;
+  --dk-c-danger: #e8776a;
+  --dk-c-danger-soft: #3d1f1b;
+  --dk-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+  --dk-shadow-md: 0 2px 4px rgb(0 0 0 / 0.3), 0 4px 12px rgb(0 0 0 / 0.35);
+  --dk-shadow-lg: 0 4px 8px rgb(0 0 0 / 0.3), 0 12px 28px rgb(0 0 0 / 0.45);
+  --dk-shadow-xl: 0 8px 16px rgb(0 0 0 / 0.35), 0 24px 56px rgb(0 0 0 / 0.55);
+  --dk-shadow-press: 0 5px 0 rgb(0 0 0 / 0.4);
+  --dk-shadow-press-sm: 0 3px 0 rgb(0 0 0 / 0.4);
+
+  /* Категориите също имат тъмен набор. Без него надписът на категория
+     оставаше тъмен върху тъмен фон — 2.0:1, тоест нечетим. */
+  --dk-cat-puzzles-bg: #3a241a;
+  --dk-cat-puzzles-accent: #f08a4b;
+  --dk-cat-puzzles-ink: #ffc39a;
+  --dk-cat-memory-bg: #2b2540;
+  --dk-cat-memory-accent: #9d8ee6;
+  --dk-cat-memory-ink: #cfc4ff;
+  --dk-cat-numbers-bg: #1b3626;
+  --dk-cat-numbers-accent: #4fb07c;
+  --dk-cat-numbers-ink: #9fe2bc;
+  --dk-cat-letters-bg: #1d3148;
+  --dk-cat-letters-accent: #5a9bd8;
+  --dk-cat-letters-ink: #abd0f2;
+  --dk-cat-colors-bg: #3d1f2c;
+  --dk-cat-colors-accent: #e0709a;
+  --dk-cat-colors-ink: #f7b2c9;
+  --dk-cat-shapes-bg: #3a2c12;
+  --dk-cat-shapes-accent: #d3a03c;
+  --dk-cat-shapes-ink: #eaca85;
+  --dk-cat-animals-bg: #26331c;
+  --dk-cat-animals-accent: #8fba71;
+  --dk-cat-animals-ink: #b9da9d;
+  --dk-cat-vehicles-bg: #232a4a;
+  --dk-cat-vehicles-accent: #8394dd;
+  --dk-cat-vehicles-ink: #b8c1f3;
+  --dk-cat-food-bg: #3b2614;
+  --dk-cat-food-accent: #e08a3e;
+  --dk-cat-food-ink: #f4bd87;
+
   --tap-min: 3rem; /* 48 — абсолютен под, никъде по-малко */
   --tap: 4.5rem; /* 72 — по подразбиране (предучилищна) */
   --tap-lg: 5.5rem; /* 88 */
@@ -298,56 +375,160 @@
    ─────────────────────────────────────────────────────────────── */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --c-bg: #191714;
-    --c-surface: #221f1b;
-    --c-surface-2: #2c2823;
-    --c-surface-3: #3a352e;
-    --c-border: #423c34;
-    --c-border-strong: #5a5248;
+    --c-bg: var(--dk-c-bg);
+    --c-surface: var(--dk-c-surface);
+    --c-surface-2: var(--dk-c-surface-2);
+    --c-surface-3: var(--dk-c-surface-3);
+    --c-border: var(--dk-c-border);
+    --c-border-strong: var(--dk-c-border-strong);
+    --c-ink: var(--dk-c-ink);
+    --c-ink-soft: var(--dk-c-ink-soft);
+    --c-ink-faint: var(--dk-c-ink-faint);
+    --c-on-dark: var(--dk-c-on-dark);
+    --c-primary: var(--dk-c-primary);
+    --c-primary-strong: var(--dk-c-primary-strong);
+    --c-primary-ink: var(--dk-c-primary-ink);
+    --c-primary-soft: var(--dk-c-primary-soft);
+    --c-primary-softer: var(--dk-c-primary-softer);
+    --c-on-primary: var(--dk-c-on-primary);
+    --c-secondary: var(--dk-c-secondary);
+    --c-secondary-strong: var(--dk-c-secondary-strong);
+    --c-secondary-ink: var(--dk-c-secondary-ink);
+    --c-secondary-soft: var(--dk-c-secondary-soft);
+    --c-on-secondary: var(--dk-c-on-secondary);
+    --c-success: var(--dk-c-success);
+    --c-success-strong: var(--dk-c-success-strong);
+    --c-success-soft: var(--dk-c-success-soft);
+    --c-gentle: var(--dk-c-gentle);
+    --c-gentle-soft: var(--dk-c-gentle-soft);
+    --c-warn: var(--dk-c-warn);
+    --c-warn-strong: var(--dk-c-warn-strong);
+    --c-warn-soft: var(--dk-c-warn-soft);
+    --c-info: var(--dk-c-info);
+    --c-info-strong: var(--dk-c-info-strong);
+    --c-info-soft: var(--dk-c-info-soft);
+    --c-danger: var(--dk-c-danger);
+    --c-danger-soft: var(--dk-c-danger-soft);
+    --shadow-sm: var(--dk-shadow-sm);
+    --shadow-md: var(--dk-shadow-md);
+    --shadow-lg: var(--dk-shadow-lg);
+    --shadow-xl: var(--dk-shadow-xl);
+    --shadow-press: var(--dk-shadow-press);
+    --shadow-press-sm: var(--dk-shadow-press-sm);
 
-    --c-ink: #f5f0e8;
-    --c-ink-soft: #bdb3a5;
-    --c-ink-faint: #8a8175;
-    --c-on-dark: #191714;
-
-    --c-primary: #ff8a5f;
-    --c-primary-strong: #ff8a5f;
-    --c-primary-ink: #ffb094;
-    --c-primary-soft: #4a2416;
-    --c-primary-softer: #33190f;
-    --c-on-primary: #33190f;
-
-    --c-secondary: #52c4b3;
-    --c-secondary-strong: #52c4b3;
-    --c-secondary-ink: #7fd8c9;
-    --c-secondary-soft: #16403a;
-    --c-on-secondary: #0e2a26;
-
-    --c-success: #7fcf90;
-    --c-success-strong: #7fcf90;
-    --c-success-soft: #1c3a23;
-    --c-gentle: #a99ede;
-    --c-gentle-soft: #2b2540;
-    --c-warn: #e8ab52;
-    --c-warn-strong: #e8ab52;
-    --c-warn-soft: #3d2e14;
-    --c-info: #6fa9de;
-    --c-info-strong: #6fa9de;
-    --c-info-soft: #1a2d3f;
-    --c-danger: #e8776a;
-    --c-danger-soft: #3d1f1b;
-
-    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
-    --shadow-md: 0 2px 4px rgb(0 0 0 / 0.3), 0 4px 12px rgb(0 0 0 / 0.35);
-    --shadow-lg: 0 4px 8px rgb(0 0 0 / 0.3), 0 12px 28px rgb(0 0 0 / 0.45);
-    --shadow-xl: 0 8px 16px rgb(0 0 0 / 0.35), 0 24px 56px rgb(0 0 0 / 0.55);
-    --shadow-press: 0 5px 0 rgb(0 0 0 / 0.4);
-    --shadow-press-sm: 0 3px 0 rgb(0 0 0 / 0.4);
+    --cat-puzzles-bg: var(--dk-cat-puzzles-bg);
+    --cat-puzzles-accent: var(--dk-cat-puzzles-accent);
+    --cat-puzzles-ink: var(--dk-cat-puzzles-ink);
+    --cat-memory-bg: var(--dk-cat-memory-bg);
+    --cat-memory-accent: var(--dk-cat-memory-accent);
+    --cat-memory-ink: var(--dk-cat-memory-ink);
+    --cat-numbers-bg: var(--dk-cat-numbers-bg);
+    --cat-numbers-accent: var(--dk-cat-numbers-accent);
+    --cat-numbers-ink: var(--dk-cat-numbers-ink);
+    --cat-letters-bg: var(--dk-cat-letters-bg);
+    --cat-letters-accent: var(--dk-cat-letters-accent);
+    --cat-letters-ink: var(--dk-cat-letters-ink);
+    --cat-colors-bg: var(--dk-cat-colors-bg);
+    --cat-colors-accent: var(--dk-cat-colors-accent);
+    --cat-colors-ink: var(--dk-cat-colors-ink);
+    --cat-shapes-bg: var(--dk-cat-shapes-bg);
+    --cat-shapes-accent: var(--dk-cat-shapes-accent);
+    --cat-shapes-ink: var(--dk-cat-shapes-ink);
+    --cat-animals-bg: var(--dk-cat-animals-bg);
+    --cat-animals-accent: var(--dk-cat-animals-accent);
+    --cat-animals-ink: var(--dk-cat-animals-ink);
+    --cat-vehicles-bg: var(--dk-cat-vehicles-bg);
+    --cat-vehicles-accent: var(--dk-cat-vehicles-accent);
+    --cat-vehicles-ink: var(--dk-cat-vehicles-ink);
+    --cat-food-bg: var(--dk-cat-food-bg);
+    --cat-food-accent: var(--dk-cat-food-accent);
+    --cat-food-ink: var(--dk-cat-food-ink);
   }
 }
 
+/*
+ * Ръчно включената тъмна тема.
+ *
+ * Досега тук стоеше само `color-scheme`, а истинските цветове живееха в
+ * медийната заявка. Резултатът: превключвателят „Тъмна тема“ в
+ * родителския панел не правеше почти нищо, освен ако СИСТЕМАТА вече не е
+ * тъмна. Сега двата контекста включват един и същ набор.
+ *
+ * Списъкът долу е дословно същият като горния. `scripts/check-contrast.ts`
+ * проверява, че двата не се разминават — иначе поправка само на едното
+ * място тихо чупи другото.
+ */
 :root[data-theme='dark'] {
   color-scheme: dark;
+
+    --c-bg: var(--dk-c-bg);
+    --c-surface: var(--dk-c-surface);
+    --c-surface-2: var(--dk-c-surface-2);
+    --c-surface-3: var(--dk-c-surface-3);
+    --c-border: var(--dk-c-border);
+    --c-border-strong: var(--dk-c-border-strong);
+    --c-ink: var(--dk-c-ink);
+    --c-ink-soft: var(--dk-c-ink-soft);
+    --c-ink-faint: var(--dk-c-ink-faint);
+    --c-on-dark: var(--dk-c-on-dark);
+    --c-primary: var(--dk-c-primary);
+    --c-primary-strong: var(--dk-c-primary-strong);
+    --c-primary-ink: var(--dk-c-primary-ink);
+    --c-primary-soft: var(--dk-c-primary-soft);
+    --c-primary-softer: var(--dk-c-primary-softer);
+    --c-on-primary: var(--dk-c-on-primary);
+    --c-secondary: var(--dk-c-secondary);
+    --c-secondary-strong: var(--dk-c-secondary-strong);
+    --c-secondary-ink: var(--dk-c-secondary-ink);
+    --c-secondary-soft: var(--dk-c-secondary-soft);
+    --c-on-secondary: var(--dk-c-on-secondary);
+    --c-success: var(--dk-c-success);
+    --c-success-strong: var(--dk-c-success-strong);
+    --c-success-soft: var(--dk-c-success-soft);
+    --c-gentle: var(--dk-c-gentle);
+    --c-gentle-soft: var(--dk-c-gentle-soft);
+    --c-warn: var(--dk-c-warn);
+    --c-warn-strong: var(--dk-c-warn-strong);
+    --c-warn-soft: var(--dk-c-warn-soft);
+    --c-info: var(--dk-c-info);
+    --c-info-strong: var(--dk-c-info-strong);
+    --c-info-soft: var(--dk-c-info-soft);
+    --c-danger: var(--dk-c-danger);
+    --c-danger-soft: var(--dk-c-danger-soft);
+    --shadow-sm: var(--dk-shadow-sm);
+    --shadow-md: var(--dk-shadow-md);
+    --shadow-lg: var(--dk-shadow-lg);
+    --shadow-xl: var(--dk-shadow-xl);
+    --shadow-press: var(--dk-shadow-press);
+    --shadow-press-sm: var(--dk-shadow-press-sm);
+
+    --cat-puzzles-bg: var(--dk-cat-puzzles-bg);
+    --cat-puzzles-accent: var(--dk-cat-puzzles-accent);
+    --cat-puzzles-ink: var(--dk-cat-puzzles-ink);
+    --cat-memory-bg: var(--dk-cat-memory-bg);
+    --cat-memory-accent: var(--dk-cat-memory-accent);
+    --cat-memory-ink: var(--dk-cat-memory-ink);
+    --cat-numbers-bg: var(--dk-cat-numbers-bg);
+    --cat-numbers-accent: var(--dk-cat-numbers-accent);
+    --cat-numbers-ink: var(--dk-cat-numbers-ink);
+    --cat-letters-bg: var(--dk-cat-letters-bg);
+    --cat-letters-accent: var(--dk-cat-letters-accent);
+    --cat-letters-ink: var(--dk-cat-letters-ink);
+    --cat-colors-bg: var(--dk-cat-colors-bg);
+    --cat-colors-accent: var(--dk-cat-colors-accent);
+    --cat-colors-ink: var(--dk-cat-colors-ink);
+    --cat-shapes-bg: var(--dk-cat-shapes-bg);
+    --cat-shapes-accent: var(--dk-cat-shapes-accent);
+    --cat-shapes-ink: var(--dk-cat-shapes-ink);
+    --cat-animals-bg: var(--dk-cat-animals-bg);
+    --cat-animals-accent: var(--dk-cat-animals-accent);
+    --cat-animals-ink: var(--dk-cat-animals-ink);
+    --cat-vehicles-bg: var(--dk-cat-vehicles-bg);
+    --cat-vehicles-accent: var(--dk-cat-vehicles-accent);
+    --cat-vehicles-ink: var(--dk-cat-vehicles-ink);
+    --cat-food-bg: var(--dk-cat-food-bg);
+    --cat-food-accent: var(--dk-cat-food-accent);
+    --cat-food-ink: var(--dk-cat-food-ink);
 }
 
 /* ───────────────────────────────────────────────────────────────
