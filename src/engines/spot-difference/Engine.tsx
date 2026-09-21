@@ -53,7 +53,11 @@ export function SpotDifferenceEngine({ params, api, onComplete, onProgress }: En
       {params.targets.map((target, index) => <div key={`${target.id}-${index}`} className={cx(s.target, found.has(index) && s.targetFound)} aria-label={`${assetLabel(target.id)}: ${found.has(index) ? 'намерено' : 'търси'}`}><Asset id={target.id} size="100%" /></div>)}
     </div>
     <output className={s.counter} aria-live="polite">Намерени: {found.size} / {params.targets.length}</output>
-    <div className={cx(s.scene, nudging && s.nudge)} onPointerDown={(event) => { if (event.target === event.currentTarget || event.target === event.currentTarget.firstChild) miss(); }}>
+    {/* Тап встрани ИЛИ по разсейващ предмет дава меко „не е това“.
+        Преди условието пускаше само фона, така че тапът по разсейващ
+        предмет — най-вероятната грешка тук — не даваше нищо. Намерените
+        предмети спират разпространението, затова проверка не е нужна. */}
+    <div className={cx(s.scene, nudging && s.nudge)} onPointerDown={() => miss()}>
       <Asset id={params.scene} className={s.background} label="сцена" />
       {params.decoys.map((item, index) => <span key={`decoy-${item.id}-${index}`} className={cx(s.placed, s.decoy)} style={styleFor(item)} aria-hidden="true"><Asset id={item.id} size="100%" /></span>)}
       {params.targets.map((item, index) => <button key={`${item.id}-${index}`} type="button" className={cx(s.placed, found.has(index) && s.found)} style={styleFor(item)} aria-label={`Намери: ${assetLabel(item.id)}`} disabled={found.has(index)} onPointerDown={(event) => event.stopPropagation()} onClick={() => find(index)}><Asset id={item.id} size="100%" /></button>)}

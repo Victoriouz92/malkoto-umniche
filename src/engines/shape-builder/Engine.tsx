@@ -38,7 +38,16 @@ export function ShapeBuilderEngine({ params, api, onComplete, onProgress }: Engi
     api.sfx('pick');
   }
   function place() {
-    if (!selected || finished.current || lock.current) return;
+    if (finished.current || lock.current) return;
+    if (!selected) {
+      // Тап по очертанието, преди да е избрана форма. Бутонът стоеше
+      // изключен и не правеше нищо — дете, което започва от мястото,
+      // вместо от формата, не получаваше никакъв отговор. Сега му се
+      // казва какво липсва. Не е опит и не се брои за грешка.
+      setHint('Първо избери форма отдолу.');
+      api.sfx('tap');
+      return;
+    }
     attempts.current += 1;
     if (selected !== expected) {
       setHint(`Тук ни трябва ${assetLabel(expected).toLowerCase()}.`);
@@ -87,7 +96,7 @@ export function ShapeBuilderEngine({ params, api, onComplete, onProgress }: Engi
             '--piece-rotation': `${piece.rotation ?? 0}deg` } as CSSProperties;
           return <span key={index} className={s.piece} data-done={done} data-active={active} style={style}>
             <Shape shape={piece.shape} color={piece.color as ShapeColor} />
-            {active && <button type="button" className={s.placeTarget} disabled={!selected}
+            {active && <button type="button" className={s.placeTarget}
               onClick={place} aria-label={`Постави ${assetLabel(expected).toLowerCase()}`} />}
           </span>;
         })}
