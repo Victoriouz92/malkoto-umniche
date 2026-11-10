@@ -128,6 +128,13 @@
   .guideMascot { width: 34px; height: 34px; }
 }
 
+@media (max-width: 28rem) {
+  .bar { gap: var(--sp-2); }
+  .bar .exit { min-width: var(--tap-min); min-height: var(--tap-min); padding: var(--sp-2); }
+  .guideMascot { display: none; }
+  .title { font-size: clamp(1.2rem, 5.5vw, 1.5rem); }
+}
+
 .roundShell {
   display: grid;
   place-items: center;
@@ -205,11 +212,15 @@
 }
 
 .parentNoteLabel {
-  display: block;
+  min-height: var(--tap-min);
+  align-content: center;
+  cursor: pointer;
   font-weight: var(--fw-bold);
   color: var(--c-ink);
   margin-bottom: var(--sp-1);
 }
+
+.parentNote p + p { margin-top: var(--sp-2); }
 
 @media (prefers-reduced-motion: reduce) {
   .sticker {

@@ -14,6 +14,7 @@ export const CATEGORY_IDENTITY: Record<Category, { name: string; purpose: string
 };
 
 const OWNERS: Readonly<Record<string, Category>> = {
+  garden: 'food',
   rhythm: 'memory',
   'route-program': 'vehicles',
   puzzle: 'puzzles', matching: 'puzzles', maze: 'puzzles', pattern: 'puzzles',

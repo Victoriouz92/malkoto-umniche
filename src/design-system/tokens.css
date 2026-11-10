@@ -375,6 +375,7 @@
    ─────────────────────────────────────────────────────────────── */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
+    --puzzle-shadow-invert: 1;
     --c-bg: var(--dk-c-bg);
     --c-surface: var(--dk-c-surface);
     --c-surface-2: var(--dk-c-surface-2);
@@ -459,6 +460,7 @@
  * място тихо чупи другото.
  */
 :root[data-theme='dark'] {
+  --puzzle-shadow-invert: 1;
   color-scheme: dark;
 
     --c-bg: var(--dk-c-bg);

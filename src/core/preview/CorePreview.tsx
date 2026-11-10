@@ -71,7 +71,7 @@ export function CorePreview() {
 
       <Cluster between>
         <h1>Ядро</h1>
-        <Button variant="quiet" size="sm" onClick={() => navigate('/')}>
+        <Button variant="quiet" size="sm" onClick={() => void navigate('/')}>
           {t('action.back')}
         </Button>
       </Cluster>

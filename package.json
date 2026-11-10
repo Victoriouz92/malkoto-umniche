@@ -27,18 +27,21 @@
     "check:practical": "tsx scripts/check-practical-games.ts && tsx scripts/check-coloring.ts && tsx scripts/check-assessment.ts && tsx scripts/check-route-program.ts && tsx scripts/check-rhythm.ts",
     "check:categories": "tsx scripts/check-category-identity.ts",
     "build:mechanics": "node scripts/build-mechanics-index.mjs",
-    "check": "npm run typecheck && npm run lint && npm run validate:content && npm run check:variants && npm run check:assets && npm run check:mechanics && npm run check:audio && npm run check:ages && npm run check:covers && npm run check:contrast && npm run check:css-colors && npm run check:practical && npm run check:categories"
+    "check": "npm run typecheck && npm run lint && npm run validate:content && npm run check:variants && npm run check:assets && npm run check:mechanics && npm run check:audio && npm run check:ages && npm run check:covers && npm run check:contrast && npm run check:css-colors && npm run check:practical && npm run check:categories",
+    "test:browser": "playwright test"
   },
   "dependencies": {
     "idb-keyval": "^6.2.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.30.0",
-    "zod": "^3.24.1",
+    "react-router-dom": "^7.18.5",
+    "zod": "^4.6.7",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^9.18.0",
+    "@playwright/test": "^1.65.0",
     "@twemoji/svg": "^15.0.0",
     "@types/node": "^22.20.1",
     "@types/react": "^18.3.18",

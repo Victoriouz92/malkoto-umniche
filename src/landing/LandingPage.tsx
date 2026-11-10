@@ -16,14 +16,14 @@ const CATEGORIES = [
 export function LandingPage() {
   const navigate = useNavigate();
   const profile = useApp(activeProfile);
-  const start = () => navigate(profile ? '/kid' : '/parent');
+  const start = () => void navigate(profile ? '/kid' : '/parent');
   const scrollTo = (id: string) =>
     document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
 
   return (
     <main className={s.page}>
       <header className={s.header}>
-        <button className={s.brand} type="button" onClick={() => navigate('/')}>
+        <button className={s.brand} type="button" onClick={() => void navigate('/')}>
           <span className={s.brandMark} aria-hidden="true">
             <img src="/icons/icon-192.png" alt="" />
           </span>
@@ -33,7 +33,7 @@ export function LandingPage() {
           <button className={s.navLink} type="button" onClick={() => scrollTo('games')}>Игри</button>
           <button className={s.navLink} type="button" onClick={() => scrollTo('parents')}>За родители</button>
           <button className={s.navLink} type="button" onClick={() => scrollTo('support')}>Контакт</button>
-          <button className={s.loginButton} type="button" onClick={() => navigate('/parent')}>Вход</button>
+          <button className={s.loginButton} type="button" onClick={() => void navigate('/parent')}>Вход</button>
         </nav>
       </header>
 
@@ -123,7 +123,7 @@ export function LandingPage() {
             <span>Създадено с грижа за малките откриватели в България.</span>
           </div>
         </div>
-        <button type="button" onClick={() => navigate('/parent')}>Родителски вход</button>
+        <button type="button" onClick={() => void navigate('/parent')}>Родителски вход</button>
       </footer>
     </main>
   );

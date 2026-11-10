@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Cluster, Page, Stack, cx } from '@/design-system';
 import { activitiesInCategory } from '@/content/registry';
 import type { Activity } from '@/content/schema/activity';
-import { ageLabel, allowedAgeRange, isActivityAllowed } from '@/content/ageAccess';
+import { ageLabel, allowedAgeRange, isActivityAllowed, matchesContentFilter } from '@/content/ageAccess';
 import { CATEGORIES } from '@/content/schema/constants';
 import { CATEGORY_IDENTITY } from '@/content/categoryIdentity';
 import { AGE_STAGES } from '@/content/ageStages';
@@ -40,13 +40,14 @@ const PLAY_TYPES: Record<string, string> = {
   shopping: 'Пазаруване', 'road-builder': 'Построй път',
   'route-program': 'Програмирай маршрут',
   rhythm: 'Запомни и създай ритъм',
+  garden: 'Отглеждане',
 };
 
 export function CategoryScreen() {
   const { category } = useParams<{ category: string }>();
   const navigate = useNavigate();
   if (!CATEGORIES.includes(category as Category)) {
-    return <Page centered><p>{t('sys.error.body')}</p><Button onClick={() => navigate('/kid')}>{t('action.back')}</Button></Page>;
+    return <Page centered><p>{t('sys.error.body')}</p><Button onClick={() => void navigate('/kid')}>{t('action.back')}</Button></Page>;
   }
   return <CategoryContent key={category} category={category as Category} />;
 }
@@ -59,7 +60,8 @@ function CategoryContent({ category }: { category: Category }) {
   useSessionClock();
   const list = useMemo(() => activitiesInCategory(category), [category]);
   const range = allowedAgeRange(profile, filter);
-  const fitting = list.filter(activity => isActivityAllowed(activity, range));
+  const fitting = list.filter(activity =>
+    isActivityAllowed(activity, range) && matchesContentFilter(activity, filter));
   const visible = fitting.filter(activity => kind === 'all' || activity.engine === kind);
   const kinds = [...new Set(fitting.map(activity => activity.engine))];
   const world = WORLDS[category];
@@ -76,13 +78,17 @@ function CategoryContent({ category }: { category: Category }) {
         '--category-accent': `var(--cat-${category}-accent)`,
       } as CSSProperties}>
         <Cluster between className={s.catalogueNav}>
-          <Button variant="quiet" onClick={() => navigate('/kid')}>← Всички светове</Button>
-          <button type="button" className={s.miniBrand} onClick={() => navigate('/')}>
+          <Button variant="quiet" onClick={() => void navigate('/kid')}>← Всички светове</Button>
+          <button type="button" className={s.miniBrand} onClick={() => void navigate('/')}>
             <img src="/icons/icon-192.png" alt="" />Малкото Умниче
           </button>
         </Cluster>
         <header className={s.worldHero}>
-          <img className={s.worldImage} src={world.image} alt="" aria-hidden="true" />
+          <img className={s.worldImage}
+            src={`/optimized${world.image.replace('.png', '-800.webp')}`}
+            srcSet={`/optimized${world.image.replace('.png', '-800.webp')} 800w, /optimized${world.image.replace('.png', '-1600.webp')} 1600w`}
+            sizes="(max-width: 800px) 100vw, 1100px"
+            alt="" aria-hidden="true" />
           <div className={s.worldCopy}>
             <span className={s.worldEyebrow}>{CATEGORY_IDENTITY[category].name}</span>
             <h1>{t(`cat.${category}`)}</h1>
@@ -108,13 +114,13 @@ function CategoryContent({ category }: { category: Category }) {
         <div className={s.catalogueCards}>
           {visible.map(activity => <ActivityCard key={activity.id} activity={activity}
             index={indices.get(activity.id) ?? 0} played={profile?.completed[activity.id] ?? 0}
-            onOpen={() => { playEffect('tap'); navigate(`/play/${activity.id}`); }} />)}
+            onOpen={() => { playEffect('tap'); void navigate(`/play/${activity.id}`); }} />)}
         </div>
         {visible.length === 0 && <p className={s.emptyCategory}>{t('kid.category.empty')}</p>}
         <footer className={s.worldFooter}>
           <img src="/icons/icon-192.png" alt="" />
           <p>Всяко дете открива света със своето темпо.</p>
-          <Button variant="quiet" onClick={() => navigate('/kid')}>Към друг свят →</Button>
+          <Button variant="quiet" onClick={() => void navigate('/kid')}>Към друг свят →</Button>
         </footer>
       </Stack>
     </Page>

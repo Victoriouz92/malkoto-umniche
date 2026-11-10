@@ -1,12 +1,12 @@
 import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import { Button, Confetti, ProgressRing, Stack, cx } from '@/design-system';
 import { Asset } from '@/assets/Asset';
 import { ACTIVITIES, activityById } from '@/content/registry';
 import { sameSessionFamily } from '@/content/categoryIdentity';
 import type { Activity } from '@/content/schema/activity';
-import { ageLabel, allowedAgeRange, isActivityAllowed } from '@/content/ageAccess';
+import { ageLabel, allowedAgeRange, isActivityAllowed, matchesContentFilter } from '@/content/ageAccess';
 import { engineModule } from '@/engines/registry';
 import { schemaFor } from '@/engines/schemas';
 import type { ActivityResult } from '@/engines/types';
@@ -76,9 +76,6 @@ const SESSION_ROUNDS_BY_ENGINE: Readonly<Record<string, number>> = {
 /** Един кръг от серията: коя активност и кой неин вариант. */
 type SeriesRound = { activity: Activity; variant: number };
 
-/** Колко дълго стои преходът между два кръга. Достатъчно, за да се забележи. */
-const ROUND_BREAK_MS = 1100;
-
 /** Спокойни илюстрации по ръбовете — фон, а не част от задачата. */
 const FALLBACK_DECOR = ['animal.bear', 'animal.dog', 'nature.flower', 'nature.cloud'] as const;
 const CATEGORY_DECOR: Readonly<Record<string, readonly string[]>> = {
@@ -144,7 +141,8 @@ function ActivityScreen() {
   const updateSettings = useApp((st) => st.updateSettings);
   const recordCompletion = useApp((st) => st.recordCompletion);
   const awardSticker = useApp((st) => st.awardSticker);
-  const stickerGiven = useRef(false);
+  const settledAttempt = useRef(-1);
+  const transitionFocus = useRef<HTMLHeadingElement>(null);
 
   useSessionClock();
 
@@ -196,6 +194,7 @@ function ActivityScreen() {
       (candidate) =>
         candidate.id !== activity.id &&
         sameSessionFamily(activity, candidate) &&
+        matchesContentFilter(candidate, filter) &&
         isActivityAllowed(candidate, { min: allowedMin, max: allowedMax }),
     );
 
@@ -237,7 +236,7 @@ function ActivityScreen() {
     for (const sibling of rotate(sameThemeFallback.filter(c => c.difficulty <= sessionCeiling))) add(sibling, pass);
 
     return list;
-  }, [activity, allowedMin, allowedMax, profile, pass]);
+  }, [activity, allowedMin, allowedMax, filter, profile, pass]);
   const totalRounds = series.length || 1;
   const currentRound = series[round - 1];
   const roundActivity = currentRound?.activity ?? activity;
@@ -247,22 +246,15 @@ function ActivityScreen() {
     finalRound.current = round >= totalRounds;
   }, [round, totalRounds]);
 
-  /**
-   * Кратък цветен преход между кръговете.
-   *
-   * Без него детето вижда как една задача се сменя с друга в същия миг и не
-   * разбира, че е започнало ново. Преходът не носи награда — само казва
-   * „сега идва следващото“.
-   */
   useEffect(() => {
-    if (pendingRound === null) return;
-    const id = window.setTimeout(() => {
-      setRound(pendingRound);
-      setAttempt((value) => value + 1);
-      setPendingRound(null);
-    }, ROUND_BREAK_MS);
-    return () => window.clearTimeout(id);
-  }, [pendingRound]);
+    transitionFocus.current?.focus();
+  }, [pendingRound, result, attempt]);
+
+  const progressRound = useCallback((fraction: number) => {
+    if (!Number.isFinite(fraction) || settledAttempt.current === attempt) return;
+    const next = (round - 1 + Math.max(0, Math.min(1, fraction))) / totalRounds;
+    setProgress((previous) => Math.max(previous, next));
+  }, [attempt, round, totalRounds]);
 
   /** Мързеливият компонент се решава веднъж, по id на двигателя. */
   const Engine = useMemo(() => {
@@ -290,9 +282,10 @@ function ActivityScreen() {
     (r: ActivityResult) => {
       if (!activity) return;
       setResult(r);
+      setProgress(1);
 
-      // Art earns completion and stickers, but is not a cognitive skill test.
-      const assessedSkills = ['coloring', 'drawing'].includes(activity.engine) ? [] : activity.skills;
+      // Art and open experiments earn discoveries without a skill rating.
+      const assessedSkills = ['coloring', 'drawing', 'garden'].includes(activity.engine) ? [] : activity.skills;
       recordCompletion(activity.id, assessedSkills, scoreFromResult(r));
 
       /**
@@ -305,17 +298,18 @@ function ActivityScreen() {
        *
        * Албумът само расте — оттам нищо не се маха (правило 3).
        */
-      if (!stickerGiven.current) {
-        stickerGiven.current = true;
+      if (profile && !profile.stickers.includes(activity.id)) {
         awardSticker(activity.id);
         playEffect('sticker');
       }
     },
-    [activity, recordCompletion, awardSticker],
+    [activity, profile, recordCompletion, awardSticker],
   );
 
   const finishRound = useCallback(
     (roundResult: ActivityResult) => {
+      if (settledAttempt.current >= attempt) return;
+      settledAttempt.current = attempt;
       const combined = {
         completed: accumulated.current.completed && roundResult.completed,
         durationMs: accumulated.current.durationMs + roundResult.durationMs,
@@ -333,14 +327,13 @@ function ActivityScreen() {
 
       finish(combined);
     },
-    [finish, round, totalRounds],
+    [attempt, finish, round, totalRounds],
   );
 
   const again = () => {
     setResult(null);
     setProgress(0);
     setMessage('');
-    stickerGiven.current = false;
     setRound(1);
     setPendingRound(null);
     setPass((value) => value + 1);
@@ -354,11 +347,13 @@ function ActivityScreen() {
     setAttempt((n) => n + 1);
   };
 
+  if (!profile) return <Navigate to="/kid" replace />;
+
   if (!activity) {
     return (
       <Stack gap={4} center className={s.shell}>
         <p>{t('sys.error.body')}</p>
-        <Button variant="primary" size="kid" onClick={() => navigate('/kid')}>
+        <Button variant="primary" size="kid" onClick={() => void navigate('/kid')}>
           {t('action.back')}
         </Button>
       </Stack>
@@ -369,19 +364,19 @@ function ActivityScreen() {
     return (
       <Stack gap={4} center className={s.shell}>
         <p>{t('sys.error.title')}</p>
-        <Button variant="primary" size="kid" onClick={() => navigate('/kid')}>
+        <Button variant="primary" size="kid" onClick={() => void navigate('/kid')}>
           {t('action.back')}
         </Button>
       </Stack>
     );
   }
 
-  const allowed = isActivityAllowed(activity, ageRange);
-  if (!allowed) {
+  const allowedAge = isActivityAllowed(activity, ageRange);
+  if (!allowedAge || !matchesContentFilter(activity, filter)) {
     return (
       <Stack gap={4} center className={s.shell}>
-        <p>{t('kid.activity.locked')}</p>
-        <Button variant="primary" size="kid" onClick={() => navigate('/kid')}>
+        <p>{t(allowedAge ? 'kid.activity.filtered' : 'kid.activity.locked')}</p>
+        <Button variant="primary" size="kid" onClick={() => void navigate('/kid')}>
           {t('action.back')}
         </Button>
       </Stack>
@@ -396,7 +391,7 @@ function ActivityScreen() {
    * и се предлага изход. Проверката е ТУК, а не в двигателя: обвивката
    * се грижи за общите неща.
    */
-  if (activity.a11y.requiresAudio && !soundOn) {
+  if (roundActivity?.a11y.requiresAudio && !soundOn) {
     return (
       <div className={s.shell}>
         <Stack gap={5} center className={s.play}>
@@ -407,7 +402,7 @@ function ActivityScreen() {
           <Button variant="primary" size="kid" onClick={() => updateSettings({ sound: true })}>
             {t('action.enableSound')}
           </Button>
-          <Button variant="quiet" onClick={() => navigate('/kid')}>
+          <Button variant="quiet" onClick={() => void navigate('/kid')}>
             {t('action.back')}
           </Button>
         </Stack>
@@ -420,7 +415,7 @@ function ActivityScreen() {
   const sticker = activity.assets[0];
 
   return (
-    <div
+    <main
       className={s.shell}
       style={
         {
@@ -447,23 +442,26 @@ function ActivityScreen() {
           size="sm"
           iconOnly
           glyph="✕"
+          className={s.exit}
           aria-label={t('action.exit')}
-          onClick={() => navigate('/kid')}
+          onClick={() => void navigate('/kid')}
         />
-        <span className={s.titleWrap}>
+        <div className={s.titleWrap}>
           <img className={s.guideMascot} src="/icons/icon-192.png" alt="" aria-hidden="true" />
-          <span className={s.title}>
+          <h1 className={s.title}>
             {t(playedActivity.titleKey as never)}
             <small>{t(`cat.${activity.category}`)} · {ageLabel(playedActivity.ageMin, playedActivity.ageMax)}</small>
-          </span>
-        </span>
-        <ProgressRing value={progress} size={44} thickness={6} />
+          </h1>
+        </div>
+        <ProgressRing value={progress} size={44} thickness={6} label={t('kid.activity.progress')} />
       </div>
 
       <div className={s.play}>
         {result ? (
           <div className={s.done}>
-            <span className={s.praise}>{message || t('complete.title')}</span>
+            <h2 ref={transitionFocus} tabIndex={-1} className={s.praise}>
+              {message || t('complete.title')}
+            </h2>
 
             {sticker ? (
               <div className={s.sticker}>
@@ -471,35 +469,36 @@ function ActivityScreen() {
               </div>
             ) : null}
 
-            <span style={{ color: 'var(--c-ink-soft)' }}>{t('complete.sticker')}</span>
+            <span style={{ color: 'var(--c-ink-soft)' }}>{t('kid.activity.album')}</span>
 
             <div className={s.actions}>
-              <Button variant="primary" size="kid" onClick={again}>
-                {t('action.again')}
-              </Button>
-              <Button variant="soft" size="kid" onClick={() => navigate('/kid')}>
+              <Button variant="primary" size="kid" onClick={() => void navigate('/kid')}>
                 {t('action.done')}
               </Button>
-              <Button variant="soft" size="kid" onClick={() => navigate('/next')}>
-                ✨ Следваща игра
+              <Button variant="soft" size="kid" onClick={again}>
+                {t('action.again')}
+              </Button>
+              <Button variant="soft" size="kid" onClick={() => void navigate('/next', { state: { exclude: activity.id } })}>
+                {t('kid.next.action')}
               </Button>
             </div>
 
             {/* Бележката е за родителя, който минава покрай екрана.
                 Задължително поле — виж правило 10 в DESIGN-BIBLE.md. */}
-            <p className={s.parentNote}>
-              <span className={s.parentNoteLabel}>{t('parent.note.label')}</span>
-              {t(activity.parentNoteKey as never)}
-            </p>
+            <details className={s.parentNote}>
+              <summary className={s.parentNoteLabel}>{t('kid.offscreen.title')}</summary>
+              <p>{t(`kid.offscreen.${activity.engine}`)}</p>
+              <p>{t(activity.parentNoteKey as never)}</p>
+            </details>
           </div>
         ) : pendingRound !== null ? (
           /* Преходът между кръговете: цвят, номер и точки — без награда.
              Точките само се пълнят, никога не се изпразват (правило 3). */
-          <div className={s.break} aria-live="polite">
-            <span className={s.breakLabel}>
-              {t('kid.activity.round', { round: pendingRound, total: totalRounds })}
-            </span>
-            <span className={s.breakDots}>
+          <div className={s.break}>
+            <h2 ref={transitionFocus} tabIndex={-1} className={s.breakLabel}>
+              {t('kid.activity.roundDone', { round, total: totalRounds })}
+            </h2>
+            <span className={s.breakDots} aria-hidden="true">
               {Array.from({ length: totalRounds }, (_, i) => (
                 <span
                   key={i}
@@ -507,14 +506,21 @@ function ActivityScreen() {
                 />
               ))}
             </span>
+            <Button variant="primary" size="kid" onClick={() => {
+              setRound(pendingRound);
+              setAttempt((value) => value + 1);
+              setPendingRound(null);
+            }}>
+              {t('action.continue')}
+            </Button>
           </div>
         ) : (
           <Suspense fallback={<p>{t('sys.loading')}</p>}>
-            <div className={cx(s.roundShell, 'playful-game')}>
+            <div className={cx(s.roundShell, 'playful-game')} data-activity={playedActivity.id}>
               {totalRounds > 1 ? (
-                <span className={s.roundBadge}>
+                <h2 ref={transitionFocus} tabIndex={-1} className={s.roundBadge}>
                   {t('kid.activity.round', { round, total: totalRounds })}
-                </span>
+                </h2>
               ) : null}
               <Engine
                 key={attempt}
@@ -522,13 +528,13 @@ function ActivityScreen() {
                 activity={playedActivity}
                 variant={roundVariant}
                 api={api}
-                onProgress={(fraction) => setProgress((round - 1 + fraction) / totalRounds)}
+                onProgress={progressRound}
                 onComplete={finishRound}
               />
             </div>
           </Suspense>
         )}
       </div>
-    </div>
+    </main>
   );
 }

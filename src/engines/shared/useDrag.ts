@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import type { CSSProperties, PointerEvent as ReactPointerEvent } from 'react';
+import type { CSSProperties, MouseEvent, PointerEvent as ReactPointerEvent } from 'react';
 
 /**
  * Влачене с пръст.
@@ -48,44 +48,60 @@ function zoneAt(x: number, y: number): string | null {
 
 export function useDrag({ onDrop, onPick, disabled = false }: Options) {
   const [drag, setDrag] = useState<DragState | null>(null);
-  const origin = useRef({ x: 0, y: 0 });
+  const pointer = useRef<{ id: number; itemId: string; x: number; y: number; moved: boolean } | null>(null);
+  const suppressClick = useRef(false);
 
   const handlePointerDown = useCallback(
     (itemId: string) => (e: ReactPointerEvent<HTMLElement>) => {
-      if (disabled || e.button !== 0) return;
-      e.preventDefault();
+      if (disabled || e.button !== 0 || pointer.current) return;
+      suppressClick.current = false;
       e.currentTarget.setPointerCapture(e.pointerId);
-      origin.current = { x: e.clientX, y: e.clientY };
-      setDrag({ itemId, dx: 0, dy: 0, overZone: null });
-      onPick?.(itemId);
+      pointer.current = { id: e.pointerId, itemId, x: e.clientX, y: e.clientY, moved: false };
     },
-    [disabled, onPick],
+    [disabled],
   );
 
   const handlePointerMove = useCallback(
     (e: ReactPointerEvent<HTMLElement>) => {
-      setDrag((current) => {
-        if (!current) return current;
-        return {
-          ...current,
-          dx: e.clientX - origin.current.x,
-          dy: e.clientY - origin.current.y,
-          overZone: zoneAt(e.clientX, e.clientY),
-        };
-      });
+      const current = pointer.current;
+      if (!current || current.id !== e.pointerId) return;
+      const dx = e.clientX - current.x;
+      const dy = e.clientY - current.y;
+      if (!current.moved) {
+        if (Math.hypot(dx, dy) < 7) return;
+        current.moved = true;
+        onPick?.(current.itemId);
+      }
+      setDrag({ itemId: current.itemId, dx, dy, overZone: zoneAt(e.clientX, e.clientY) });
     },
-    [],
+    [onPick],
   );
 
   const handlePointerUp = useCallback(
     (e: ReactPointerEvent<HTMLElement>) => {
-      setDrag((current) => {
-        if (current) onDrop(current.itemId, zoneAt(e.clientX, e.clientY));
-        return null;
-      });
+      const current = pointer.current;
+      if (!current || current.id !== e.pointerId) return;
+      pointer.current = null;
+      if (!current.moved) return;
+      suppressClick.current = true;
+      setDrag(null);
+      onDrop(current.itemId, zoneAt(e.clientX, e.clientY));
     },
     [onDrop],
   );
+
+  const cancel = useCallback((e: ReactPointerEvent<HTMLElement>) => {
+    if (pointer.current?.id !== e.pointerId) return;
+    pointer.current = null;
+    setDrag(null);
+  }, []);
+
+  const captureClick = useCallback((e: MouseEvent<HTMLElement>) => {
+    // Keyboard activation has detail 0 and remains available after any drag.
+    if (!suppressClick.current || e.detail === 0) return;
+    suppressClick.current = false;
+    e.stopPropagation();
+  }, []);
 
   /**
    * Слага се върху влачимия елемент.
@@ -98,12 +114,14 @@ export function useDrag({ onDrop, onPick, disabled = false }: Options) {
       onPointerDown: handlePointerDown(itemId),
       onPointerMove: handlePointerMove,
       onPointerUp: handlePointerUp,
-      onPointerCancel: handlePointerUp,
+      onPointerCancel: cancel,
+      onLostPointerCapture: cancel,
+      onClickCapture: captureClick,
       'data-draggable': true,
       className: drag?.itemId === itemId ? draggingClass : undefined,
       style: dragStyle(drag, itemId),
     }),
-    [drag, handlePointerDown, handlePointerMove, handlePointerUp],
+    [drag, handlePointerDown, handlePointerMove, handlePointerUp, cancel, captureClick],
   );
 
   return { drag, bind, isOver: (zoneId: string) => drag?.overZone === zoneId };

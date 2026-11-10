@@ -80,8 +80,10 @@ export default defineConfig({
     chunkSizeWarningLimit: 220,
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
+        manualChunks(id) {
+          if (/\/node_modules\/(react|react-dom|scheduler)\//.test(id)) return 'react';
+          if (/\/node_modules\/react-router(-dom)?\//.test(id)) return 'router';
+          if (id.includes('/node_modules/zod/')) return 'validation';
         },
       },
     },

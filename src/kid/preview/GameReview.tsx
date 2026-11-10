@@ -36,6 +36,6 @@ function Review({ id }: { id: string }) {
       <Button onClick={() => { setResult(null); setProgress(0); setAttempt(a => a + 1); }}>Играй пак</Button></Stack>
       : <Suspense fallback={<p>Момент…</p>}><div className="playful-game"><Component key={attempt} activity={activity} params={params as never}
         variant={0} api={silentApi} onComplete={setResult} onProgress={setProgress} /></div></Suspense>}
-    <Button variant="quiet" onClick={() => navigate(`/c/${activity.category}`)}>Обратно към категорията</Button>
+    <Button variant="quiet" onClick={() => void navigate(`/c/${activity.category}`)}>Обратно към категорията</Button>
   </Stack></Page>;
 }

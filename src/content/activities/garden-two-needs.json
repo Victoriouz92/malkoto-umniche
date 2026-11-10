@@ -1,0 +1,35 @@
+{
+  "id": "garden-two-needs",
+  "schemaVersion": 1,
+  "engine": "garden",
+  "mechanic": "m107",
+  "titleKey": "act.garden-two-needs",
+  "category": "food",
+  "ageMin": 4,
+  "ageMax": 4,
+  "difficulty": 2,
+  "skills": [
+    "everyday-knowledge",
+    "logic"
+  ],
+  "themes": [
+    "garden"
+  ],
+  "durationSec": 90,
+  "assets": [
+    "nature.flower"
+  ],
+  "params": {
+    "mode": "grow",
+    "waterAtStart": false,
+    "lightAtStart": false,
+    "crop": "nature.flower"
+  },
+  "parentNoteKey": "note.garden-two-needs",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

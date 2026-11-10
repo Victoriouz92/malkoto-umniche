@@ -1,0 +1,51 @@
+.greenhouse {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-3);
+  width: min(100%, 46rem);
+  padding: clamp(.75rem, 4vw, 2.25rem);
+  border-radius: 46% 46% 1.4rem 1.4rem / 16% 16% 1.4rem 1.4rem;
+  background:
+    radial-gradient(ellipse at 85% 4%, var(--cat-food-bg) 0 16%, transparent 42%),
+    linear-gradient(var(--cat-numbers-bg) 0 54%, var(--cat-food-bg) 54%);
+  color: var(--cat-numbers-ink);
+  box-shadow: inset 0 .5rem 0 var(--cat-numbers-accent);
+}
+
+.heading { text-align: center; padding-block-start: .5rem; }
+.greenhouse .heading h2 { color: var(--cat-numbers-ink); }
+.heading p { max-width: 32rem; }
+.tools, .beds { display: flex; justify-content: center; flex-wrap: wrap; gap: var(--sp-2); }
+.tools button[aria-pressed='true'] { outline: 3px solid var(--c-secondary-ink); outline-offset: 1px; }
+.single { width: clamp(7rem, 30vw, 12rem); }
+.plant { display: block; position: relative; width: 100%; }
+.plantArt { display: block; width: 100%; }
+.crop { position: absolute; width: 43%; top: 0; left: 29%; }
+.stem { fill: var(--cat-numbers-accent); stroke: var(--cat-numbers-ink); stroke-width: 4; stroke-linecap: round; }
+.pot { fill: var(--cat-food-accent); }
+.rim { fill: none; stroke: var(--cat-food-ink); stroke-width: 7; stroke-linecap: round; }
+.seed { fill: var(--cat-food-ink); }
+.beds { width: 100%; flex-wrap: nowrap; }
+.bed {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-1);
+  width: min(47%, 12rem);
+  padding: var(--sp-2);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  border-radius: 2rem .8rem 1.2rem .8rem;
+  box-shadow: var(--shadow-sm);
+  font-size: var(--fs-md);
+  line-height: 1.2;
+}
+.bed[aria-pressed='true'] { outline: 3px solid var(--c-secondary-ink); outline-offset: 2px; }
+.bed .plant { max-width: 8rem; }
+.conditionIcon { font-size: var(--fs-xl); }
+.observation {
+  min-height: 1.5em;
+  color: var(--cat-food-ink);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-heavy);
+  text-align: center;
+}

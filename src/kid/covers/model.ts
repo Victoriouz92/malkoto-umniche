@@ -38,6 +38,14 @@ export function describeCover(source: CoverSource, palette: number): CoverModel 
     put(picture(v), 150 + (i - (values.length - 1) / 2) * (size + 10), y, size));
 
   switch (source.engine) {
+    case 'garden': {
+      put(asset(str(p.crop)), 144, 77, 78);
+      put(text('☀'), 230, 47, 44);
+      put(text('💧'), 62, 105, 42);
+      model.caption = p.mode === 'grow' ? 'Полей и наблюдавай' :
+        p.factor === 'light' ? 'Сравни слънце и сянка' : 'Сравни със и без вода';
+      break;
+    }
     case 'rhythm': {
       const beats = array(array(p.rounds)[0]);
       put(text('♫'), 150, 46, 48);

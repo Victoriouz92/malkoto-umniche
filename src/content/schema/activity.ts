@@ -55,7 +55,7 @@ export const activitySchema = z
     assets: z.array(z.string().min(1)).default([]),
 
     /** Валидира се от схемата на конкретния двигател. */
-    params: z.record(z.unknown()),
+    params: z.record(z.string(), z.unknown()),
 
     /** Бележка за родителя — защо тази активност е полезна. */
     parentNoteKey: z.string().min(1),

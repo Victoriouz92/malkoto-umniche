@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 
 import { ErrorBoundary } from './ErrorBoundary';
@@ -6,6 +6,9 @@ import { Page, Stack } from '@/design-system';
 import { useAudioLifecycle } from '@/core/audio';
 import { useApp } from '@/core/store/app';
 import { t } from '@/i18n';
+
+// Read saved profiles, PIN and settings before mounting any route.
+const hydration = Promise.resolve(useApp.persist.rehydrate());
 
 /**
  * Hash рутиране.
@@ -74,6 +77,13 @@ const router = createHashRouter([
 ]);
 
 export function App() {
+  const [ready, setReady] = useState(() => useApp.persist.hasHydrated());
+  useEffect(() => {
+    let mounted = true;
+    void hydration.then(() => { if (mounted) setReady(true); });
+    return () => { mounted = false; };
+  }, []);
+
   // Отключва звука при първи допир и млъква при загуба на фокус.
   useAudioLifecycle();
 
@@ -95,7 +105,7 @@ export function App() {
   return (
     <ErrorBoundary>
       <Suspense fallback={<Loading />}>
-        <RouterProvider router={router} />
+        {ready ? <RouterProvider router={router} /> : <Loading />}
       </Suspense>
     </ErrorBoundary>
   );

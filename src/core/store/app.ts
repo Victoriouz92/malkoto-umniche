@@ -216,6 +216,7 @@ export const useApp = create<AppStore>()(
     }),
     {
       name: 'tinymind',
+      skipHydration: true,
       version: STATE_VERSION,
       storage: createJSONStorage(() => idbStorage),
       partialize: (s) => ({

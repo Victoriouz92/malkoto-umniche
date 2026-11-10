@@ -40,7 +40,7 @@ export function ParentHome() {
   const [tab, setTab] = useState<TabId>(profiles.length === 0 ? 'profiles' : 'stats');
 
   if (!unlocked) {
-    return <PinGate onUnlocked={() => setUnlocked(true)} onCancel={() => navigate('/')} />;
+    return <PinGate onUnlocked={() => setUnlocked(true)} onCancel={() => void navigate('/')} />;
   }
 
   return (
@@ -48,7 +48,7 @@ export function ParentHome() {
       <Stack gap={4}>
         <Cluster between>
           <h1>{t('parent.title')}</h1>
-          <Button variant="quiet" size="sm" onClick={() => navigate('/')}>
+          <Button variant="quiet" size="sm" onClick={() => void navigate('/')}>
             {t('parent.exit')}
           </Button>
         </Cluster>

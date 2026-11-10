@@ -1,4 +1,3 @@
-import { activitySchema } from './schema/activity';
 import type { Activity } from './schema/activity';
 import type { Category } from './schema/constants';
 
@@ -18,12 +17,14 @@ const FILES: Record<string, unknown> = import.meta.glob('./activities/**/*.json'
   import: 'default',
 });
 
+const developmentSchema = import.meta.env.DEV ? (await import('./schema/activity')).activitySchema : null;
+
 function load(): Activity[] {
   const out: Activity[] = [];
 
   for (const [path, raw] of Object.entries(FILES)) {
-    if (import.meta.env.DEV) {
-      const parsed = activitySchema.safeParse(raw);
+    if (developmentSchema) {
+      const parsed = developmentSchema.safeParse(raw);
       if (!parsed.success) {
         console.error(`[content] Невалидна активност ${path}:`, parsed.error.issues);
         continue;

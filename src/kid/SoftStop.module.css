@@ -1,7 +1,7 @@
 .stopPanel {
   padding: 0;
   background: #d9f1e6;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .stopScene {
@@ -12,7 +12,7 @@
   padding: clamp(1.25rem, 5vw, 5rem);
   background-image:
     linear-gradient(90deg, rgba(232, 247, 239, .98) 0%, rgba(232, 247, 239, .9) 37%, rgba(232, 247, 239, .18) 66%, transparent 78%),
-    url('/slide-reading-wide.png');
+    url('/optimized/slide-reading-wide-1600.webp');
   background-position: center;
   background-size: cover;
 }
@@ -89,10 +89,10 @@
 @media (max-width: 44rem) {
   .stopScene {
     place-items: end center;
-    padding: 18rem 1rem 1rem;
+    padding: clamp(5rem, 26dvh, 18rem) 1rem 1rem;
     background-image:
       linear-gradient(0deg, rgba(232, 247, 239, .98) 0 54%, rgba(232, 247, 239, .12) 78%, transparent),
-      url('/slide-reading-wide.png');
+      url('/optimized/slide-reading-wide-800.webp');
     background-position: 70% center;
   }
   .stopCard { padding: 1.5rem 1.1rem; border-radius: 2rem; }

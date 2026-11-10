@@ -69,6 +69,7 @@ export function SoftStop() {
         onClose={() => undefined}
         placement="full"
         persistent
+        ariaLabel={t('stop.now.title')}
         panelClassName={s.stopPanel}
       >
         <div className={s.stopScene}>
@@ -82,7 +83,7 @@ export function SoftStop() {
             {/* Задържането пази родителската врата от случаен детски тап. */}
             <div className={s.parentGate}>
               <span>Само за възрастни</span>
-              <HoldButton label={t('stop.parentUnlock')} onComplete={() => navigate('/parent')} />
+              <HoldButton label={t('stop.parentUnlock')} onComplete={() => void navigate('/parent')} />
             </div>
           </div>
         </div>
