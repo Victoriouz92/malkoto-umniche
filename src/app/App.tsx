@@ -96,11 +96,16 @@ export function App() {
    * и обратното.
    */
   const theme = useApp((state) => state.settings.theme);
+  const reducedMotion = useApp((state) => state.settings.reducedMotion);
   useEffect(() => {
     const root = document.documentElement;
     if (theme === 'system') delete root.dataset['theme'];
     else root.dataset['theme'] = theme;
   }, [theme]);
+
+  useEffect(() => {
+    document.documentElement.toggleAttribute('data-reduced-motion', reducedMotion);
+  }, [reducedMotion]);
 
   return (
     <ErrorBoundary>

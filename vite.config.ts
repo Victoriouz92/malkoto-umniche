@@ -84,6 +84,8 @@ export default defineConfig({
           if (/\/node_modules\/(react|react-dom|scheduler)\//.test(id)) return 'react';
           if (/\/node_modules\/react-router(-dom)?\//.test(id)) return 'router';
           if (id.includes('/node_modules/zod/')) return 'validation';
+          const expedition = /\/src\/content\/activities\/expedition\/expedition-([a-z]+)-/.exec(id);
+          if (expedition) return 'catalogue-' + expedition[1];
         },
       },
     },

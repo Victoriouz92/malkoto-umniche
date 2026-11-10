@@ -27,6 +27,7 @@ import { roadBuilderSchema } from './road-builder/schema';
 import { routeProgramSchema } from './route-program/schema';
 import { rhythmSchema } from './rhythm/schema';
 import { gardenSchema } from './garden/schema';
+import { discoverySchema } from './discovery/schema';
 
 /**
  * Схемите на параметрите, по един запис за всеки двигател.
@@ -42,6 +43,7 @@ const SCHEMAS: Partial<Record<EngineId, EngineSchema>> = {
   'route-program': routeProgramSchema,
   rhythm: rhythmSchema,
   garden: gardenSchema,
+  discovery: discoverySchema,
   puzzle: puzzleSchema,
   memory: memorySchema,
   matching: matchingSchema,

@@ -40,7 +40,7 @@
         "tracing", "coloring", "maze", "pattern", "connect-dots",
         "spot-difference", "shape-builder", "letters", "words", "math",
         "sound-match", "drawing", "compare", "odd-one-out",
-        "semantic-choice", "shopping", "road-builder", "route-program", "rhythm", "garden"
+        "semantic-choice", "shopping", "road-builder", "route-program", "rhythm", "garden", "discovery"
       ]
     },
     "ageMin": { "type": "integer", "minimum": 2, "maximum": 8 },

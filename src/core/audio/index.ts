@@ -37,7 +37,7 @@ export function useAudioLifecycle(): void {
   const music = useApp((s) => s.settings.music);
 
   useEffect(() => {
-    const unlock = () => unlockAudio();
+    const unlock = () => { void unlockAudio(); };
     window.addEventListener('pointerdown', unlock, { once: false, passive: true });
     window.addEventListener('keydown', unlock, { once: false, passive: true });
     return () => {

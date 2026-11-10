@@ -9,8 +9,10 @@
  */
 import { generatedActivityBg } from './generatedActivities';
 import { ageActivityBg } from './ageActivities';
+import { libraryActivityBg } from './libraryActivities';
 
 export const bg = {
+  ...libraryActivityBg,
   ...ageActivityBg,
   ...generatedActivityBg,
   'app.name': 'Малкото Умниче',
@@ -83,6 +85,19 @@ export const bg = {
   'kid.offscreen.route-program': 'Единият казва две команди, например „напред, завой“. Другият ги изпълнява. После ги разменете.',
   'kid.offscreen.rhythm': 'Единият пляска кратък ритъм, другият го повтаря. Опитайте и с една пауза.',
   'kid.offscreen.garden': 'Намерете растение и опишете листата му. Погледнете го пак след няколко дни. Какво се е променило?',
+  'kid.offscreen.discovery': 'Посочете предмет в стаята. Потърсете още един, който прилича на него, и кажете по какво.',
+  'discovery.look': 'Виж кой е тук.',
+  'discovery.match': 'Коя картинка е същата?',
+  'discovery.remember': 'Кой беше тук?',
+  'discovery.found': 'Откри: {item}!',
+  'discovery.retry': 'Погледни пак и опитай.',
+  'discovery.peek': 'Покажи пак',
+  'kid.activity.music': 'Музика',
+  'kid.category.age': 'Възраст',
+  'kid.category.more': 'Покажи още игри',
+  'kid.category.shown': 'Показани {shown} от {total}',
+  'words.instruction': 'Подреди сричките, за да се получи думата.',
+  'words.retry': 'Опитай с друга сричка.',
   'puzzle.scene.farm': 'Сенки във фермата',
   'puzzle.scene.forest': 'Горската поляна',
   'puzzle.scene.station': 'Спирка за сенки',
@@ -411,6 +426,9 @@ export const bg = {
   'mood.focus': 'съсредоточаване',
   'mood.celebrate': 'празнуване',
   'mood.calm': 'спокойствие',
+  'mood.woodland': 'горска мелодия',
+  'mood.railway': 'весело влакче',
+  'mood.atelier': 'цветно ателие',
 
   // ─── Активности ─────────────────────────────────────────────
   // Заглавие и родителска бележка за всяка активност. Валидаторът

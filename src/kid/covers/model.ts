@@ -38,6 +38,15 @@ export function describeCover(source: CoverSource, palette: number): CoverModel 
     put(picture(v), 150 + (i - (values.length - 1) / 2) * (size + 10), y, size));
 
   switch (source.engine) {
+    case 'discovery': {
+      const examples = array(first.examples);
+      row(examples, 59, 56);
+      row(array(first.choices).slice(0, 4), 127, 30);
+      if (first.sign) put(text(str(first.sign)), 245, 47, 50);
+      model.caption = p.mode === 'recall' ? 'Виж, скрий и си спомни'
+        : p.mode === 'group' ? str(first.clue) : 'Открий същата картинка';
+      break;
+    }
     case 'garden': {
       put(asset(str(p.crop)), 144, 77, 78);
       put(text('☀'), 230, 47, 44);
@@ -55,9 +64,15 @@ export function describeCover(source: CoverSource, palette: number): CoverModel 
     }
     case 'route-program': {
       const mission = record(array(p.missions)[0]);
-      put(asset('vehicle.train'), 65, 80, 65);
-      put(text(mission.stop === undefined ? '→ ↓ →' : '→ ★ ↑'), 178, 68, 27);
-      put(text('⚑'), 250, 110, 33);
+      const size = num(mission.size, 3);
+      const cell = (position: unknown): [number, number] => [
+        98 + (num(position, 0) % size) * (104 / (size - 1)),
+        33 + Math.floor(num(position, 0) / size) * (104 / (size - 1)),
+      ];
+      for (const blocked of array(mission.blocks)) put(text('◆'), ...cell(blocked), 20, true);
+      if (mission.stop !== undefined) put(text('★'), ...cell(mission.stop), 26);
+      put(asset('vehicle.train'), ...cell(mission.start), 42);
+      put(text('⚑'), ...cell(mission.goal), 34);
       model.caption = `Планирай маршрут · ${num(mission.size)} × ${num(mission.size)}`;
       break;
     }
@@ -72,7 +87,8 @@ export function describeCover(source: CoverSource, palette: number): CoverModel 
       break;
     }
     case 'road-builder':
-      model.path = 'M53 100 H100 V45 H197 V100 H250';
+      model.path = array(array(p.paths)[0]).map((cell, i) =>
+        (i ? 'L' : 'M') + (75 + (Number(cell) % 3) * 75) + ' ' + (42 + Math.floor(Number(cell) / 3) * 35)).join(' ');
       put(asset(str(p.vehicle)), 51, 106, 47);
       put(text('⚑'), 251, 93, 36);
       model.caption = 'Завърти и свържи пътя';
@@ -179,10 +195,11 @@ export function describeCover(source: CoverSource, palette: number): CoverModel 
       break;
     case 'drawing':
       model.path = 'M55 104 Q75 22 113 88 T182 70 T245 53';
-      model.caption = 'Твоето малко ателие';
+      if (p.reference) put(asset(str(p.reference)), 155, 60, 72);
+      model.caption = str(p.prompt, 'Твоето малко ателие');
       break;
     case 'maze':
-      model.path = 'M65 104 H105 V47 H165 V108 H231 V63';
+      model.path = 'M65 104 H105 V' + (40 + num(p.seed) % 22) + ' H165 V108 H231 V63';
       put(asset(str(p.travellerAsset)), 57, 111, 42);
       put(asset(str(p.goalAsset)), 232, 47, 44);
       model.caption = `Намери пътя · ${num(p.cols)} × ${num(p.rows)}`;

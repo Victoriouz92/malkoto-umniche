@@ -1,0 +1,53 @@
+.scene {
+  width: min(100%, 43rem);
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-3);
+  padding: clamp(1rem, 5vw, 2.4rem);
+  text-align: center;
+  border-radius: 3rem 1rem 4rem 1.4rem;
+  background: radial-gradient(ellipse at 50% 60%, var(--c-surface) 8%, var(--activity-bg));
+}
+
+.scene[data-mode='recall'] {
+  border-radius: 46% 46% 1.6rem 1.6rem / 16% 16% 1.6rem 1.6rem;
+  box-shadow: inset 0 .4rem var(--activity-accent);
+}
+
+.example {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  min-height: 7rem;
+}
+
+.sign, .hidden {
+  color: var(--activity-ink);
+  font-size: clamp(3.5rem, 11vw, 6rem);
+  font-weight: var(--fw-heavy);
+  line-height: 1;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3);
+}
+
+.choice {
+  width: clamp(4.5rem, 24vw, var(--tap-lg));
+  aspect-ratio: 1;
+  padding: var(--sp-2);
+  border-radius: 44% 56% 48% 52% / 52% 47% 53% 48%;
+  background: var(--c-surface);
+  box-shadow: 0 .26rem var(--activity-accent);
+}
+
+.feedback {
+  min-height: 1.4em;
+  color: var(--c-ink);
+  font-size: var(--fs-md);
+}

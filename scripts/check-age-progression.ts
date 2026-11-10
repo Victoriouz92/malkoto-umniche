@@ -6,7 +6,8 @@ import { levelFor } from '../src/core/adaptive/difficulty';
 import { DEFAULT_SETTINGS } from '../src/core/store/types';
 import type { ChildProfile } from '../src/core/store/types';
 
-const all = readdirSync('src/content/activities').filter(f => f.endsWith('.json')).map(f =>
+const all = readdirSync('src/content/activities', { recursive: true }).filter((f): f is string =>
+  typeof f === 'string' && f.endsWith('.json')).map(f =>
   activitySchema.parse(JSON.parse(readFileSync(`src/content/activities/${f}`, 'utf8'))));
 const child = (age: number) => ({ age, unlockedAgeMax: age, skillRatings: {} }) as ChildProfile;
 const forAge = (age: number) => all.filter(a => isActivityAllowed(a, allowedAgeRange(child(age), DEFAULT_SETTINGS.filter)));

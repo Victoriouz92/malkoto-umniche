@@ -21,7 +21,7 @@ export const lettersParams = z.discriminatedUnion('mode', [
     mode: z.literal('find'),
     target: letter,
     /** Полето, в което се търси. Разсейващите са визуално близки букви. */
-    grid: z.array(letter).min(6).max(24),
+    grid: z.array(letter).min(2).max(24),
   }),
   z.object({
     mode: z.literal('initial'),

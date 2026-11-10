@@ -43,8 +43,8 @@ const BUILDERS: Record<string, (params: never, random: () => number, variant: nu
 const problems: string[] = [];
 let checked = 0;
 
-for (const entry of readdirSync(ACTIVITIES_DIR)) {
-  if (extname(entry) !== '.json') continue;
+for (const entry of readdirSync(ACTIVITIES_DIR, { recursive: true })) {
+  if (typeof entry !== 'string' || extname(entry) !== '.json') continue;
 
   const raw = JSON.parse(readFileSync(join(ACTIVITIES_DIR, entry), 'utf8')) as unknown;
   const activity = activitySchema.safeParse(raw);

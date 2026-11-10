@@ -35,13 +35,16 @@ export function audio(): Chain | null {
  * Отключва звука. Извиква се от първия допир където и да е в приложението.
  * Безопасно е да се вика много пъти.
  */
-export function unlockAudio(): void {
+export async function unlockAudio(): Promise<void> {
   if (unlocked) return;
   const a = audio();
   if (!a) return;
-  void a.ctx.resume().then(() => {
+  try {
+    await a.ctx.resume();
     unlocked = true;
-  });
+  } catch {
+    // Some browsers suspend audio until a later gesture.
+  }
 }
 
 export function isUnlocked(): boolean {

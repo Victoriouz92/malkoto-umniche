@@ -27,8 +27,10 @@
     "check:practical": "tsx scripts/check-practical-games.ts && tsx scripts/check-coloring.ts && tsx scripts/check-assessment.ts && tsx scripts/check-route-program.ts && tsx scripts/check-rhythm.ts",
     "check:categories": "tsx scripts/check-category-identity.ts",
     "build:mechanics": "node scripts/build-mechanics-index.mjs",
-    "check": "npm run typecheck && npm run lint && npm run validate:content && npm run check:variants && npm run check:assets && npm run check:mechanics && npm run check:audio && npm run check:ages && npm run check:covers && npm run check:contrast && npm run check:css-colors && npm run check:practical && npm run check:categories",
-    "test:browser": "playwright test"
+    "check": "npm run typecheck && npm run lint && npm run validate:content && npm run check:library && npm run check:variants && npm run check:assets && npm run check:mechanics && npm run check:audio && npm run check:ages && npm run check:covers && npm run check:contrast && npm run check:css-colors && npm run check:practical && npm run check:categories",
+    "test:browser": "playwright test",
+    "generate:library": "tsx scripts/generate-library.mjs",
+    "check:library": "tsx scripts/generate-library.mjs --check"
   },
   "dependencies": {
     "idb-keyval": "^6.2.1",

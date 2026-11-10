@@ -10,7 +10,7 @@ import { audio } from './context';
  * Нула байта в офлайн кеша.
  */
 
-export type Mood = 'home' | 'focus' | 'celebrate' | 'calm';
+export type Mood = 'home' | 'focus' | 'celebrate' | 'calm' | 'woodland' | 'railway' | 'atelier';
 
 type MoodSpec = {
   /** Полутонове над основния тон. Пентатоника: 0 2 4 7 9. */
@@ -26,6 +26,8 @@ type MoodSpec = {
   drone: boolean;
   /** Октави, от които се избира нота. */
   octaves: number[];
+  /** Semitones for the melody. Null is a rest. */
+  motif?: readonly (number | null)[];
 };
 
 const MOODS: Record<Mood, MoodSpec> = {
@@ -66,6 +68,21 @@ const MOODS: Record<Mood, MoodSpec> = {
     drone: true,
     octaves: [-1, 0],
   },
+  woodland: {
+    scale: [0, 2, 4, 7, 9], root: 261.63, interval: 0.57, jitter: 0,
+    gain: 0.095, drone: false, octaves: [0],
+    motif: [0, 4, 7, null, 4, 2, 0, null, 2, 4, 9, 7, 4, 2, 0, null],
+  },
+  railway: {
+    scale: [0, 2, 4, 7, 9], root: 293.66, interval: 0.5, jitter: 0,
+    gain: 0.085, drone: false, octaves: [0],
+    motif: [0, 0, 4, null, 7, 7, 9, null, 7, 4, 2, null, 4, 2, 0, null],
+  },
+  atelier: {
+    scale: [0, 2, 4, 7, 9], root: 246.94, interval: 0.68, jitter: 0,
+    gain: 0.095, drone: false, octaves: [0],
+    motif: [7, null, 4, 2, 4, null, 2, 0, 4, null, 7, 9, 7, 4, 2, null],
+  },
 };
 
 function noteHz(spec: MoodSpec): number {
@@ -79,32 +96,38 @@ let bus: GainNode | null = null;
 let droneOsc: OscillatorNode | null = null;
 let currentMood: Mood | null = null;
 
-function playNote(ctx: AudioContext, out: GainNode, hz: number, gain: number): void {
+function playNote(ctx: AudioContext, out: GainNode, hz: number, gain: number, short = false): void {
   const osc = ctx.createOscillator();
   const env = ctx.createGain();
   const now = ctx.currentTime;
 
-  osc.type = 'sine';
+  osc.type = short ? 'triangle' : 'sine';
   osc.frequency.value = hz;
 
   // Бавна атака и дълго затихване — камбанка, не пиукане.
   env.gain.setValueAtTime(0, now);
-  env.gain.linearRampToValueAtTime(gain, now + 0.5);
-  env.gain.exponentialRampToValueAtTime(0.0001, now + 3.2);
+  env.gain.linearRampToValueAtTime(gain, now + (short ? 0.025 : 0.5));
+  env.gain.exponentialRampToValueAtTime(0.0001, now + (short ? 0.65 : 3.2));
 
   osc.connect(env).connect(out);
   osc.start(now);
-  osc.stop(now + 3.4);
+  osc.stop(now + (short ? 0.72 : 3.4));
 }
 
-function schedule(spec: MoodSpec): void {
+function schedule(spec: MoodSpec, beat = 0): void {
   const a = audio();
   if (!a || !bus) return;
 
-  playNote(a.ctx, bus, noteHz(spec), spec.gain);
+  if (spec.motif) {
+    const step = spec.motif[beat % spec.motif.length];
+    if (typeof step === 'number') playNote(a.ctx, bus, spec.root * 2 ** (step / 12), spec.gain, true);
+    if (beat % 4 === 0) playNote(a.ctx, bus, spec.root / 2, spec.gain * 0.28, true);
+  } else {
+    playNote(a.ctx, bus, noteHz(spec), spec.gain);
+  }
 
   const wait = (spec.interval + (Math.random() - 0.5) * 2 * spec.jitter) * 1000;
-  timer = window.setTimeout(() => schedule(spec), Math.max(400, wait));
+  timer = window.setTimeout(() => schedule(spec, beat + 1), Math.max(400, wait));
 }
 
 /** Пуска настроение. Смяната на настроение прелива, не реже. */
@@ -118,7 +141,7 @@ export function startMusic(mood: Mood, enabled: boolean): void {
   stopMusic();
 
   const a = audio();
-  if (!a || a.ctx.state === 'suspended') return;
+  if (!a || a.ctx.state !== 'running') return;
 
   const spec = MOODS[mood];
   currentMood = mood;
@@ -149,24 +172,25 @@ export function stopMusic(): void {
     timer = null;
   }
 
-  const a = audio();
   const fading = bus;
   const drone = droneOsc;
   bus = null;
   droneOsc = null;
   currentMood = null;
 
-  if (!a || !fading) return;
+  if (!fading) return;
+  const a = audio();
+  if (!a) return;
 
   const now = a.ctx.currentTime;
   fading.gain.cancelScheduledValues(now);
   fading.gain.setValueAtTime(fading.gain.value, now);
-  fading.gain.linearRampToValueAtTime(0, now + 1.2);
+  fading.gain.linearRampToValueAtTime(0, now + 0.18);
 
   window.setTimeout(() => {
     drone?.stop();
     fading.disconnect();
-  }, 1400);
+  }, 220);
 }
 
 export function activeMood(): Mood | null {

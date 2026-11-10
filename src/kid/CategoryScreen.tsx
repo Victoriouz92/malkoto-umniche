@@ -2,12 +2,12 @@ import { useMemo, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Cluster, Page, Stack, cx } from '@/design-system';
+import { Asset } from '@/assets/Asset';
 import { activitiesInCategory } from '@/content/registry';
 import type { Activity } from '@/content/schema/activity';
 import { ageLabel, allowedAgeRange, isActivityAllowed, matchesContentFilter } from '@/content/ageAccess';
 import { CATEGORIES } from '@/content/schema/constants';
 import { CATEGORY_IDENTITY } from '@/content/categoryIdentity';
-import { AGE_STAGES } from '@/content/ageStages';
 import type { Category } from '@/content/schema/constants';
 import { useApp, activeProfile } from '@/core/store/app';
 import { useSessionClock } from '@/core/time/session';
@@ -17,16 +17,16 @@ import { SoftStop } from './SoftStop';
 import { ActivityArtwork } from './covers/ActivityArtwork';
 import s from './kid.module.css';
 
-const WORLDS: Record<Category, { intro: string; image: string }> = {
-  puzzles: { intro: 'Малко търпение. Голямо „успях!“', image: '/hero-malkoto-umniche.png' },
-  memory: { intro: 'Погледни, запомни и открий отново.', image: '/slide-reading-wide.png' },
-  numbers: { intro: 'Всяко откритие започва с едно, две, три.', image: '/slide-numbers-wide.png' },
-  letters: { intro: 'От първата буква до първата дума.', image: '/slide-letters-wide.png' },
-  colors: { intro: 'Място за всички цветове на въображението.', image: '/hero-malkoto-umniche.png' },
-  shapes: { intro: 'Кръгчета, ъгълчета и нови открития.', image: '/slide-numbers-wide.png' },
-  animals: { intro: 'Запознай се с малки и големи приятели.', image: '/slide-reading-wide.png' },
-  vehicles: { intro: 'По пътя, по релсите и високо в небето.', image: '/hero-malkoto-umniche.png' },
-  food: { intro: 'Вкусни открития за любопитни умничета.', image: '/slide-reading-wide.png' },
+const WORLDS: Record<Category, { image: string; figures?: readonly [string, string, string] }> = {
+  puzzles: { image: 'hero-malkoto-umniche', figures: ['shape.star', 'shape.triangle', 'animal.fox'] },
+  memory: { image: 'slide-reading-wide', figures: ['animal.owl', 'animal.owl', 'nature.cloud'] },
+  numbers: { image: 'slide-numbers-wide' },
+  letters: { image: 'slide-letters-wide' },
+  colors: { image: 'hero-malkoto-umniche', figures: ['nature.flower', 'shape.heart', 'nature.sun'] },
+  shapes: { image: 'slide-numbers-wide', figures: ['shape.triangle', 'shape.circle', 'shape.square'] },
+  animals: { image: 'slide-reading-wide', figures: ['animal.bear', 'animal.frog', 'animal.fox'] },
+  vehicles: { image: 'hero-malkoto-umniche', figures: ['vehicle.train', 'vehicle.airplane', 'vehicle.bus'] },
+  food: { image: 'slide-reading-wide', figures: ['food.strawberry', 'food.pear', 'food.carrot'] },
 };
 
 const PLAY_TYPES: Record<string, string> = {
@@ -41,7 +41,22 @@ const PLAY_TYPES: Record<string, string> = {
   'route-program': 'Програмирай маршрут',
   rhythm: 'Запомни и създай ритъм',
   garden: 'Отглеждане',
+  'discovery:match': 'Същата картинка',
+  'discovery:recall': 'Спомни си картинката',
+  'discovery:group': 'Намери семейството',
+  'memory:missing': 'Липсваща картинка',
+  'memory:sequence': 'Редица по памет',
+  'memory:reverse': 'Обратен ред',
+  'letters:initial': 'Първи звук',
 };
+
+function playType(activity: Activity): string {
+  const { engine, params } = activity;
+  const type = engine + ':' + String(params.mode);
+  return Object.hasOwn(PLAY_TYPES, type) ? type : engine;
+}
+
+const PAGE_SIZE = 12;
 
 export function CategoryScreen() {
   const { category } = useParams<{ category: string }>();
@@ -57,17 +72,23 @@ function CategoryContent({ category }: { category: Category }) {
   const profile = useApp(activeProfile);
   const filter = useApp(st => st.settings.filter);
   const [kind, setKind] = useState('all');
+  const [age, setAge] = useState<number | null>(null);
+  const [limit, setLimit] = useState(PAGE_SIZE);
   useSessionClock();
   const list = useMemo(() => activitiesInCategory(category), [category]);
   const range = allowedAgeRange(profile, filter);
-  const fitting = list.filter(activity =>
-    isActivityAllowed(activity, range) && matchesContentFilter(activity, filter));
-  const visible = fitting.filter(activity => kind === 'all' || activity.engine === kind);
-  const kinds = [...new Set(fitting.map(activity => activity.engine))];
+  const ages = Array.from({ length: range.max - range.min + 1 }, (_, index) => range.min + index);
+  const defaultAge = profile && ages.includes(profile.age) ? profile.age : range.min;
+  const selectedAge = age !== null && ages.includes(age) ? age : defaultAge;
+  const fitting = list.filter(activity => isActivityAllowed(activity, { min: selectedAge, max: selectedAge })
+    && matchesContentFilter(activity, filter));
+  const kinds = [...new Set(fitting.map(playType))];
+  const selectedKind = kinds.includes(kind) ? kind : 'all';
+  const visible = fitting.filter(activity => selectedKind === 'all' || playType(activity) === selectedKind);
   const world = WORLDS[category];
   const completed = fitting.filter(activity => (profile?.completed[activity.id] ?? 0) > 0).length;
   // Stable across age and game-type filters.
-  const indices = new Map(list.map((activity, index) => [activity.id, index]));
+  const indices = useMemo(() => new Map(list.map((activity, index) => [activity.id, index])), [list]);
 
   return (
     <Page centered className={s.categoryPage}>
@@ -83,39 +104,55 @@ function CategoryContent({ category }: { category: Category }) {
             <img src="/icons/icon-192.png" alt="" />Малкото Умниче
           </button>
         </Cluster>
-        <header className={s.worldHero}>
+        <header className={s.worldHero} data-category={category}>
           <img className={s.worldImage}
-            src={`/optimized${world.image.replace('.png', '-800.webp')}`}
-            srcSet={`/optimized${world.image.replace('.png', '-800.webp')} 800w, /optimized${world.image.replace('.png', '-1600.webp')} 1600w`}
+            src={`/optimized/${world.image}-800.webp`}
+            srcSet={`/optimized/${world.image}-800.webp 800w, /optimized/${world.image}-1600.webp 1600w`}
             sizes="(max-width: 800px) 100vw, 1100px"
             alt="" aria-hidden="true" />
+          {world.figures ? <div className={s.worldFigures} key={selectedAge} aria-hidden="true">
+            {world.figures.map((figure, index) => <span key={index}>
+              <Asset id={figure} size="100%" />
+            </span>)}
+          </div> : null}
           <div className={s.worldCopy}>
             <span className={s.worldEyebrow}>{CATEGORY_IDENTITY[category].name}</span>
             <h1>{t(`cat.${category}`)}</h1>
             <p>{CATEGORY_IDENTITY[category].purpose}</p>
-            <p>{AGE_STAGES[range.min]}</p>
             <div className={s.worldFacts}>
-              <span>За {ageLabel(range.min, range.max)}</span>
+              <span>За {ageLabel(selectedAge, selectedAge)}</span>
               <span>{fitting.length} {fitting.length === 1 ? 'игра' : 'игри'}</span>
               {completed > 0 && <span>✓ {completed} открити</span>}
             </div>
           </div>
         </header>
+        {ages.length > 1 ? <div className={s.playFilters} role="group" aria-label={t('kid.category.age')}>
+          {ages.map((value) => <button key={value} type="button" aria-pressed={value === selectedAge}
+            onClick={() => { setAge(value); setKind('all'); setLimit(PAGE_SIZE); }}>
+            {ageLabel(value, value)}
+          </button>)}
+        </div> : null}
         <div className={s.catalogueToolbar}>
           <div><h2>С какво ти се играе?</h2><p>Избери картинка и започни своето откритие.</p></div>
           <span className={s.catalogueCount}>{visible.length} {visible.length === 1 ? 'игра' : 'игри'}</span>
         </div>
         {kinds.length > 1 && <div className={s.playFilters} role="group" aria-label="Вид игра">
           {['all', ...kinds].map(engine => <button type="button" key={engine}
-            aria-pressed={kind === engine} onClick={() => setKind(engine)}>
+            aria-pressed={selectedKind === engine} onClick={() => { setKind(engine); setLimit(PAGE_SIZE); }}>
             {engine === 'all' ? 'Всички' : PLAY_TYPES[engine]}
           </button>)}
         </div>}
         <div className={s.catalogueCards}>
-          {visible.map(activity => <ActivityCard key={activity.id} activity={activity}
+          {visible.slice(0, limit).map(activity => <ActivityCard key={activity.id} activity={activity}
             index={indices.get(activity.id) ?? 0} played={profile?.completed[activity.id] ?? 0}
             onOpen={() => { playEffect('tap'); void navigate(`/play/${activity.id}`); }} />)}
         </div>
+        {visible.length > PAGE_SIZE ? <div className={s.catalogueMore}>
+          <span role="status">{t('kid.category.shown', { shown: Math.min(limit, visible.length), total: visible.length })}</span>
+          {limit < visible.length ? <Button variant="soft" onClick={() => setLimit(limit + PAGE_SIZE)}>
+            {t('kid.category.more')}
+          </Button> : null}
+        </div> : null}
         {visible.length === 0 && <p className={s.emptyCategory}>{t('kid.category.empty')}</p>}
         <footer className={s.worldFooter}>
           <img src="/icons/icon-192.png" alt="" />
@@ -133,9 +170,7 @@ function ActivityCard({ activity, index, played, onOpen }: {
   return <button type="button" className={s.gameCard} onClick={onOpen} data-activity={activity.id}>
     <ActivityArtwork activity={activity} index={index} />
     <span className={s.gameCardBody}>
-      <span className={s.gameCardType}>{activity.engine === 'memory' && activity.params.mode && activity.params.mode !== 'pairs'
-        ? activity.params.mode === 'missing' ? 'Липсваща картинка' : activity.params.mode === 'reverse' ? 'Обратен ред' : 'Редица по памет'
-        : PLAY_TYPES[activity.engine]}</span>
+      <span className={s.gameCardType}>{PLAY_TYPES[playType(activity)]}</span>
       <span className={s.gameCardTitle}>{t(activity.titleKey as never)}</span>
       <span className={s.gameCardMeta}>
         <span>{ageLabel(activity.ageMin, activity.ageMax)}</span>

@@ -4,13 +4,14 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const directory = new URL('../../src/content/activities/', import.meta.url);
-const catalog = readdirSync(directory).filter((file) => file.endsWith('.json'))
-  .map((file) => JSON.parse(readFileSync(new URL(file, directory), 'utf8')));
+const catalog = readdirSync(directory, { recursive: true }).filter((file) => file.endsWith('.json'))
+  .map((file) => JSON.parse(readFileSync(new URL(file.replaceAll('\\', '/'), directory), 'utf8')));
 const puzzle = '/#/play/puzzle-farm-2';
 
-async function seed(page, { age = 2, theme = 'light', dailyMin = null, themes = [] } = {}) {
+async function seed(page, { age = 2, theme = 'light', dailyMin = null, themes = [],
+  ageOverride = null, reducedMotion = true, music = false, sound = true } = {}) {
   await page.goto('/');
-  await page.evaluate(async ({ age, theme, dailyMin, themes }) => {
+  await page.evaluate(async ({ age, theme, dailyMin, themes, ageOverride, reducedMotion, music, sound }) => {
     const db = await new Promise((resolve, reject) => {
       const request = indexedDB.open('keyval-store', 1);
       request.onupgradeneeded = () => request.result.createObjectStore('keyval');
@@ -26,9 +27,9 @@ async function seed(page, { age = 2, theme = 'light', dailyMin = null, themes = 
       version: 2,
       profiles: [profile], activeProfileId: profile.id,
       settings: {
-        sound: true, music: false, voice: false, reducedMotion: true, theme,
+        sound, music, voice: false, reducedMotion, theme,
         limits: { dailyMin, sessionMin: null, softStopMin: 1 },
-        filter: { ageOverride: null, skills: [], themes },
+        filter: { ageOverride, skills: [], themes },
       },
       pin: { hash: null, salt: null, recoveryHash: null, recoverySalt: null,
         failedAttempts: 0, lockedUntil: null },
@@ -44,7 +45,7 @@ async function seed(page, { age = 2, theme = 'light', dailyMin = null, themes = 
     } finally {
       db.close();
     }
-  }, { age, theme, dailyMin, themes });
+  }, { age, theme, dailyMin, themes, ageOverride, reducedMotion, music, sound });
   await page.reload();
 }
 
@@ -198,6 +199,83 @@ test('parent theme choices apply to the catalogue and direct game links', async 
   await expect(page.getByRole('button', { name: /Два отвора/ })).toHaveCount(0);
   await page.goto(puzzle);
   await expect(page.getByText('Тази игра е скрита от родителските настройки.')).toBeVisible();
+});
+
+test('category filters keep ages separate and reveal more games on demand', async ({ page }) => {
+  await seed(page, { ageOverride: { min: 2, max: 6 }, reducedMotion: false });
+  await page.goto('/#/c/letters');
+  const ageSelector = page.getByRole('group', { name: 'Възраст' });
+  await expect(ageSelector.getByRole('button', { name: '2 г.' })).toHaveAttribute('aria-pressed', 'true');
+  const cards = page.locator('button[data-activity]');
+  await expect(cards).toHaveCount(12);
+  await page.getByRole('button', { name: 'Покажи още игри' }).click();
+  await expect(cards).toHaveCount(20);
+  await ageSelector.getByRole('button', { name: '6 г.' }).click();
+  await expect(cards).toHaveCount(12);
+  await page.getByRole('button', { name: 'Първи звук', exact: true }).click();
+  for (const card of await cards.all()) {
+    const id = await card.getAttribute('data-activity');
+    expect(catalog.find((entry) => entry.id === id)?.params.mode).toBe('initial');
+  }
+  if (process.env.QA_SCREENSHOTS) {
+    await page.screenshot({ path: resolve(process.env.QA_SCREENSHOTS, 'букви-каталог.png') });
+  }
+});
+
+test('first memory game can reveal the picture again and finish by keyboard', async ({ page }) => {
+  const game = catalog.find(({ category, engine, ageMin }) => category === 'memory' && engine === 'discovery' && ageMin === 2);
+  await seed(page);
+  await page.goto('/#/play/' + game.id);
+  const continueGame = page.getByRole('button', { name: 'Продължи', exact: true });
+  await expect(page.getByRole('heading', { name: 'Виж кой е тук.' })).toBeVisible();
+  if (process.env.QA_SCREENSHOTS) {
+    await page.screenshot({ path: resolve(process.env.QA_SCREENSHOTS, 'спомни-си-картинката.png') });
+  }
+  await continueGame.press('Enter');
+  await expect(page.getByRole('heading', { name: 'Кой беше тук?', exact: true })).toBeFocused();
+  await page.getByRole('button', { name: 'Покажи пак' }).press('Enter');
+  await expect(page.getByRole('heading', { name: 'Виж кой е тук.' })).toBeFocused();
+  for (const round of game.params.rounds) {
+    await continueGame.press('Enter');
+    await page.locator('.playful-game section button').nth(round.choices.indexOf(round.answer)).press('Enter');
+    await expect(page.getByRole('heading', { name: /^Откри:/ })).toBeVisible();
+    await page.getByRole('button', { name: /^(Продължи|Готово)$/ }).press('Enter');
+  }
+  await expect(page.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '100');
+  await expect(page.getByText('Заедно извън екрана')).toBeVisible();
+});
+
+test('music plays only on request, stops cleanly and is absent from listening games', async ({ page }) => {
+  await page.addInitScript(() => {
+    const original = OscillatorNode.prototype.start;
+    OscillatorNode.prototype.start = function (...args) {
+      const count = Number(document.documentElement.dataset.audioStarts ?? 0);
+      document.documentElement.dataset.audioStarts = String(count + 1);
+      return original.apply(this, args);
+    };
+  });
+  await seed(page, { age: 3, sound: false, reducedMotion: false });
+  await page.goto(puzzle);
+  const music = page.getByRole('button', { name: 'Музика' });
+  const animation = () => page.locator('.playful-game').evaluate((game) => getComputedStyle(game).animationName);
+  await expect.poll(animation).not.toBe('none');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect.poll(animation).toBe('none');
+  const oscillatorCount = () => page.locator('html').evaluate((root) => Number(root.dataset.audioStarts ?? 0));
+  await expect(music).toHaveAttribute('aria-pressed', 'false');
+  expect(await oscillatorCount()).toBe(0);
+  await music.click();
+  await expect(music).toHaveAttribute('aria-pressed', 'true');
+  await expect.poll(oscillatorCount).toBeGreaterThan(0);
+  await music.click();
+  await expect(music).toHaveAttribute('aria-pressed', 'false');
+  const stoppedAt = await oscillatorCount();
+  await page.clock.install();
+  await page.clock.fastForward(1_500);
+  expect(await oscillatorCount()).toBe(stoppedAt);
+  await page.goto('/#/play/rhythm-studio-3');
+  await expect(page.locator('.playful-game[data-activity="rhythm-studio-3"]')).toBeVisible();
+  await expect(music).toHaveCount(0);
 });
 
 test('garden responds to water and light independently', async ({ page }) => {

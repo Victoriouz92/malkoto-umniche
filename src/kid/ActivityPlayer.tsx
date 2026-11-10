@@ -17,6 +17,7 @@ import { playEffect } from '@/core/audio';
 import { useSessionClock } from '@/core/time/session';
 import { praise, t } from '@/i18n';
 import { SoftStop } from './SoftStop';
+import { GameMusic } from './GameMusic';
 import s from './ActivityPlayer.module.css';
 import '@/engines/shared/playful.css';
 
@@ -136,6 +137,7 @@ function ActivityScreen() {
   });
 
   const soundOn = useApp((st) => st.settings.sound);
+  const reducedMotion = useApp((st) => st.settings.reducedMotion);
   const profile = useApp(activeProfile);
   const filter = useApp((st) => st.settings.filter);
   const updateSettings = useApp((st) => st.updateSettings);
@@ -413,10 +415,12 @@ function ActivityScreen() {
   // След проверките по-горе активността е налична, значи и кръгът е валиден.
   const playedActivity: Activity = roundActivity ?? activity;
   const sticker = activity.assets[0];
+  const listening = playedActivity.a11y.requiresAudio || playedActivity.engine === 'rhythm';
 
   return (
     <main
       className={s.shell}
+      data-category={activity.category}
       style={
         {
           '--activity-bg': `var(--cat-${activity.category}-bg)`,
@@ -425,10 +429,10 @@ function ActivityScreen() {
         } as React.CSSProperties
       }
     >
-      <Confetti trigger={shots} />
+      <Confetti trigger={reducedMotion ? 0 : shots} />
       <SoftStop />
 
-      <div className={s.decor} aria-hidden="true">
+      <div className={s.decor} aria-hidden="true" key={Math.ceil(progress * 4)}>
         {(CATEGORY_DECOR[activity.category] ?? FALLBACK_DECOR).map((assetId, index) => (
           <span key={`${assetId}-${index}`} className={s.decorItem}>
             <Asset id={assetId} size="100%" />
@@ -453,7 +457,10 @@ function ActivityScreen() {
             <small>{t(`cat.${activity.category}`)} · {ageLabel(playedActivity.ageMin, playedActivity.ageMax)}</small>
           </h1>
         </div>
-        <ProgressRing value={progress} size={44} thickness={6} label={t('kid.activity.progress')} />
+        <div className={s.tools}>
+          <ProgressRing value={progress} size={44} thickness={6} label={t('kid.activity.progress')} />
+          {!listening ? <GameMusic category={activity.category} paused={Boolean(result || pendingRound)} /> : null}
+        </div>
       </div>
 
       <div className={s.play}>
@@ -516,7 +523,15 @@ function ActivityScreen() {
           </div>
         ) : (
           <Suspense fallback={<p>{t('sys.loading')}</p>}>
-            <div className={cx(s.roundShell, 'playful-game')} data-activity={playedActivity.id}>
+            <div className={cx(s.roundShell, 'playful-game')} data-activity={playedActivity.id}
+              onClickCapture={(event) => {
+                if (reducedMotion || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+                if (!(event.target instanceof Element)) return;
+                const button = event.target.closest('button:not(:disabled):not([aria-disabled="true"])');
+                button?.animate?.([{ scale: '1' }, { scale: '0.95' }, { scale: '1' }], {
+                  duration: 190, easing: 'ease-out',
+                });
+              }}>
               {totalRounds > 1 ? (
                 <h2 ref={transitionFocus} tabIndex={-1} className={s.roundBadge}>
                   {t('kid.activity.round', { round, total: totalRounds })}

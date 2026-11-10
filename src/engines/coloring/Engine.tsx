@@ -46,7 +46,7 @@ export function ColoringEngine({
   const [revision, setRevision] = useState(0);
   const [selectedRegion, setSelectedRegion] = useState(1);
   const [keyboardMode, setKeyboardMode] = useState(false);
-  const palette = [...new Set([...params.palette, ...CRAYONS])];
+  const palette = [...new Set(params.limitedPalette ? params.palette : [...params.palette, ...CRAYONS])];
 
   useEffect(() => {
     let cancelled = false;

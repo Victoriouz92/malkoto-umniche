@@ -548,3 +548,12 @@
     --ease-spring: var(--ease-out);
   }
 }
+
+:root[data-reduced-motion] {
+  --dur-instant: 1ms;
+  --dur-fast: 1ms;
+  --dur-normal: 1ms;
+  --dur-slow: 1ms;
+  --dur-celebrate: 1ms;
+  --ease-spring: var(--ease-out);
+}

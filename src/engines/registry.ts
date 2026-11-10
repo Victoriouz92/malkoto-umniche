@@ -13,6 +13,7 @@ import type { EngineModule, LoadedEngine } from './types';
  * схемата на СЪЩИЯ двигател, преди да го покаже.
  */
 const ENGINES: Partial<Record<EngineId, EngineModule>> = {
+  discovery: { id: 'discovery', load: () => import('./discovery/Engine').then((m) => m.DiscoveryEngine as LoadedEngine) },
   garden: { id: 'garden', load: () => import('./garden/Engine').then((m) => m.GardenEngine as LoadedEngine) },
   rhythm: { id: 'rhythm', load: () => import('./rhythm/Engine').then(m => m.RhythmEngine as LoadedEngine) },
   'route-program': { id: 'route-program', load: () => import('./route-program/Engine').then(m => m.RouteProgramEngine as LoadedEngine) },

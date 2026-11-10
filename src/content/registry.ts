@@ -39,9 +39,10 @@ function load(): Activity[] {
 }
 
 export const ACTIVITIES: readonly Activity[] = load();
+const byId = new Map(ACTIVITIES.map((activity) => [activity.id, activity]));
 
 export function activityById(id: string): Activity | null {
-  return ACTIVITIES.find((a) => a.id === id) ?? null;
+  return byId.get(id) ?? null;
 }
 
 export function activitiesInCategory(category: Category): Activity[] {
