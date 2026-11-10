@@ -51,6 +51,31 @@ async function seed(page, { age = 2, theme = 'light', dailyMin = null, themes = 
 const holes = (page) => page.getByRole('group', { name: 'Сенки', exact: true });
 const pieces = (page) => page.getByRole('group', { name: 'Картинки', exact: true });
 
+test('a new family creates a profile and its PIN survives reload', async ({ page }) => {
+  await page.goto('/#/parent');
+  await expect(page.getByRole('heading', { name: 'Създай PIN' })).toBeVisible();
+  const enterPin = async () => {
+    for (const digit of ['1', '9', '7', '4']) {
+      await page.getByRole('button', { name: digit, exact: true }).click();
+    }
+  };
+  await enterPin();
+  await expect(page.getByRole('heading', { name: 'Повтори PIN' })).toBeVisible();
+  await enterPin();
+  await page.getByRole('button', { name: 'Записах го' }).click();
+  await page.getByRole('textbox', { name: 'Име', exact: true }).fill('Мими');
+  await page.getByRole('button', { name: 'Добави', exact: true }).click();
+  await expect(page.getByText('Мими', { exact: false }).first()).toBeVisible();
+  await page.getByRole('button', { name: 'Излез от родителския режим' }).click();
+  await page.goto('/#/kid');
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Здравей, Мими!' })).toBeVisible();
+  await page.goto('/#/parent');
+  await expect(page.getByRole('heading', { name: 'Въведи PIN' })).toBeVisible();
+  await enterPin();
+  await expect(page.getByRole('tablist')).toBeVisible();
+});
+
 async function solveShadows(page) {
   const count = await pieces(page).getByRole('button').count();
   for (let index = 0; index < count; index += 1) {
