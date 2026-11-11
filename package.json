@@ -30,7 +30,8 @@
     "check": "npm run typecheck && npm run lint && npm run validate:content && npm run check:library && npm run check:variants && npm run check:assets && npm run check:mechanics && npm run check:audio && npm run check:ages && npm run check:covers && npm run check:contrast && npm run check:css-colors && npm run check:practical && npm run check:categories",
     "test:browser": "playwright test",
     "generate:library": "tsx scripts/generate-library.mjs",
-    "check:library": "tsx scripts/generate-library.mjs --check"
+    "check:library": "tsx scripts/generate-library.mjs --check",
+    "test:games": "playwright test gameplay"
   },
   "dependencies": {
     "idb-keyval": "^6.2.1",

@@ -34,7 +34,9 @@ export function SoundMatchEngine({
   // неговите параметри може да се смени, без задачата да стане друга.
   const params = useMemo(
     () =>
-      variant === 0 ? authored : soundMatchVariant(authored, variantRandom(activity.id, variant)),
+      variant === 0
+        ? authored
+        : soundMatchVariant(authored, variantRandom(activity.id, variant)),
     [authored, activity.id, variant],
   );
 
@@ -43,6 +45,9 @@ export function SoundMatchEngine({
   const [playing, setPlaying] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const playbackTimer = useRef<number>();
+  const transitionTimer = useRef<number>();
+  const playbackAllowed = useRef(!document.hidden);
   const startedAt = useRef(Date.now());
   const attempts = useRef(0);
   const correct = useRef(0);
@@ -51,11 +56,10 @@ export function SoundMatchEngine({
   const round = params.rounds[roundIndex];
 
   /** Разбъркваме, за да не стои верният винаги на едно място. */
-  const [choices, setChoices] = useState<string[]>(() =>
-    round ? shuffle(round.choices) : [],
-  );
+  const [choices, setChoices] = useState<string[]>(() => (round ? shuffle(round.choices) : []));
 
   const play = useCallback(() => {
+    if (!playbackAllowed.current || document.hidden) return;
     const url = round ? soundUrl(round.sound) : null;
     if (!url) return;
 
@@ -63,8 +67,12 @@ export function SoundMatchEngine({
     const audio = new Audio(url);
     audioRef.current = audio;
     setPlaying(true);
-    audio.addEventListener('ended', () => setPlaying(false), { once: true });
-    void audio.play().catch(() => setPlaying(false));
+    const stopped = () => {
+      if (audioRef.current === audio) setPlaying(false);
+    };
+    audio.addEventListener('ended', stopped, { once: true });
+    audio.addEventListener('error', stopped, { once: true });
+    void audio.play().catch(stopped);
   }, [round]);
 
   useEffect(() => {
@@ -72,13 +80,40 @@ export function SoundMatchEngine({
     setChoices(shuffle(round.choices));
     if (params.autoPlay) {
       // Малко закъснение: рундът трябва да се появи, преди да звучи.
-      const id = window.setTimeout(play, 450);
-      return () => window.clearTimeout(id);
+      playbackTimer.current = window.setTimeout(play, 450);
     }
-    return undefined;
+    return () => window.clearTimeout(playbackTimer.current);
   }, [roundIndex, round, params.autoPlay, play]);
 
-  useEffect(() => () => audioRef.current?.pause(), []);
+  useEffect(() => {
+    const stop = () => {
+      window.clearTimeout(playbackTimer.current);
+      audioRef.current?.pause();
+      setPlaying(false);
+    };
+    const onBlur = () => {
+      playbackAllowed.current = false;
+      stop();
+    };
+    const onFocus = () => {
+      playbackAllowed.current = !document.hidden;
+    };
+    const onVisibility = () => {
+      playbackAllowed.current = !document.hidden && document.hasFocus();
+      if (!playbackAllowed.current) stop();
+    };
+    window.addEventListener('blur', onBlur);
+    window.addEventListener('focus', onFocus);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      window.clearTimeout(playbackTimer.current);
+      window.clearTimeout(transitionTimer.current);
+      audioRef.current?.pause();
+      window.removeEventListener('blur', onBlur);
+      window.removeEventListener('focus', onFocus);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, []);
 
   useEffect(() => {
     onProgress(roundIndex / params.rounds.length);
@@ -93,17 +128,19 @@ export function SoundMatchEngine({
     if (choice !== round.sound) {
       api.sfx('soften');
       // Пускаме звука пак: грешката значи „чуй още веднъж“, не „сгреши“.
-      window.setTimeout(play, 300);
+      window.clearTimeout(playbackTimer.current);
+      playbackTimer.current = window.setTimeout(play, 300);
       return;
     }
 
     correct.current += 1;
+    window.clearTimeout(playbackTimer.current);
     setAnswered(choice);
     api.sfx('correct');
     api.haptic('success');
     api.announce(assetLabel(choice));
 
-    window.setTimeout(() => {
+    transitionTimer.current = window.setTimeout(() => {
       const next = roundIndex + 1;
       if (next >= params.rounds.length) {
         if (finished.current) return;
@@ -132,7 +169,13 @@ export function SoundMatchEngine({
         onClick={play}
         aria-label={t('action.listen')}
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          aria-hidden="true"
+        >
           <path d="M4 9h4l5-4v14l-5-4H4z" strokeLinejoin="round" />
           <path d="M17 8a5 5 0 0 1 0 8" strokeLinecap="round" />
           <path d="M20 5a9 9 0 0 1 0 14" strokeLinecap="round" />

@@ -4,7 +4,8 @@ import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { ErrorBoundary } from './ErrorBoundary';
 import { Page, Stack } from '@/design-system';
 import { useAudioLifecycle } from '@/core/audio';
-import { useApp } from '@/core/store/app';
+import { activeProfile, useApp } from '@/core/store/app';
+import { bandForAge } from '@/design-system/ageBand';
 import { t } from '@/i18n';
 
 // Read saved profiles, PIN and settings before mounting any route.
@@ -97,6 +98,10 @@ export function App() {
    */
   const theme = useApp((state) => state.settings.theme);
   const reducedMotion = useApp((state) => state.settings.reducedMotion);
+  const age = useApp((state) => activeProfile(state)?.age ?? 2);
+  useEffect(() => {
+    document.documentElement.dataset['ageBand'] = bandForAge(age);
+  }, [age]);
   useEffect(() => {
     const root = document.documentElement;
     if (theme === 'system') delete root.dataset['theme'];

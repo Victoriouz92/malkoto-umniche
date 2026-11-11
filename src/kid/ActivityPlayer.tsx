@@ -1,5 +1,6 @@
 import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Button, Confetti, ProgressRing, Stack, cx } from '@/design-system';
 import { Asset } from '@/assets/Asset';
@@ -138,7 +139,11 @@ function ActivityScreen() {
 
   const soundOn = useApp((st) => st.settings.sound);
   const reducedMotion = useApp((st) => st.settings.reducedMotion);
-  const profile = useApp(activeProfile);
+  const profile = useApp(useShallow((state) => {
+    const child = activeProfile(state);
+    // Saving elapsed time must not rebuild a running series or its timers.
+    return child ? { ...child, totalMs: 0 } : null;
+  }));
   const filter = useApp((st) => st.settings.filter);
   const updateSettings = useApp((st) => st.updateSettings);
   const recordCompletion = useApp((st) => st.recordCompletion);

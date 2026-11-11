@@ -2,12 +2,15 @@
   display: grid;
   gap: var(--tap-gap);
   justify-content: center;
+  grid-template-columns: repeat(var(--memory-columns), minmax(0, var(--tap-lg)));
+  width: 100%;
+  max-width: calc(var(--memory-columns) * var(--tap-lg) + (var(--memory-columns) - 1) * var(--tap-gap));
 }
 
 .card {
   position: relative;
-  width: min(var(--tap-lg), calc((100vw - 88px) / 4));
-  height: min(var(--tap-lg), calc((100vw - 88px) / 4));
+  width: 100%;
+  aspect-ratio: 1;
   border-radius: var(--r-2xl);
   transform-style: preserve-3d;
   transition: transform var(--dur-fast) var(--ease-settle), opacity var(--dur-fast) var(--ease-out);

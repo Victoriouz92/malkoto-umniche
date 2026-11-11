@@ -3,7 +3,7 @@
 .guide { fill: none; stroke: var(--c-border-strong); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 3 3; }
 .doneLine { fill: none; stroke: var(--c-secondary); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
 .point { position: absolute; display: grid; place-items: center; width: var(--tap); height: var(--tap); translate: -50% -50%; color: var(--c-ink-soft); background: var(--c-surface); border: 4px solid var(--c-secondary); border-radius: var(--r-full); box-shadow: var(--shadow-sm); font-size: var(--fs-md); font-weight: var(--fw-heavy); }
-.pointNext { color: white; background: var(--c-secondary); animation: breathe 1.4s ease-in-out infinite; }
+.pointNext { z-index: 2; color: white; background: var(--c-secondary); animation: breathe 1.4s ease-in-out infinite; }
 .pointDone { color: white; background: var(--c-success); border-color: var(--c-success); transform: scale(.72); opacity: .72; }
 .reveal { display: grid; place-items: center; width: min(18rem, 58vw); aspect-ratio: 1; animation: reveal .5s var(--ease-spring); }
 .model { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-2); padding: var(--sp-4); background: color-mix(in srgb, var(--c-surface) 84%, transparent); border-radius: var(--r-2xl); }
@@ -14,6 +14,8 @@
 .syllable { min-width: var(--tap-lg); padding: var(--sp-3) var(--sp-5); color: var(--c-ink); background: var(--c-surface); border-radius: var(--r-2xl); box-shadow: var(--shadow-sm); font-size: var(--fs-xl); font-weight: var(--fw-heavy); }
 .syllableDone { color: var(--c-success-strong); background: var(--c-success-soft); }
 .picture { width: min(12rem, 42vw); aspect-ratio: 1; }
-@keyframes breathe { 50% { transform: scale(1.12); } }
+@keyframes breathe { 50% { box-shadow: var(--shadow-sm), 0 0 0 5px var(--c-secondary-soft); } }
 @keyframes reveal { from { opacity: 0; transform: scale(.75) rotate(-4deg); } }
 @media (prefers-reduced-motion: reduce) { .pointNext, .reveal { animation: none; } }
+:global([data-reduced-motion]) .pointNext,
+:global([data-reduced-motion]) .reveal { animation: none; }
