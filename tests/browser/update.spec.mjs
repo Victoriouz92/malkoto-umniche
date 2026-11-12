@@ -95,6 +95,13 @@ test('a real service-worker update in another tab cannot interrupt an unfinished
       game.getByRole('button', { name: 'На място: крава', exact: true }),
     ).toBeDisabled();
     await expect(menu.getByRole('heading', { name: 'Здравей, Мими!' })).toBeVisible();
+    await game.getByRole('button', { name: 'Излез', exact: true }).click();
+    await expect(game.getByRole('button', { name: 'Обнови сега' })).toBeVisible();
+    await game.getByRole('button', { name: 'Обнови сега' }).click();
+    await expect
+      .poll(() => game.evaluate(() => window.qaBootId).catch(() => boot))
+      .not.toBe(boot);
+    await expect(game.getByRole('heading', { name: 'Здравей, Мими!' })).toBeVisible();
   } finally {
     await context.close();
     server.closeAllConnections();

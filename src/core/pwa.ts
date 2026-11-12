@@ -27,8 +27,11 @@ export function registerOfflineSupport(): void {
     update({ unavailable: true });
     return;
   }
+  let hadController = Boolean(navigator.serviceWorker.controller);
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (requestedUpdate) window.location.reload();
+    else if (hadController) update({ updateAvailable: true });
+    hadController = true;
   });
   void navigator.serviceWorker
     .register('/sw.js')
@@ -53,7 +56,12 @@ export function registerOfflineSupport(): void {
 }
 
 export function applyAvailableUpdate(): void {
-  if (!registration?.waiting || window.location.hash.startsWith('#/play/')) return;
+  if (window.location.hash.startsWith('#/play/')) return;
+  // Another tab may already have activated it: this tab still needs the new UI.
+  if (!registration?.waiting) {
+    if (status.updateAvailable) window.location.reload();
+    return;
+  }
   requestedUpdate = true;
   registration.waiting.postMessage({ type: 'SKIP_WAITING' });
 }
