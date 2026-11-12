@@ -77,12 +77,12 @@ test('legacy profiles migrate without losing their completed games', async ({ pa
 });
 
 test('PIN remains editable during the short submission delay', async ({ page }) => {
+  const now = new Date('2026-11-12T08:00:00Z');
+  await page.clock.install({ time: now });
   await seed(page);
   await page.goto('/#/parent');
   await expect(page.getByRole('heading', { name: 'Създай PIN' })).toBeVisible();
-  const now = new Date('2026-11-12T08:00:00Z');
-  await page.clock.install({ time: now });
-  await page.clock.pauseAt(now);
+  await page.clock.pauseAt(new Date(now.getTime() + 60_000));
   await page.keyboard.type('1974');
   await page.keyboard.press('Backspace');
   await page.keyboard.type('5');
@@ -151,13 +151,13 @@ test('public landing has real readable HTML without JavaScript', async ({ browse
 });
 
 test('a blocked audio resume cannot lock the rhythm game', async ({ page }) => {
+  await page.clock.install();
   await page.addInitScript(() => {
     AudioContext.prototype.resume = () => new Promise(() => {});
     Object.defineProperty(AudioContext.prototype, 'state', { get: () => 'suspended' });
   });
   await seed(page, { age: 3 });
   await page.goto('/#/play/rhythm-studio-3');
-  await page.clock.install();
   await page.getByRole('button', { name: 'Чуй примера', exact: true }).click();
   await page.clock.runFor(10_000);
   await expect(page.getByRole('button', { name: 'Бум', exact: true })).toBeEnabled();
@@ -303,6 +303,7 @@ test('all parent tabs work with keyboard navigation and have accessible panels',
 });
 
 test('PIN lockout persists after reload and recovery creates a new PIN', async ({ page }) => {
+  await page.clock.install();
   await seed(page);
   const code = await openParents(page);
   await page.goto('/#/kid');
@@ -320,7 +321,6 @@ test('PIN lockout persists after reload and recovery creates a new PIN', async (
   }
   await page.reload();
   await expect(page.getByRole('button', { name: '1', exact: true })).toBeDisabled();
-  await page.clock.install();
   await page.clock.runFor(31_000);
   await expect(page.getByRole('button', { name: '1', exact: true })).toBeEnabled();
   await page.getByRole('button', { name: 'Забравен PIN' }).click();

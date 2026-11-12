@@ -51,8 +51,8 @@ for (const activity of catalog) {
     page.on('response', (response) => {
       if (response.status() >= 400) errors.push(response.status() + ' ' + response.url());
     });
-    await seed(page, { age: activity.ageMin });
     await page.clock.install();
+    await seed(page, { age: activity.ageMin });
     await page.goto('/#/play/' + activity.id);
     const seen = new Map();
     const done = page.getByText('Заедно извън екрана', { exact: true });

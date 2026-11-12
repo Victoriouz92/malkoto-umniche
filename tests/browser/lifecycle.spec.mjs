@@ -36,13 +36,13 @@ async function observeAudio(page) {
 
 test('leaving a sound game cancels its delayed replay', async ({ page }) => {
   await observeAudio(page);
-  await seed(page);
   const now = new Date('2026-01-01T12:00:00Z');
   await page.clock.install({ time: now });
-  await page.clock.pauseAt(now);
+  await seed(page);
   await page.goto('/#/play/sound-farm-2');
   const game = page.locator('.playful-game');
   await expect(game).toBeVisible();
+  await page.clock.pauseAt(new Date(now.getTime() + 60_000));
   // The first sound is a cow. Pick the other visible picture, then leave
   // during the short delay before the game replays its instruction.
   const cow = game.getByRole('button', { name: 'крава', exact: true });
@@ -74,8 +74,8 @@ test('a sound game pauses its recording when the window loses focus', async ({ p
 
 test('a new sound round cannot autoplay while the window is unfocused', async ({ page }) => {
   await observeAudio(page);
-  await seed(page);
   await page.clock.install();
+  await seed(page);
   await page.goto('/#/play/sound-farm-2');
   await page
     .locator('.playful-game')

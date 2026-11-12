@@ -58,9 +58,9 @@ test('late microphone permission is released after leaving the voice tab', async
 
 test('recording stops automatically, saves locally and stops on tab exit', async ({ page }) => {
   await controlledMicrophone(page);
+  await page.clock.install();
   await seed(page);
   await createParentPin(page);
-  await page.clock.install();
   await page.getByRole('tab', { name: 'Моят глас' }).click();
   await page.getByRole('button', { name: 'Запиши', exact: true }).first().click();
   await expect(page.getByRole('button', { name: 'Спри записа', exact: true })).toBeVisible();

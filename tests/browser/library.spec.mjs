@@ -56,6 +56,7 @@ async function solveShadows(page) {
 test('puzzle accepts both orders, gives a hint, waits at the break and saves one sticker', async ({
   page,
 }) => {
+  await page.clock.install();
   await seed(page);
   await page.goto(puzzle);
   const cow = pieces(page).getByRole('button', { name: 'крава', exact: true });
@@ -74,7 +75,6 @@ test('puzzle accepts both orders, gives a hint, waits at the break and saves one
   await expect(next).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Готово! Кръг 1 от 2' })).toBeFocused();
   // Longer than the old automatic round switch.
-  await page.clock.install();
   await page.clock.fastForward(1_500);
   await next.click();
   await solveShadows(page);
@@ -262,6 +262,7 @@ test('first memory game can reveal the picture again and finish by keyboard', as
 test('music plays only on request, stops cleanly and is absent from listening games', async ({
   page,
 }) => {
+  await page.clock.install();
   await page.addInitScript(() => {
     // A slow output device must start the requested music when it becomes ready.
     const NativeContext = window.AudioContext;
@@ -317,7 +318,6 @@ test('music plays only on request, stops cleanly and is absent from listening ga
     window.qaMusicContext.qaDelayed = false;
     window.qaMusicContext.dispatchEvent(new Event('statechange'));
   });
-  await page.clock.install();
   await page.clock.fastForward(1_500);
   expect(await oscillatorCount()).toBe(stoppedAt);
   await page.goto('/#/play/rhythm-studio-3');
