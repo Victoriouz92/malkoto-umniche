@@ -35,7 +35,7 @@ export function BackupControls() {
           >
             Изтегли резервно копие
           </Button>
-          <label>
+          <label className={s.backupFile}>
             Възстанови от файл
             <input
               type="file"
