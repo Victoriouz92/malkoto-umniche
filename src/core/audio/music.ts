@@ -113,6 +113,24 @@ let currentMood: Mood | null = null;
 let pendingContext: AudioContext | null = null;
 let pendingStart: (() => void) | null = null;
 
+function cancelPendingStart(): void {
+  if (pendingContext && pendingStart)
+    pendingContext.removeEventListener('statechange', pendingStart);
+  pendingContext = null;
+  pendingStart = null;
+}
+
+function whenRunning(ctx: AudioContext, callback: () => void): void {
+  cancelPendingStart();
+  pendingContext = ctx;
+  pendingStart = () => {
+    if (ctx.state !== 'running') return;
+    cancelPendingStart();
+    callback();
+  };
+  ctx.addEventListener('statechange', pendingStart);
+}
+
 function playNote(
   ctx: AudioContext,
   out: GainNode,
@@ -139,7 +157,12 @@ function playNote(
 
 function schedule(spec: MoodSpec, beat = 0): void {
   const a = audio();
-  if (!a || !bus || a.ctx.state !== 'running') return;
+  if (!a || !bus) return;
+  if (a.ctx.state !== 'running') {
+    // A phone call or output-device interruption must not end the melody forever.
+    whenRunning(a.ctx, () => schedule(spec, beat));
+    return;
+  }
 
   if (spec.motif) {
     const step = spec.motif[beat % spec.motif.length];
@@ -168,11 +191,7 @@ export function startMusic(mood: Mood, enabled: boolean): void {
   if (!a) return;
   if (a.ctx.state !== 'running') {
     // The output can become available after the bounded unlock wait has ended.
-    pendingContext = a.ctx;
-    pendingStart = () => {
-      if (a.ctx.state === 'running') startMusic(mood, enabled);
-    };
-    a.ctx.addEventListener('statechange', pendingStart);
+    whenRunning(a.ctx, () => startMusic(mood, enabled));
     return;
   }
 
@@ -200,10 +219,7 @@ export function startMusic(mood: Mood, enabled: boolean): void {
 }
 
 export function stopMusic(): void {
-  if (pendingContext && pendingStart)
-    pendingContext.removeEventListener('statechange', pendingStart);
-  pendingContext = null;
-  pendingStart = null;
+  cancelPendingStart();
   if (timer !== null) {
     window.clearTimeout(timer);
     timer = null;

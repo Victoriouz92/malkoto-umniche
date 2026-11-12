@@ -264,29 +264,20 @@ test('music plays only on request, stops cleanly and is absent from listening ga
 }) => {
   await page.addInitScript(() => {
     // A slow output device must start the requested music when it becomes ready.
-    let prototype = AudioContext.prototype;
-    let descriptor;
-    while (prototype && !descriptor) {
-      descriptor = Object.getOwnPropertyDescriptor(prototype, 'state');
-      prototype = Object.getPrototypeOf(prototype);
-    }
-    const resume = AudioContext.prototype.resume;
-    Object.defineProperty(AudioContext.prototype, 'state', {
-      configurable: true,
-      get() {
-        return this.qaDelayed ? 'suspended' : descriptor.get.call(this);
-      },
-    });
-    AudioContext.prototype.resume = function () {
-      if (!this.qaDelayStarted) {
-        this.qaDelayStarted = true;
+    const NativeContext = window.AudioContext;
+    window.AudioContext = class extends NativeContext {
+      constructor(...args) {
+        super(...args);
+        window.qaMusicContext = this;
         this.qaDelayed = true;
         setTimeout(() => {
           this.qaDelayed = false;
           this.dispatchEvent(new Event('statechange'));
         }, 1200);
       }
-      return resume.call(this);
+      get state() {
+        return this.qaDelayed ? 'suspended' : super.state;
+      }
     };
     const original = OscillatorNode.prototype.start;
     OscillatorNode.prototype.start = function (...args) {
@@ -310,9 +301,22 @@ test('music plays only on request, stops cleanly and is absent from listening ga
   await music.click();
   await expect(music).toHaveAttribute('aria-pressed', 'true');
   await expect.poll(oscillatorCount).toBeGreaterThan(0);
+  await page.evaluate(() => window.qaMusicContext.suspend());
+  const beforeResume = await oscillatorCount();
+  await page.waitForTimeout(1500);
+  expect(await oscillatorCount()).toBe(beforeResume);
+  await page.evaluate(() => window.qaMusicContext.resume());
+  await expect.poll(oscillatorCount).toBeGreaterThan(beforeResume);
+  // Turning music off also cancels a melody waiting for a device to return.
+  await page.evaluate(() => { window.qaMusicContext.qaDelayed = true; });
+  await page.waitForTimeout(800);
   await music.click();
   await expect(music).toHaveAttribute('aria-pressed', 'false');
   const stoppedAt = await oscillatorCount();
+  await page.evaluate(() => {
+    window.qaMusicContext.qaDelayed = false;
+    window.qaMusicContext.dispatchEvent(new Event('statechange'));
+  });
   await page.clock.install();
   await page.clock.fastForward(1_500);
   expect(await oscillatorCount()).toBe(stoppedAt);
