@@ -8,7 +8,8 @@ import './design-system/base.css';
 // Public HTML has to be styled before JavaScript replaces it.
 import './landing/landing.module.css';
 
-import { App, hydration } from './app/App';
+import { App } from './app/App';
+import { hydration } from '@/core/persistence/hydration';
 import { getHydrationFailure } from '@/core/store/app';
 
 const container = document.getElementById('root');

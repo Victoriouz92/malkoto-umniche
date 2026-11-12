@@ -25,6 +25,15 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npx playwright install --with-deps ${{ matrix.browser }}
+      - name: Provide a real audio output for headless Firefox
+        if: matrix.browser == 'firefox'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pulseaudio
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=qa
+          pactl set-default-sink qa
+          pactl info
       - name: Critical browser regressions
         run: npm run test:browser -- --grep 'finish rhythm|cancelled pointer|music plays|render offline|profile deletion|production security|all twenty|recording stops|actual parent|landing exposes|blocked audio' --max-failures=5 --output=test-results/smoke
         env:

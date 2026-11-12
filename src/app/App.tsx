@@ -17,8 +17,7 @@ import { t } from '@/i18n';
 import { LandingPage } from '@/landing/LandingPage';
 import { RouteFrame } from './RouteFrame';
 
-// Read saved profiles, PIN and settings before mounting any route.
-export const hydration = Promise.resolve(useApp.persist.rehydrate());
+import { hydration } from '@/core/persistence/hydration';
 
 /**
  * Hash рутиране.
