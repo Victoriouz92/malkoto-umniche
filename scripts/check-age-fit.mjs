@@ -1,12 +1,11 @@
 import { readFile, readdir } from 'node:fs/promises';
-import { join } from 'node:path';
 
 const root = new URL('../src/content/activities/', import.meta.url);
-const files = (await readdir(root)).filter((file) => file.endsWith('.json'));
+const files = (await readdir(root, { recursive: true })).filter((file) => file.endsWith('.json'));
 const issues = [];
 
 for (const file of files) {
-  const activity = JSON.parse(await readFile(new URL(file, root), 'utf8'));
+  const activity = JSON.parse(await readFile(new URL(file.replaceAll('\\', '/'), root), 'utf8'));
   const p = activity.params;
   if (activity.engine === 'memory' && (!p.mode || p.mode === 'pairs')) {
     if (activity.ageMax >= 4 && p.items.length < 4) issues.push(`${activity.id}: малка дъска остава достъпна след 3 г.`);

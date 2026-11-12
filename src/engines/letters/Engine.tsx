@@ -92,7 +92,7 @@ function FindLetter({ params, api, onComplete, onProgress }: Props<'find'>) {
         {found.length} / {total}
       </output>
 
-      <div className={l.grid} style={{ gridTemplateColumns: `repeat(${columns}, auto)` }}>
+      <div className={l.grid} style={{ '--letter-columns': columns } as React.CSSProperties}>
         {params.grid.map((char, index) => (
           <button
             key={index}

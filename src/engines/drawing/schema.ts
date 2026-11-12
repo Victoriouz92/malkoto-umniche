@@ -16,6 +16,8 @@ export const drawingParams = z.object({
 
   /** Дебелини на четката. По-малко избор за по-малките. */
   widths: z.array(z.number().int().min(4).max(48)).min(1).max(4),
+  reference: z.string().min(1).optional(),
+  prompt: z.string().min(4).optional(),
 });
 
 export type DrawingParams = z.infer<typeof drawingParams>;

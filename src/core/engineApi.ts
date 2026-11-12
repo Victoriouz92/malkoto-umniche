@@ -61,6 +61,7 @@ export function useEngineApi(options: {
   const reducedMotion = useApp((s) => s.settings.reducedMotion);
 
   const age = profile?.age ?? 5;
+  const profileId = profile?.id;
   const { noFail, onCelebrate, isFinalRound } = options;
 
   return useMemo<EngineApi>(
@@ -89,7 +90,7 @@ export function useEngineApi(options: {
         // гласът на родителя остават за края на цялата серия.
         if (isFinalRound && !isFinalRound()) return;
         onCelebrate(origin);
-        if (voice && profile) void playRandomPraise(profile.id);
+        if (voice && profileId) void playRandomPraise(profileId).catch(() => undefined);
       },
 
       // Няма синтетичен говор. Инструкцията винаги присъства визуално;
@@ -98,6 +99,6 @@ export function useEngineApi(options: {
 
       announce: announceTo,
     }),
-    [age, noFail, voice, reducedMotion, onCelebrate, isFinalRound, profile],
+    [age, noFail, voice, reducedMotion, onCelebrate, isFinalRound, profileId],
   );
 }

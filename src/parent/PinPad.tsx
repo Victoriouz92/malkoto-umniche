@@ -34,7 +34,10 @@ export function PinPad({ onComplete, shakeSignal = 0, disabled = false }: Props)
    * потвърждаването се прескачаше и сгрешен PIN минаваше безшумно.
    */
   const submitted = useRef(false);
-
+  const complete = useRef(onComplete);
+  useEffect(() => {
+    complete.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     if (shakeSignal === 0) return;
@@ -51,13 +54,16 @@ export function PinPad({ onComplete, shakeSignal = 0, disabled = false }: Props)
 
     // Изчакваме кадър, за да се види попълнената четвърта точка.
     const id = window.setTimeout(() => {
-      onComplete(value);
+      complete.current(value);
       setValue('');
       submitted.current = false;
     }, 140);
 
-    return () => window.clearTimeout(id);
-  }, [value, onComplete]);
+    return () => {
+      window.clearTimeout(id);
+      submitted.current = false;
+    };
+  }, [value]);
 
   const press = (digit: string) => {
     if (disabled || value.length >= PIN_LENGTH) return;
@@ -76,8 +82,14 @@ export function PinPad({ onComplete, shakeSignal = 0, disabled = false }: Props)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (disabled) return;
-      if (/^\d$/.test(e.key)) press(e.key);
-      else if (e.key === 'Backspace') back();
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (/^\d$/.test(e.key)) {
+        e.preventDefault();
+        press(e.key);
+      } else if (e.key === 'Backspace') {
+        e.preventDefault();
+        back();
+      }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -85,6 +97,9 @@ export function PinPad({ onComplete, shakeSignal = 0, disabled = false }: Props)
 
   return (
     <div>
+      <span className="tm-sr-only" role="status">
+        Въведени {value.length} от {PIN_LENGTH} цифри
+      </span>
       <div className={cx(s.dots, shaking && s.shake)} aria-hidden="true">
         {Array.from({ length: PIN_LENGTH }, (_, i) => (
           <span key={i} className={cx(s.dot, i < value.length && s.dotFilled)} />

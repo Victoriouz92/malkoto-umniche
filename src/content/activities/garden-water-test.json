@@ -1,0 +1,34 @@
+{
+  "id": "garden-water-test",
+  "schemaVersion": 1,
+  "engine": "garden",
+  "mechanic": "m107",
+  "titleKey": "act.garden-water-test",
+  "category": "food",
+  "ageMin": 5,
+  "ageMax": 5,
+  "difficulty": 3,
+  "skills": [
+    "everyday-knowledge",
+    "logic"
+  ],
+  "themes": [
+    "garden"
+  ],
+  "durationSec": 90,
+  "assets": [
+    "food.strawberry"
+  ],
+  "params": {
+    "mode": "compare",
+    "factor": "water",
+    "crop": "food.strawberry"
+  },
+  "parentNoteKey": "note.garden-water-test",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

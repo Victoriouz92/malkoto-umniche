@@ -216,7 +216,7 @@
 .catalogueCount { flex-shrink: 0; color: var(--category-ink); font-size: .85rem; font-weight: 800; }
 .playFilters { display: flex; flex-wrap: wrap; gap: .5rem; }
 .playFilters button { min-height: 48px; padding: .55rem 1.05rem; border: 1px solid var(--c-border); border-radius: 2rem; color: var(--c-ink-soft); background: var(--c-surface); font-weight: 800; font-size: .9rem; }
-.playFilters button[aria-pressed='true'] { background: var(--category-ink); border-color: var(--category-ink); color: white; }
+.playFilters button[aria-pressed='true'] { background: var(--category-ink); border-color: var(--category-ink); color: var(--category-bg); }
 .catalogueCards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; }
 .gameCard { display: flex; flex-direction: column; min-width: 0; padding: .65rem; border: 1px solid var(--c-border); border-radius: 1.8rem; background: var(--c-surface); box-shadow: 0 5px 16px rgba(48, 65, 55, .045); text-align: center; transition: transform 180ms ease, box-shadow 180ms ease; }
 .gameCardBody { display: flex; flex: 1; flex-direction: column; padding: .85rem .65rem .35rem; }
@@ -225,6 +225,58 @@
 .gameCardMeta { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-top: auto; color: var(--c-ink-soft); font-size: .82rem; font-weight: 700; }
 .gameCardPlay { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--category-bg); color: var(--category-ink); font-size: 1.2rem; }
 .gameCard:active { transform: scale(.98); }
+.gameCard svg { transition: scale var(--dur-fast) var(--ease-out); }
+.gameCard:focus-visible svg, .gameCard:hover svg { scale: 1.035; }
+.catalogueMore {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-2);
+  color: var(--c-ink-soft);
+  font-weight: var(--fw-bold);
+}
+
+.worldFigures {
+  position: absolute;
+  z-index: -1;
+  inset: 10% 3% 6% auto;
+  width: 38%;
+  pointer-events: none;
+  color: var(--category-ink);
+  animation: figures-arrive 480ms ease-out both;
+}
+
+.worldFigures span {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 44%;
+  aspect-ratio: 1;
+  filter: drop-shadow(var(--shadow-sm));
+  font-size: clamp(2.5rem, 10vw, 7.5rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.worldFigures span:nth-child(1) { inset: auto 35% 0 auto; rotate: -14deg; }
+.worldFigures span:nth-child(2) { inset: 0 7% auto auto; rotate: 12deg; }
+.worldFigures span:nth-child(3) { inset: auto 0 4% auto; rotate: 9deg; width: 33%; }
+.worldHero[data-category='vehicles'] .worldFigures span:nth-child(1) { rotate: 0deg; width: 52%; }
+.worldHero[data-category='memory'] .worldFigures span:nth-child(2) { rotate: 0deg; opacity: .65; }
+@keyframes figures-arrive { from { opacity: .5; translate: .7rem 0; } }
+
+@media (max-width: 40rem) {
+  .worldFigures { width: 32%; inset: 0 2% 6% auto; opacity: .55; }
+  .worldFigures span { font-size: clamp(1.65rem, 7vw, 3rem); }
+}
+
+:global([data-reduced-motion]) .worldFigures,
+:global([data-reduced-motion]) .gameCard { animation: none; transition: none; }
+:global([data-reduced-motion]) .gameCard:hover,
+:global([data-reduced-motion]) .gameCard:active { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .worldFigures { animation: none; }
+  .gameCard:hover svg, .gameCard:focus-visible svg { scale: 1; }
+}
 .worldFooter { margin-top: 1rem; padding: 1.6rem 1rem; border-top: 1px solid var(--c-border); color: var(--c-ink-soft); }
 .worldFooter img { display: block; width: 3rem; border-radius: 1rem; margin: 0 auto .6rem; }
 .worldFooter p { font-size: .9rem; }

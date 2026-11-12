@@ -22,14 +22,12 @@
   "params": {
     "lineart": "lineart.bus",
     "palette": [
+      "grey",
       "red",
-      "orange",
-      "yellow",
-      "green",
       "blue",
-      "purple",
-      "grey"
-    ]
+      "yellow"
+    ],
+    "limitedPalette": true
   },
   "parentNoteKey": "note.coloring-bus",
   "a11y": {

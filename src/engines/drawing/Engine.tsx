@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Asset } from '@/assets/Asset';
 import { Button, cx } from '@/design-system';
 import { t } from '@/i18n';
 import type { EngineProps } from '../types';
@@ -129,6 +130,10 @@ export function DrawingEngine({
 
   return (
     <div className={s.stage}>
+      {params.prompt ? <div className={d.inspiration}>
+        {params.reference ? <Asset id={params.reference} size={68} /> : null}
+        <p>{params.prompt}</p>
+      </div> : null}
       <canvas
         ref={canvasRef}
         className={d.canvas}

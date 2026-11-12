@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { createServer, defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import { fileURLToPath, URL } from 'node:url';
@@ -12,9 +12,42 @@ export default defineConfig({
 
   plugins: [
     react(),
+    {
+      name: 'public-landing-html',
+      apply: 'build',
+      transformIndexHtml: {
+        order: 'pre',
+        async handler(html) {
+          const server = await createServer({
+            configFile: false,
+            appType: 'custom',
+            server: { middlewareMode: true },
+            plugins: [react()],
+            ssr: {
+              noExternal: ['react-router', 'react-router-dom'],
+              resolve: { conditions: ['module-sync', 'module', 'node'] },
+            },
+            optimizeDeps: { noDiscovery: true, include: [] },
+            resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
+          });
+          try {
+            const page = (await server.ssrLoadModule('/src/landing/prerender.tsx')) as {
+              renderLanding: () => string;
+            };
+            return html.replace(
+              '<div id="root"></div>',
+              `<div id="root">${page.renderLanding()}</div>`,
+            );
+          } finally {
+            await server.close();
+          }
+        },
+      },
+    },
 
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
+      injectRegister: false,
       includeAssets: ['icons/*.png', 'fonts/*.woff2'],
 
       // Приложението трябва да работи изцяло офлайн: всичко се precache-ва.
@@ -25,6 +58,7 @@ export default defineConfig({
         // Активностите и графиката растат; вдигаме тавана от 2MB.
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
         cleanupOutdatedCaches: true,
+        clientsClaim: true,
         navigateFallback: 'index.html',
       },
 
@@ -80,8 +114,13 @@ export default defineConfig({
     chunkSizeWarningLimit: 220,
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
+        manualChunks(id) {
+          if (/\/node_modules\/(react|react-dom|scheduler)\//.test(id)) return 'react';
+          if (/\/node_modules\/react-router(-dom)?\//.test(id)) return 'router';
+          if (id.includes('/node_modules/zod/')) return 'validation';
+          const expedition =
+            /\/src\/content\/activities\/expedition\/expedition-([a-z]+)-/.exec(id);
+          if (expedition) return 'catalogue-' + expedition[1];
         },
       },
     },

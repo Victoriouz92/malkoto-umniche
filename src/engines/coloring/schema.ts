@@ -30,6 +30,7 @@ export const coloringParams = z.object({
 
   /** По-малка палитра за малките: десет молива са твърде много избори. */
   palette: z.array(z.enum(CRAYONS)).min(2).max(10),
+  limitedPalette: z.boolean().optional(),
 });
 
 export type ColoringParams = z.infer<typeof coloringParams>;

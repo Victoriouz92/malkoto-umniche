@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Cluster, HoldButton, Page, ProgressRing, Stack } from '@/design-system';
 import { ACTIVITIES, activitiesInCategory, populatedCategories } from '@/content/registry';
-import { allowedAgeRange, isActivityAllowed } from '@/content/ageAccess';
+import { allowedAgeRange, isActivityAllowed, matchesContentFilter } from '@/content/ageAccess';
 import type { Category } from '@/content/schema/constants';
 import { useApp, activeProfile } from '@/core/store/app';
 import { useSessionClock, useTimeState, formatRemaining } from '@/core/time/session';
@@ -29,9 +29,11 @@ export function KidHome() {
   useSessionClock();
 
   const range = allowedAgeRange(profile, filter);
-  const categories = populatedCategories().filter((category) =>
-    activitiesInCategory(category).some((activity) => isActivityAllowed(activity, range)),
-  );
+  const categories = populatedCategories().map((category) => ({
+    category,
+    count: activitiesInCategory(category).filter((activity) =>
+      isActivityAllowed(activity, range) && matchesContentFilter(activity, filter)).length,
+  })).filter(({ count }) => count > 0);
 
   // Първо пускане: детето не може да си направи профил само.
   if (!profile) {
@@ -51,7 +53,7 @@ export function KidHome() {
           </Card>
 
           <Cluster center>
-            <Button variant="primary" size="kid" onClick={() => navigate('/parent')}>
+            <Button variant="primary" size="kid" onClick={() => void navigate('/parent')}>
               {t('parent.profiles.createFirst')}
             </Button>
           </Cluster>
@@ -73,15 +75,15 @@ export function KidHome() {
         </div>
 
         <Cluster between>
-          <button type="button" className={s.miniBrand} onClick={() => navigate('/')}>
-            <img src="/icons/icon-192.png" alt="" aria-hidden="true" />
+          <button type="button" className={s.miniBrand} onClick={() => void navigate('/')}>
+            <img src="/icons/icon-192.webp" alt="" aria-hidden="true" />
             {t('app.name')}
           </button>
           <span className={s.ageRange}>{profile.age} г.</span>
         </Cluster>
 
         <Stack gap={2} className={s.homeIntro}>
-          <img className={s.introMascot} src="/icons/icon-192.png" alt="" aria-hidden="true" />
+          <img className={s.introMascot} src="/icons/icon-192.webp" alt="" aria-hidden="true" />
           <h1>{t('kid.home.greeting', { name: profile.name })}</h1>
           <p style={{ color: 'var(--c-ink-soft)' }}>{t('kid.home.pick')}</p>
         </Stack>
@@ -103,30 +105,31 @@ export function KidHome() {
         ) : null}
 
         <div className={s.tiles}>
-          {categories.map((category) => (
+          {categories.map(({ category, count }) => (
             <CategoryTile
               key={category}
               category={category}
-              range={range}
+              count={count}
               onOpen={() => {
                 playEffect('tap');
-                navigate(`/c/${category}`);
+                void navigate(`/c/${category}`);
               }}
             />
           ))}
         </div>
+        {categories.length === 0 ? <p>{t('kid.category.empty')}</p> : null}
 
         <Cluster center gap={4}>
-          <Button variant="primary" size="kid" onClick={() => navigate('/next')}>
+          <Button variant="primary" size="kid" onClick={() => void navigate('/next')}>
             ✨ Какво да играя?
           </Button>
-          <Button variant="soft" size="kid" onClick={() => navigate('/stickers')}>
+          <Button variant="soft" size="kid" onClick={() => void navigate('/stickers')}>
             {t('kid.stickers.title')} · {profile.stickers.length}
           </Button>
         </Cluster>
 
         <Cluster center>
-          <HoldButton label={t('stop.parentUnlock')} onComplete={() => navigate('/parent')} />
+          <HoldButton label={t('stop.parentUnlock')} onComplete={() => void navigate('/parent')} />
         </Cluster>
       </Stack>
     </Page>
@@ -149,16 +152,13 @@ const CATEGORY_ART: Record<Category, CategoryArt> = {
 
 function CategoryTile({
   category,
-  range,
+  count,
   onOpen,
 }: {
   category: Category;
-  range: { min: number; max: number };
+  count: number;
   onOpen: () => void;
 }) {
-  const list = activitiesInCategory(category).filter((activity) =>
-    isActivityAllowed(activity, range),
-  );
   const art = CATEGORY_ART[category];
 
   return (
@@ -196,7 +196,7 @@ function CategoryTile({
       </span>
       <span className={s.tileLabel}>{t(`cat.${category}`)}</span>
       <span className={s.tileCount}>
-        {list.length} {list.length === 1 ? 'игра' : 'игри'}
+        {count} {count === 1 ? 'игра' : 'игри'}
       </span>
     </button>
   );

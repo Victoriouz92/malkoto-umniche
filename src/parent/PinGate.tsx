@@ -12,12 +12,7 @@ import { t } from '@/i18n';
 import { PinPad } from './PinPad';
 import s from './parent.module.css';
 
-type Step =
-  | 'enter'
-  | 'setup-enter'
-  | 'setup-confirm'
-  | 'setup-recovery'
-  | 'recovery-code';
+type Step = 'enter' | 'setup-enter' | 'setup-confirm' | 'setup-recovery' | 'recovery-code';
 
 /** След толкова грешни опита вратата спира да отговаря за малко. */
 const MAX_ATTEMPTS = 5;
@@ -70,8 +65,8 @@ export function PinGate({ onUnlocked, onCancel }: Props) {
 
       if (step === 'enter') {
         setBusy(true);
-        void verifySecret(entered, { hash: pin.hash ?? '', salt: pin.salt ?? '' }).then(
-          (ok) => {
+        void verifySecret(entered, { hash: pin.hash ?? '', salt: pin.salt ?? '' })
+          .then((ok) => {
             setBusy(false);
             if (ok) {
               clearPinFailures();
@@ -81,8 +76,11 @@ export function PinGate({ onUnlocked, onCancel }: Props) {
             registerPinFailure(MAX_ATTEMPTS, LOCKOUT_MS);
             const willLock = pin.failedAttempts + 1 >= MAX_ATTEMPTS;
             fail(willLock ? t('parent.gate.locked') : t('parent.gate.wrong'));
-          },
-        );
+          })
+          .catch(() => {
+            setBusy(false);
+            fail('PIN-ът не можа да се провери. Опитайте отново.');
+          });
         return;
       }
 
@@ -107,15 +105,18 @@ export function PinGate({ onUnlocked, onCancel }: Props) {
 
         setBusy(true);
         const code = generateRecoveryCode();
-        void Promise.all([hashSecret(entered), hashSecret(code)]).then(
-          ([pinDigest, recoveryDigest]) => {
+        void Promise.all([hashSecret(entered), hashSecret(code)])
+          .then(([pinDigest, recoveryDigest]) => {
             setPin(pinDigest, recoveryDigest);
             setRecoveryCode(code);
             setBusy(false);
             setMessage('');
             setStep('setup-recovery');
-          },
-        );
+          })
+          .catch(() => {
+            setBusy(false);
+            fail('PIN-ът не можа да се запази. Опитайте отново.');
+          });
       }
     },
     [
@@ -134,6 +135,7 @@ export function PinGate({ onUnlocked, onCancel }: Props) {
   );
 
   const checkRecovery = () => {
+    if (busy || locked) return;
     if (!pin.recoveryHash) {
       setMessage(t('parent.gate.recovery.none'));
       return;
@@ -142,17 +144,23 @@ export function PinGate({ onUnlocked, onCancel }: Props) {
     void verifySecret(normalizeRecoveryCode(codeInput), {
       hash: pin.recoveryHash,
       salt: pin.recoverySalt ?? '',
-    }).then((ok) => {
-      setBusy(false);
-      if (!ok) {
-        setMessage(t('parent.gate.recovery.wrong'));
-        return;
-      }
-      clearPinFailures();
-      setMessage('');
-      setCodeInput('');
-      setStep('setup-enter');
-    });
+    })
+      .then((ok) => {
+        setBusy(false);
+        if (!ok) {
+          registerPinFailure(MAX_ATTEMPTS, LOCKOUT_MS);
+          setMessage(t('parent.gate.recovery.wrong'));
+          return;
+        }
+        clearPinFailures();
+        setMessage('');
+        setCodeInput('');
+        setStep('setup-enter');
+      })
+      .catch(() => {
+        setBusy(false);
+        setMessage('Кодът не можа да се провери. Опитайте отново.');
+      });
   };
 
   const title =
@@ -182,7 +190,11 @@ export function PinGate({ onUnlocked, onCancel }: Props) {
               <Cluster center>
                 <Button
                   variant="soft"
-                  onClick={() => void navigator.clipboard?.writeText(recoveryCode)}
+                  onClick={() =>
+                    void navigator.clipboard
+                      ?.writeText(recoveryCode)
+                      .catch(() => setMessage('Копирането не успя. Запишете показания код.'))
+                  }
                 >
                   {t('action.copy')}
                 </Button>
@@ -190,6 +202,7 @@ export function PinGate({ onUnlocked, onCancel }: Props) {
                   {t('parent.gate.recovery.saved')}
                 </Button>
               </Cluster>
+              {message ? <p role="status">{message}</p> : null}
             </Stack>
           </Card>
         ) : step === 'recovery-code' ? (
@@ -207,7 +220,7 @@ export function PinGate({ onUnlocked, onCancel }: Props) {
               <Button variant="quiet" onClick={() => setStep('enter')}>
                 {t('action.back')}
               </Button>
-              <Button variant="primary" disabled={busy} onClick={checkRecovery}>
+              <Button variant="primary" disabled={busy || locked} onClick={checkRecovery}>
                 {t('action.confirm')}
               </Button>
             </Cluster>

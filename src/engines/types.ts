@@ -117,10 +117,9 @@ export type EngineSchema<P = unknown> = {
    * Входът е `unknown` нарочно.
    *
    * Полета с `.default()` са незадължителни в JSON-а и задължителни след
-   * разбора — точно за това служат. `z.ZodType<P>` изисква двете страни да
-   * съвпадат и би направил всеки default невъзможен.
+   * разбора — точно за това служат.
    */
-  paramsSchema: z.ZodType<P, z.ZodTypeDef, unknown>;
+  paramsSchema: z.ZodType<P, unknown>;
 };
 
 /**

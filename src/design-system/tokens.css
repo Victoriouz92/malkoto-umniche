@@ -375,6 +375,7 @@
    ─────────────────────────────────────────────────────────────── */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
+    --puzzle-shadow-invert: 1;
     --c-bg: var(--dk-c-bg);
     --c-surface: var(--dk-c-surface);
     --c-surface-2: var(--dk-c-surface-2);
@@ -459,6 +460,7 @@
  * място тихо чупи другото.
  */
 :root[data-theme='dark'] {
+  --puzzle-shadow-invert: 1;
   color-scheme: dark;
 
     --c-bg: var(--dk-c-bg);
@@ -545,4 +547,13 @@
     --dur-celebrate: 1ms;
     --ease-spring: var(--ease-out);
   }
+}
+
+:root[data-reduced-motion] {
+  --dur-instant: 1ms;
+  --dur-fast: 1ms;
+  --dur-normal: 1ms;
+  --dur-slow: 1ms;
+  --dur-celebrate: 1ms;
+  --ease-spring: var(--ease-out);
 }

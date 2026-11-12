@@ -115,7 +115,7 @@ export function DesignSystemPreview() {
       <Stack gap={4}>
         <Cluster between>
           <h1>Дизайн система</h1>
-          <Button variant="quiet" size="sm" onClick={() => navigate('/')}>
+          <Button variant="quiet" size="sm" onClick={() => void navigate('/')}>
             {t('action.back')}
           </Button>
         </Cluster>

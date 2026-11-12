@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { CSSProperties } from 'react';
 import { Asset } from '@/assets/Asset';
 import { assetLabel } from '@/i18n';
 import { cx } from '@/design-system';
@@ -105,7 +106,7 @@ function PairsEngine({ params, api, onComplete, onProgress }: EngineProps<Memory
     <div className={shared.stage}>
       <h2>Открий {params.items.length} еднакви двойки</h2>
       <p>Обръщай по две карти и запомняй местата им.</p>
-      <div className={s.board} style={{ gridTemplateColumns: `repeat(${columns}, auto)` }}>
+      <div className={s.board} style={{ '--memory-columns': columns } as CSSProperties}>
         {cards.map((card) => {
           const isOpen = open.includes(card.key) || matched.includes(card.key);
           const isMatched = matched.includes(card.key);

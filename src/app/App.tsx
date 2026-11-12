@@ -1,11 +1,23 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState, useSyncExternalStore } from 'react';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 
 import { ErrorBoundary } from './ErrorBoundary';
-import { Page, Stack } from '@/design-system';
+import { Button, Page, Stack } from '@/design-system';
 import { useAudioLifecycle } from '@/core/audio';
-import { useApp } from '@/core/store/app';
+import { activeProfile, getHydrationFailure, useApp } from '@/core/store/app';
+import {
+  downloadJson,
+  originalSavedData,
+  storageNotice,
+  enableTemporaryStorage,
+  watchStorage,
+} from '@/core/persistence/storage';
+import { bandForAge } from '@/design-system/ageBand';
 import { t } from '@/i18n';
+import { LandingPage } from '@/landing/LandingPage';
+import { RouteFrame } from './RouteFrame';
+
+import { hydration } from '@/core/persistence/hydration';
 
 /**
  * Hash рутиране.
@@ -17,12 +29,7 @@ import { t } from '@/i18n';
 
 // Всеки маршрут е отделен chunk: детският режим никога не тегли
 // родителския панел, и обратно. Пази перф бюджета от T6.2.
-const KidHome = lazy(() =>
-  import('@/kid/KidHome').then((m) => ({ default: m.KidHome })),
-);
-const LandingPage = lazy(() =>
-  import('@/landing/LandingPage').then((m) => ({ default: m.LandingPage })),
-);
+const KidHome = lazy(() => import('@/kid/KidHome').then((m) => ({ default: m.KidHome })));
 const ParentHome = lazy(() =>
   import('@/parent/ParentHome').then((m) => ({ default: m.ParentHome })),
 );
@@ -46,8 +53,11 @@ const StickerAlbum = lazy(() =>
 const NextActivity = lazy(() =>
   import('@/kid/NextActivity').then((m) => ({ default: m.NextActivity })),
 );
+const InformationPage = lazy(() =>
+  import('@/landing/InformationPage').then((m) => ({ default: m.InformationPage })),
+);
 const GameReview = import.meta.env.DEV
-  ? lazy(() => import('@/kid/preview/GameReview').then(m => ({ default: m.GameReview })))
+  ? lazy(() => import('@/kid/preview/GameReview').then((m) => ({ default: m.GameReview })))
   : null;
 
 function Loading() {
@@ -61,19 +71,63 @@ function Loading() {
 }
 
 const router = createHashRouter([
-  ...(GameReview ? [{ path: '/review/:activityId', element: <GameReview /> }] : []),
-  { path: '/', element: <LandingPage /> },
-  { path: '/kid', element: <KidHome /> },
-  { path: '/c/:category', element: <CategoryScreen /> },
-  { path: '/play/:activityId', element: <ActivityPlayer /> },
-  { path: '/stickers', element: <StickerAlbum /> },
-  { path: '/next', element: <NextActivity /> },
-  { path: '/parent', element: <ParentHome /> },
-  { path: '/ds', element: <DesignSystemPreview /> },
-  { path: '/core', element: <CorePreview /> },
+  {
+    element: <RouteFrame />,
+    children: [
+      ...(GameReview ? [{ path: '/review/:activityId', element: <GameReview /> }] : []),
+      { path: '/', element: <LandingPage /> },
+      { path: '/kid', element: <KidHome /> },
+      { path: '/c/:category', element: <CategoryScreen /> },
+      { path: '/play/:activityId', element: <ActivityPlayer /> },
+      { path: '/stickers', element: <StickerAlbum /> },
+      { path: '/next', element: <NextActivity /> },
+      { path: '/parent', element: <ParentHome /> },
+      ...['help', 'privacy', 'credits'].map((page) => ({
+        path: `/${page}`,
+        element: <InformationPage section={page} />,
+      })),
+      ...(import.meta.env.DEV
+        ? [
+            { path: '/ds', element: <DesignSystemPreview /> },
+            { path: '/core', element: <CorePreview /> },
+          ]
+        : []),
+      { path: '*', element: <InformationPage section="missing" /> },
+    ].map((route) => ({
+      ...route,
+      element:
+        route.path === '/' ? (
+          route.element
+        ) : (
+          <Suspense fallback={<Loading />}>{route.element}</Suspense>
+        ),
+    })),
+  },
 ]);
 
 export function App() {
+  useEffect(() => {
+    document.documentElement.dataset['appReady'] = 'true';
+    return () => {
+      delete document.documentElement.dataset['appReady'];
+    };
+  }, []);
+  const [ready, setReady] = useState(() => useApp.persist.hasHydrated());
+  const [startupError, setStartupError] = useState<unknown>(null);
+  const notice = useSyncExternalStore(watchStorage, storageNotice, () => null);
+  useEffect(() => {
+    let mounted = true;
+    void hydration.then(() => {
+      if (mounted) {
+        setStartupError(getHydrationFailure());
+        setReady(true);
+      }
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   // Отключва звука при първи допир и млъква при загуба на фокус.
   useAudioLifecycle();
 
@@ -86,17 +140,65 @@ export function App() {
    * и обратното.
    */
   const theme = useApp((state) => state.settings.theme);
+  const reducedMotion = useApp((state) => state.settings.reducedMotion);
+  const age = useApp((state) => activeProfile(state)?.age ?? 2);
+  useEffect(() => {
+    document.documentElement.dataset['ageBand'] = bandForAge(age);
+  }, [age]);
   useEffect(() => {
     const root = document.documentElement;
     if (theme === 'system') delete root.dataset['theme'];
     else root.dataset['theme'] = theme;
   }, [theme]);
 
+  useEffect(() => {
+    document.documentElement.toggleAttribute('data-reduced-motion', reducedMotion);
+  }, [reducedMotion]);
+
   return (
     <ErrorBoundary>
-      <Suspense fallback={<Loading />}>
-        <RouterProvider router={router} />
-      </Suspense>
+      {startupError ? (
+        <Page narrow>
+          <Stack gap={4}>
+            <h1>Данните не могат да се отворят</h1>
+            <p>
+              Запазените профили не са изтрити. Проверете дали браузърът разрешава съхранение на
+              данни и опитайте отново.
+            </p>
+            <Button variant="primary" onClick={() => window.location.reload()}>
+              Опитай отново
+            </Button>
+            {originalSavedData() ? (
+              <Button
+                variant="soft"
+                onClick={() => downloadJson(originalSavedData(), 'umniche-recovery.json')}
+              >
+                Изтегли копие на данните
+              </Button>
+            ) : null}
+            <Button
+              variant="quiet"
+              onClick={() => {
+                enableTemporaryStorage();
+                void Promise.resolve(useApp.persist.rehydrate()).then(() =>
+                  setStartupError(null),
+                );
+              }}
+            >
+              Продължи временно без запазване
+            </Button>
+          </Stack>
+        </Page>
+      ) : (
+        <>
+          {notice ? (
+            <p className="storage-notice" role="status">
+              {notice}
+            </p>
+          ) : null}
+          {ready ? <RouterProvider router={router} /> : <Loading />}
+        </>
+      )}
     </ErrorBoundary>
   );
 }

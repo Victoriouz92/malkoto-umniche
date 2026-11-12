@@ -9,7 +9,8 @@ import type { EngineSchema } from '../types';
  */
 export const puzzleParams = z.object({
   /** Предметите, които трябва да намерят отворите си. */
-  pieces: z.array(z.string().min(1)).min(2).max(6),
+  pieces: z.array(z.string().min(1)).min(2).max(6)
+    .refine((pieces) => new Set(pieces).size === pieces.length, 'Puzzle pieces must be unique'),
 });
 
 export type PuzzleParams = z.infer<typeof puzzleParams>;

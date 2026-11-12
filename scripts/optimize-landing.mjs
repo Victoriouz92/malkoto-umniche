@@ -3,6 +3,7 @@ import { mkdir } from 'node:fs/promises';
 
 // Keep original artwork; generate compact runtime images reproducibly.
 await mkdir('public/optimized', { recursive: true });
+await sharp('public/icons/icon-192.png').webp({quality: 88}).toFile('public/icons/icon-192.webp');
 for (const name of ['hero-malkoto-umniche', 'slide-numbers-wide', 'slide-reading-wide', 'slide-letters-wide']) {
   for (const width of [800, 1600]) {
     const result = await sharp(`public/${name}.png`).resize({ width, withoutEnlargement: true })

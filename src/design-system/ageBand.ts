@@ -26,9 +26,11 @@ export function bandForAge(age: number): AgeBand {
 export function useApplyAgeBand(band: AgeBand): void {
   useEffect(() => {
     const root = document.documentElement;
+    const previous = root.dataset['ageBand'];
     root.dataset['ageBand'] = band;
     return () => {
-      delete root.dataset['ageBand'];
+      if (previous === undefined) delete root.dataset['ageBand'];
+      else root.dataset['ageBand'] = previous;
     };
   }, [band]);
 }

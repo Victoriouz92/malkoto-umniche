@@ -37,3 +37,12 @@
   border-color: var(--c-secondary);
   background: var(--c-secondary-soft);
 }
+.inspiration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  max-width: 34rem;
+  color: var(--activity-ink);
+}

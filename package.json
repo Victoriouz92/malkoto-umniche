@@ -11,7 +11,7 @@
     "icons": "node scripts/gen-icons.mjs",
     "optimize:landing": "node scripts/optimize-landing.mjs",
     "build:assets": "node scripts/build-assets.mjs && node scripts/check-assets.mjs",
-    "build:audio": "node scripts/build-audio.mjs && node scripts/check-audio.mjs",
+    "build:audio": "node scripts/build-audio.mjs && node scripts/build-compatible-audio.mjs --force && node scripts/check-audio.mjs",
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx,css,json,md}\"",
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json",
@@ -27,18 +27,24 @@
     "check:practical": "tsx scripts/check-practical-games.ts && tsx scripts/check-coloring.ts && tsx scripts/check-assessment.ts && tsx scripts/check-route-program.ts && tsx scripts/check-rhythm.ts",
     "check:categories": "tsx scripts/check-category-identity.ts",
     "build:mechanics": "node scripts/build-mechanics-index.mjs",
-    "check": "npm run typecheck && npm run lint && npm run validate:content && npm run check:variants && npm run check:assets && npm run check:mechanics && npm run check:audio && npm run check:ages && npm run check:covers && npm run check:contrast && npm run check:css-colors && npm run check:practical && npm run check:categories"
+    "check": "npm run typecheck && npm run lint && npm run validate:content && npm run check:library && npm run check:variants && npm run check:assets && npm run check:mechanics && npm run check:audio && npm run check:ages && npm run check:covers && npm run check:contrast && npm run check:css-colors && npm run check:practical && npm run check:categories",
+    "test:browser": "playwright test",
+    "generate:library": "tsx scripts/generate-library.mjs",
+    "check:library": "tsx scripts/generate-library.mjs --check",
+    "test:games": "playwright test gameplay"
   },
   "dependencies": {
     "idb-keyval": "^6.2.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.30.0",
-    "zod": "^3.24.1",
+    "react-router-dom": "^7.18.5",
+    "zod": "^4.6.7",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^9.18.0",
+    "@playwright/test": "^1.65.0",
     "@twemoji/svg": "^15.0.0",
     "@types/node": "^22.20.1",
     "@types/react": "^18.3.18",
@@ -55,5 +61,13 @@
     "typescript-eslint": "^8.20.0",
     "vite": "^6.0.7",
     "vite-plugin-pwa": "^0.21.1"
+  },
+  "overrides": {
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.8"
+    },
+    "workbox-build": {
+      "glob": "^14.0.5"
+    }
   }
 }

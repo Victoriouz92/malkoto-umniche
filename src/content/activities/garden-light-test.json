@@ -1,0 +1,34 @@
+{
+  "id": "garden-light-test",
+  "schemaVersion": 1,
+  "engine": "garden",
+  "mechanic": "m107",
+  "titleKey": "act.garden-light-test",
+  "category": "food",
+  "ageMin": 6,
+  "ageMax": 6,
+  "difficulty": 4,
+  "skills": [
+    "everyday-knowledge",
+    "logic"
+  ],
+  "themes": [
+    "garden"
+  ],
+  "durationSec": 90,
+  "assets": [
+    "nature.flower"
+  ],
+  "params": {
+    "mode": "compare",
+    "factor": "light",
+    "crop": "nature.flower"
+  },
+  "parentNoteKey": "note.garden-light-test",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

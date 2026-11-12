@@ -1,0 +1,13 @@
+.page { min-height: 100%; padding: var(--sp-5); background: radial-gradient(ellipse at top right, var(--c-secondary-soft), transparent 36rem), var(--c-bg); }
+.header, .links { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-4); max-width: 68rem; margin: auto; }
+.page a { color: var(--c-secondary-ink); font-weight: var(--fw-bold); text-underline-offset: .2em; overflow-wrap: anywhere; }
+.header a, .links a { display: inline-flex; align-items: center; min-height: 48px; }
+.brand { gap: var(--sp-3); font-size: var(--fs-lg); text-decoration: none; }
+.brand img { width: 48px; height: 48px; }
+.article { max-width: 47rem; margin: var(--sp-8) auto; line-height: 1.75; }
+.article h1 { font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1.15; margin-block: var(--sp-4) var(--sp-6); }
+.article h2 { margin-top: var(--sp-8); font-size: var(--fs-xl); }
+.article p { margin-block: var(--sp-3); }
+.lead { font-size: var(--fs-lg); font-weight: var(--fw-bold); }
+.eyebrow, .note { color: var(--c-ink-soft); font-size: var(--fs-sm); }
+.links { justify-content: flex-start; padding-block: var(--sp-5); }

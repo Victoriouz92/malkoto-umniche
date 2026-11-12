@@ -22,6 +22,11 @@ export function isActivityAllowed(activity: Activity, range: AgeRange): boolean 
   return activity.ageMin <= range.max && activity.ageMax >= range.min;
 }
 
+export function matchesContentFilter(activity: Activity, filter: ContentFilter): boolean {
+  return (filter.skills.length === 0 || activity.skills.some((skill) => filter.skills.includes(skill))) &&
+    (filter.themes.length === 0 || activity.themes.some((theme) => filter.themes.includes(theme)));
+}
+
 export function ageLabel(ageMin: number, ageMax: number): string {
   return ageMin === ageMax ? `${ageMin} г.` : `${ageMin}–${ageMax} г.`;
 }

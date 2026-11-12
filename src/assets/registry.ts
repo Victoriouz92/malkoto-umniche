@@ -35,7 +35,7 @@ const LINEART_SOURCE = import.meta.glob('./svg/lineart/*.svg', {
  * Папката е в множествено число (`animals`), а id-то — в единствено
  * (`animal.cow`). Затова се превежда при обхождането.
  */
-const SOUND_URLS: Record<string, string> = import.meta.glob('./audio/**/*.ogg', {
+const SOUND_URLS: Record<string, string> = import.meta.glob('./audio/**/*.mp3', {
   query: '?url',
   import: 'default',
   eager: true,
@@ -60,7 +60,7 @@ const SOUND_FOLDER_TO_PREFIX: Record<string, string> = {
 
 const soundById = new Map<string, string>();
 for (const [path, url] of Object.entries(SOUND_URLS)) {
-  const match = /^\.\/audio\/([^/]+)\/(.+)\.ogg$/.exec(path);
+  const match = /^\.\/audio\/([^/]+)\/(.+)\.mp3$/.exec(path);
   const folder = match?.[1];
   const name = match?.[2];
   const prefix = folder ? SOUND_FOLDER_TO_PREFIX[folder] : undefined;

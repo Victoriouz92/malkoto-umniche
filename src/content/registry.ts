@@ -1,4 +1,3 @@
-import { activitySchema } from './schema/activity';
 import type { Activity } from './schema/activity';
 import type { Category } from './schema/constants';
 
@@ -18,12 +17,14 @@ const FILES: Record<string, unknown> = import.meta.glob('./activities/**/*.json'
   import: 'default',
 });
 
+const developmentSchema = import.meta.env.DEV ? (await import('./schema/activity')).activitySchema : null;
+
 function load(): Activity[] {
   const out: Activity[] = [];
 
   for (const [path, raw] of Object.entries(FILES)) {
-    if (import.meta.env.DEV) {
-      const parsed = activitySchema.safeParse(raw);
+    if (developmentSchema) {
+      const parsed = developmentSchema.safeParse(raw);
       if (!parsed.success) {
         console.error(`[content] Невалидна активност ${path}:`, parsed.error.issues);
         continue;
@@ -38,9 +39,10 @@ function load(): Activity[] {
 }
 
 export const ACTIVITIES: readonly Activity[] = load();
+const byId = new Map(ACTIVITIES.map((activity) => [activity.id, activity]));
 
 export function activityById(id: string): Activity | null {
-  return ACTIVITIES.find((a) => a.id === id) ?? null;
+  return byId.get(id) ?? null;
 }
 
 export function activitiesInCategory(category: Category): Activity[] {

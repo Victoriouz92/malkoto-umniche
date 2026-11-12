@@ -10,6 +10,7 @@ type Props = {
   onClose: () => void;
   placement?: SheetPlacement;
   title?: string;
+  ariaLabel?: string;
   /**
    * Забранява затваряне с Esc и клик встрани.
    * Задължително за мекия стоп и PIN вратата — детето не бива да може
@@ -25,6 +26,7 @@ export function Sheet({
   onClose,
   placement = 'bottom',
   title,
+  ariaLabel,
   persistent = false,
   panelClassName,
   children,
@@ -52,6 +54,7 @@ export function Sheet({
       ref={ref}
       className={s.dialog}
       aria-labelledby={title ? titleId : undefined}
+      aria-label={title ? undefined : ariaLabel}
       onClose={onClose}
       onClick={(e) => {
         // Клик върху самия <dialog> (не върху панела) = клик встрани.

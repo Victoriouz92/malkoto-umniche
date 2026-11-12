@@ -108,13 +108,13 @@ export function SortingEngine({
   };
 
   const { bind, isOver, drag } = useDrag({
-    onPick: (key) => {
+    onPick: () => {
       api.sfx('pick');
-      setSelected(key);
+      setSelected(null);
+      setArmedBin(null);
     },
     onDrop: (key, zoneId) => {
-      // Пуснат встрани: нищо не се случва и нищо не се брои. Ако е бил
-      // само тапнат (без местене), изборът остава — това е път 2.
+      // Пуснат встрани: предметът се връща, без да се брои опит.
       if (zoneId === null) return;
       tryPlace(key, zoneId);
     },

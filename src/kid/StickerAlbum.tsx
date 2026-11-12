@@ -3,6 +3,7 @@ import { Button, Cluster, Page, Stack, cx } from '@/design-system';
 import { useApp, activeProfile } from '@/core/store/app';
 import { useSessionClock } from '@/core/time/session';
 import { t } from '@/i18n';
+import { SoftStop } from './SoftStop';
 import s from './kid.module.css';
 
 const COLS = 4;
@@ -10,10 +11,10 @@ const ROWS = 3;
 const PIECES_PER_PUZZLE = COLS * ROWS;
 
 const PUZZLE_ALBUM = [
-  { src: '/hero-malkoto-umniche.png', title: 'Пандата и големият пъзел' },
-  { src: '/slide-numbers-wide.png', title: 'Приключение край водопада' },
-  { src: '/slide-reading-wide.png', title: 'Горската библиотека' },
-  { src: '/slide-letters-wide.png', title: 'Вълшебните букви' },
+  { src: '/optimized/hero-malkoto-umniche-800.webp', title: 'Пандата и големият пъзел' },
+  { src: '/optimized/slide-numbers-wide-800.webp', title: 'Приключение край водопада' },
+  { src: '/optimized/slide-reading-wide-800.webp', title: 'Горската библиотека' },
+  { src: '/optimized/slide-letters-wide-800.webp', title: 'Вълшебните букви' },
 ] as const;
 
 /** Всяка уникално завършена активност разкрива едно ново парче. */
@@ -26,11 +27,12 @@ export function StickerAlbum() {
 
   return (
     <Page centered className={s.puzzleAlbumPage}>
+      <SoftStop />
       <Stack gap={6} className={s.puzzleAlbumContent}>
         <Cluster between>
-          <Button variant="quiet" iconOnly glyph="←" aria-label={t('action.back')} onClick={() => navigate('/kid')} />
+          <Button variant="quiet" iconOnly glyph="←" aria-label={t('action.back')} onClick={() => void navigate('/kid')} />
           <div className={s.albumHeading}>
-            <img src="/icons/icon-192.png" alt="" aria-hidden="true" />
+            <img src="/icons/icon-192.webp" alt="" aria-hidden="true" />
             <div><span>Малкото Умниче</span><h1>{t('kid.stickers.title')}</h1></div>
           </div>
           <span style={{ width: 'var(--tap)' }} aria-hidden="true" />

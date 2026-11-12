@@ -5,6 +5,10 @@ import { DEFAULT_SETTINGS } from './types';
 import type { AppState, ChildProfile, Settings } from './types';
 import type { Skill } from '@/content/schema/constants';
 import type { Digest } from '@/core/security/pin';
+import { parseSavedState } from '@/core/persistence/savedState';
+
+let hydrationFailure: unknown = null;
+export const getHydrationFailure = () => hydrationFailure;
 
 const STATE_VERSION = 2;
 const clampProductAge = (age: number) => Math.min(6, Math.max(2, Math.round(age)));
@@ -216,8 +220,17 @@ export const useApp = create<AppStore>()(
     }),
     {
       name: 'tinymind',
+      skipHydration: true,
       version: STATE_VERSION,
       storage: createJSONStorage(() => idbStorage),
+      onRehydrateStorage: () => {
+        hydrationFailure = null;
+        return (_state, error) => {
+          hydrationFailure = error ?? null;
+        };
+      },
+      merge: (persisted, current) =>
+        persisted === undefined ? current : { ...current, ...parseSavedState(persisted) },
       partialize: (s) => ({
         version: s.version,
         profiles: s.profiles,
@@ -226,29 +239,7 @@ export const useApp = create<AppStore>()(
         pin: s.pin,
         usage: s.usage,
       }),
-      migrate: (persisted) => {
-        const saved = persisted as AppState;
-        return {
-          ...saved,
-          profiles: (saved.profiles ?? []).map((profile) => ({
-            ...profile,
-            age: clampProductAge(profile.age),
-            unlockedAgeMax: clampProductAge(profile.unlockedAgeMax ?? profile.age),
-          })),
-          settings: {
-            ...saved.settings,
-            filter: {
-              ...saved.settings.filter,
-              ageOverride: saved.settings.filter.ageOverride
-                ? {
-                    min: clampProductAge(saved.settings.filter.ageOverride.min),
-                    max: clampProductAge(saved.settings.filter.ageOverride.max),
-                  }
-                : null,
-            },
-          },
-        };
-      },
+      migrate: (persisted) => parseSavedState(persisted),
     },
   ),
 );

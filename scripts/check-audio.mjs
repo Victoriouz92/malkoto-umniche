@@ -68,6 +68,9 @@ for (const [folder, names] of Object.entries(EXPECTED)) {
 
   const missing = names.filter((n) => !byName.has(n));
   if (missing.length > 0) notes.push(`audio/${folder}: липсват ${missing.join(', ')}`);
+  for (const name of names) {
+    if (!existsSync(join(path, `${name}.mp3`))) problems.push([`audio/${folder}/${name}.mp3`, 'липсва съвместимият MP3 запис']);
+  }
 }
 
 const total = Object.values(EXPECTED).reduce((sum, list) => sum + list.length, 0);
@@ -79,7 +82,7 @@ if (problems.length > 0) {
   process.exit(1);
 }
 
-console.log(`\n✔ Звук: ${found} от ${total} записа на място.`);
+console.log(`\n✔ Звук: ${found} файла за ${total} звука; MP3 съвместимостта е проверена.`);
 for (const note of notes) console.log(`  ${note}`);
 if (found === 0) {
   console.log('  Списъкът и изискванията са в docs/AUDIO.md');

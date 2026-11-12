@@ -1,0 +1,35 @@
+{
+  "id": "garden-first-sprout",
+  "schemaVersion": 1,
+  "engine": "garden",
+  "mechanic": "m107",
+  "titleKey": "act.garden-first-sprout",
+  "category": "food",
+  "ageMin": 2,
+  "ageMax": 3,
+  "difficulty": 1,
+  "skills": [
+    "everyday-knowledge",
+    "logic"
+  ],
+  "themes": [
+    "garden"
+  ],
+  "durationSec": 90,
+  "assets": [
+    "food.strawberry"
+  ],
+  "params": {
+    "mode": "grow",
+    "waterAtStart": false,
+    "lightAtStart": true,
+    "crop": "food.strawberry"
+  },
+  "parentNoteKey": "note.garden-first-sprout",
+  "a11y": {
+    "colorIndependent": true,
+    "requiresAudio": false,
+    "requiresPrecision": false
+  },
+  "noFail": true
+}

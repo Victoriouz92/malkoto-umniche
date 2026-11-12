@@ -14,8 +14,16 @@
 
 .grid {
   display: grid;
-  gap: var(--sp-3);
+  width: 100%;
+  gap: clamp(.35rem, 1.5vw, var(--sp-3));
+  grid-template-columns: repeat(var(--letter-columns), minmax(0, var(--tap)));
   justify-content: center;
+}
+
+.grid .letter { width: 100%; }
+
+@media (max-width: 38rem) {
+  .grid { grid-template-columns: repeat(auto-fit, minmax(var(--tap-min), min(18%, var(--tap)))); }
 }
 
 .letter {
