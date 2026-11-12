@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useApp } from '@/core/store/app';
 import s from './panda.module.css';
 
 type Spot = { left: number; top: number; size: number; pose: string; turn: number };
 const MENU = /^(?:\/$|\/kid$|\/c\/[^/]+$|\/stickers$|\/next$)/;
+const noopSubscribe = () => () => {};
 
 function overlaps(
   a: DOMRect | { left: number; top: number; right: number; bottom: number },
@@ -78,7 +79,9 @@ function freeSpot(previous: string): Spot | undefined {
 export function MenuMascot() {
   const { pathname } = useLocation();
   const reduced = useApp((state) => state.settings.reducedMotion);
-  return MENU.test(pathname) && !reduced ? <ActiveMenuMascot key={pathname} /> : null;
+  // Adopt the pre-rendered landing HTML before adding any decorative elements.
+  const client = useSyncExternalStore(noopSubscribe, () => true, () => false);
+  return client && MENU.test(pathname) && !reduced ? <ActiveMenuMascot key={pathname} /> : null;
 }
 
 function ActiveMenuMascot() {

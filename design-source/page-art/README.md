@@ -1,6 +1,6 @@
 # Original page artwork — 13 November 2026
 
-28 original storybook scenes and two transparent red-panda animation atlases were generated with the built-in image_gen tool. The existing landing hero supplied the style reference. The exact prompts are preserved in manifest.json; original PNGs are retained here.
+28 original storybook scenes and two transparent red-panda animation atlases were generated with the built-in image_gen tool. The existing landing hero supplied the style reference. Prompts and the initial puzzle scene brief are preserved in manifest.json; original PNGs are retained here.
 
 The four existing landing scenes are exclusive to the landing page. Each category, main screen, parent tab and album picture has its own scene. Shared brand icons and the recurring mascot are intentional.
 

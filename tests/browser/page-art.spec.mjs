@@ -4,12 +4,12 @@ import { seed, createParentPin } from './support.mjs';
 for (const width of [320, 1280]) {
   test(`distinct scenes load on every main screen at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
-    await seed(page);
     const errors = [];
     page.on('pageerror', (error) => errors.push(error.message));
     page.on('response', (response) => {
       if (response.status() >= 400) errors.push(response.url());
     });
+    await seed(page);
     const scenes = new Set();
     const routes = [
       'kid',
