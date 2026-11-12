@@ -82,6 +82,17 @@ test('a real service-worker update in another tab cannot interrupt an unfinished
       Boolean((await navigator.serviceWorker.getRegistration())?.waiting),
     );
     await expect(game.getByRole('button', { name: 'Обнови сега' })).toHaveCount(0);
+    const parent = await context.newPage();
+    await parent.goto('/#/parent');
+    await expect(
+      parent.getByRole('heading', { name: 'Създай PIN', exact: true }),
+    ).toBeVisible();
+    const parentBoot = await parent.evaluate(() => window.qaBootId);
+    await expect(parent.getByRole('button', { name: 'Обнови сега' })).toHaveCount(0);
+    await parent.getByRole('button', { name: '1', exact: true }).click();
+    await expect(
+      parent.getByRole('button', { name: 'Изтрий последната цифра', exact: true }),
+    ).toBeEnabled();
     const menu = await context.newPage();
     await menu.goto('/#/kid');
     await expect(menu.getByRole('button', { name: 'Обнови сега' })).toBeVisible();
@@ -91,6 +102,11 @@ test('a real service-worker update in another tab cannot interrupt an unfinished
       .poll(() => menu.evaluate(() => window.qaBootId).catch(() => menuBoot))
       .not.toBe(menuBoot);
     expect(await game.evaluate(() => window.qaBootId)).toBe(boot);
+    expect(await parent.evaluate(() => window.qaBootId)).toBe(parentBoot);
+    await expect(parent.getByRole('button', { name: 'Обнови сега' })).toHaveCount(0);
+    await expect(
+      parent.getByRole('button', { name: 'Изтрий последната цифра', exact: true }),
+    ).toBeEnabled();
     await expect(
       game.getByRole('button', { name: 'На място: крава', exact: true }),
     ).toBeDisabled();

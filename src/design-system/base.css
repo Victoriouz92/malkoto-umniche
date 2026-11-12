@@ -74,10 +74,9 @@ body {
   font-weight: var(--fw-bold);
 }
 .update-notice {
-  position: fixed; bottom: max(var(--safe-b), var(--sp-4));
-  left: var(--sp-4); right: var(--sp-4); z-index: 20;
+  position: relative;
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-  gap: var(--sp-3); padding: var(--sp-4); max-width: 48rem; margin: auto;
+  gap: var(--sp-3); padding: var(--sp-4); max-width: min(48rem, calc(100% - 2 * var(--sp-4))); margin: var(--sp-4) auto;
   color: var(--c-ink); background: var(--c-surface); box-shadow: var(--shadow-lg);
   border-radius: var(--r-xl); font-size: var(--fs-sm);
 }

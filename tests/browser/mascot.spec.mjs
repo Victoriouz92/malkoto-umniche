@@ -82,6 +82,13 @@ test('panda respects stored and system motion preferences and navigation', async
   await page.clock.runFor(70000);
   await expect(page.locator('[data-menu-mascot]')).toHaveCount(0);
   await seed(page, { reducedMotion: false });
+  await expect
+    .poll(() =>
+      page
+        .locator('[data-mascot-atlas]')
+        .evaluate((element) => element.complete && element.naturalWidth > 0),
+    )
+    .toBe(true);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/#/kid');
   await page.clock.runFor(70000);
