@@ -110,6 +110,8 @@ let timer: number | null = null;
 let bus: GainNode | null = null;
 let droneOsc: OscillatorNode | null = null;
 let currentMood: Mood | null = null;
+let pendingContext: AudioContext | null = null;
+let pendingStart: (() => void) | null = null;
 
 function playNote(
   ctx: AudioContext,
@@ -163,7 +165,16 @@ export function startMusic(mood: Mood, enabled: boolean): void {
   stopMusic();
 
   const a = audio();
-  if (!a || a.ctx.state !== 'running') return;
+  if (!a) return;
+  if (a.ctx.state !== 'running') {
+    // The output can become available after the bounded unlock wait has ended.
+    pendingContext = a.ctx;
+    pendingStart = () => {
+      if (a.ctx.state === 'running') startMusic(mood, enabled);
+    };
+    a.ctx.addEventListener('statechange', pendingStart);
+    return;
+  }
 
   const spec = MOODS[mood];
   currentMood = mood;
@@ -189,6 +200,10 @@ export function startMusic(mood: Mood, enabled: boolean): void {
 }
 
 export function stopMusic(): void {
+  if (pendingContext && pendingStart)
+    pendingContext.removeEventListener('statechange', pendingStart);
+  pendingContext = null;
+  pendingStart = null;
   if (timer !== null) {
     window.clearTimeout(timer);
     timer = null;

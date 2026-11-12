@@ -263,6 +263,31 @@ test('music plays only on request, stops cleanly and is absent from listening ga
   page,
 }) => {
   await page.addInitScript(() => {
+    // A slow output device must start the requested music when it becomes ready.
+    let prototype = AudioContext.prototype;
+    let descriptor;
+    while (prototype && !descriptor) {
+      descriptor = Object.getOwnPropertyDescriptor(prototype, 'state');
+      prototype = Object.getPrototypeOf(prototype);
+    }
+    const resume = AudioContext.prototype.resume;
+    Object.defineProperty(AudioContext.prototype, 'state', {
+      configurable: true,
+      get() {
+        return this.qaDelayed ? 'suspended' : descriptor.get.call(this);
+      },
+    });
+    AudioContext.prototype.resume = function () {
+      if (!this.qaDelayStarted) {
+        this.qaDelayStarted = true;
+        this.qaDelayed = true;
+        setTimeout(() => {
+          this.qaDelayed = false;
+          this.dispatchEvent(new Event('statechange'));
+        }, 1200);
+      }
+      return resume.call(this);
+    };
     const original = OscillatorNode.prototype.start;
     OscillatorNode.prototype.start = function (...args) {
       const count = Number(document.documentElement.dataset.audioStarts ?? 0);

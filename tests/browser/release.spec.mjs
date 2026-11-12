@@ -222,6 +222,10 @@ test('landing exposes all nine real categories and public parent information', a
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await seed(page);
+  const publicHtml = await (await page.request.get('/')).text();
+  for (const path of ['help', 'privacy', 'credits']) {
+    expect(publicHtml).toContain('href="#/' + path + '"');
+  }
   const categories = [
     ['Пъзели', 'puzzles'],
     ['Цветове', 'colors'],
@@ -239,13 +243,19 @@ test('landing exposes all nine real categories and public parent information', a
     await expect(page).toHaveURL(new RegExp('/c/' + id + '$'));
     await expect(page.getByRole('heading', { name: label, exact: true })).toBeVisible();
   }
-  for (const [label, title] of [
-    ['Как се играе', 'Първи стъпки заедно'],
-    ['Поверителност', 'Поверителност и вашите данни'],
-    ['Автори и материали', 'Автори и материали'],
+  for (const [label, title, path] of [
+    ['Как се играе', 'Първи стъпки заедно', 'help'],
+    ['Поверителност', 'Поверителност и вашите данни', 'privacy'],
+    ['Автори и материали', 'Автори и материали', 'credits'],
   ]) {
     await page.goto('/');
-    await page.getByRole('contentinfo').getByRole('link', { name: label, exact: true }).click();
+    const link = page.getByRole('contentinfo').getByRole('link', { name: label, exact: true });
+    await expect(link).toHaveAttribute('href', '#/' + path);
+    const newTab = await page.context().newPage();
+    await newTab.goto(new URL(await link.getAttribute('href'), page.url()).href);
+    await expect(newTab.getByRole('heading', { name: title, exact: true })).toBeVisible();
+    await newTab.close();
+    await link.click();
     await expect(page.getByRole('heading', { name: title, exact: true })).toBeVisible();
   }
   expect(errors).toEqual([]);
