@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { PwaNotice } from './PwaNotice';
+import { MenuMascot } from '@/mascot/MenuMascot';
 
 /** A new screen starts at the top and gives keyboard readers a clear heading. */
 export function RouteFrame() {
@@ -34,6 +35,7 @@ export function RouteFrame() {
   return (
     <>
       <Outlet />
+      <MenuMascot />
       <PwaNotice />
     </>
   );

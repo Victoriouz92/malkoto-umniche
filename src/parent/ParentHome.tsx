@@ -11,6 +11,7 @@ import { StatsTab } from './tabs/StatsTab';
 import { SettingsTab } from './tabs/SettingsTab';
 import { VoiceTab } from './tabs/VoiceTab';
 import s from './parent.module.css';
+import { PageArtwork } from '@/artwork/PageArtwork';
 
 type TabId = 'profiles' | 'limits' | 'content' | 'stats' | 'voice' | 'settings';
 
@@ -89,6 +90,7 @@ export function ParentHome() {
         </div>
 
         <div role="tabpanel" id="parent-panel" aria-labelledby={`parent-tab-${tab}`}>
+          <PageArtwork scene={`parent-${tab}`} className={s.tabScene} />
           {tab === 'profiles' ? <ProfilesTab /> : null}
           {tab === 'limits' ? <LimitsTab /> : null}
           {tab === 'content' ? <ContentTab /> : null}

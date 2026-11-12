@@ -11,6 +11,7 @@ import { Button, Page, Stack } from '@/design-system';
 import { skillLabel, t } from '@/i18n';
 import { useSessionClock } from '@/core/time/session';
 import { SoftStop } from './SoftStop';
+import { PageArtwork } from '@/artwork/PageArtwork';
 import s from './kid.module.css';
 
 export function NextActivity() {
@@ -49,7 +50,7 @@ export function NextActivity() {
     <div className={s.nextCard}>
       <span className={s.nextEyebrow}>{t('kid.next.eyebrow', { name: profile.name })}</span>
       <h1>{t('kid.next.title')}</h1>
-      <div className={s.nextArt}>{mainAsset ? <Asset id={mainAsset} size="100%" /> : <span>★</span>}</div>
+      <div className={s.nextScene}><PageArtwork scene="next" /><span className={s.nextBadge}>{mainAsset ? <Asset id={mainAsset} size="100%" /> : <span>★</span>}</span></div>
       <h2>{t(recommendation.titleKey as never)}</h2>
       <p>{t('kid.next.skills', { skills: recommendation.skills.map(skillLabel).join(', ') })}</p>
       <Button variant="primary" size="kid" onClick={() => void navigate(`/play/${recommendation.id}`)}>{t('kid.next.start')}</Button>

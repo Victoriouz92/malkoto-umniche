@@ -19,6 +19,7 @@ import { useSessionClock } from '@/core/time/session';
 import { praise, t } from '@/i18n';
 import { SoftStop } from './SoftStop';
 import { GameMusic } from './GameMusic';
+import { PandaCelebration } from '@/mascot/PandaCelebration';
 import s from './ActivityPlayer.module.css';
 import '@/engines/shared/playful.css';
 
@@ -475,11 +476,14 @@ function ActivityScreen() {
               {message || t('complete.title')}
             </h2>
 
-            {sticker ? (
-              <div className={s.sticker}>
-                <Asset id={sticker} size="100%" />
-              </div>
-            ) : null}
+            <div className={s.celebrationRow}>
+              <PandaCelebration />
+              {sticker ? (
+                <div className={s.sticker}>
+                  <Asset id={sticker} size="100%" />
+                </div>
+              ) : null}
+            </div>
 
             <span style={{ color: 'var(--c-ink-soft)' }}>{t('kid.activity.album')}</span>
 
@@ -507,6 +511,7 @@ function ActivityScreen() {
           /* Преходът между кръговете: цвят, номер и точки — без награда.
              Точките само се пълнят, никога не се изпразват (правило 3). */
           <div className={s.break}>
+            <PandaCelebration small />
             <h2 ref={transitionFocus} tabIndex={-1} className={s.breakLabel}>
               {t('kid.activity.roundDone', { round, total: totalRounds })}
             </h2>
