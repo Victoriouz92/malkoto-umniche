@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useApp } from '@/core/store/app';
 import s from './panda.module.css';
@@ -83,6 +83,7 @@ export function MenuMascot() {
 
 function ActiveMenuMascot() {
   const [spot, setSpot] = useState<Spot | null>(null);
+  const ready = useRef(false);
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -99,6 +100,10 @@ function ActiveMenuMascot() {
       clearTimeout(timer);
       if (disposed || media.matches || document.hidden || blurred) return;
       timer = setTimeout(() => {
+        if (!ready.current) {
+          schedule(7000);
+          return;
+        }
         const next = freeSpot(previous);
         if (!next) {
           schedule(7000);
@@ -144,23 +149,34 @@ function ActiveMenuMascot() {
     };
   }, []);
 
-  if (!spot) return null;
   return (
     <div className={s.viewport} aria-hidden="true">
-      <span
-        className={s.peek}
-        data-menu-mascot
-        data-placement={spot.pose}
-        style={{
-          left: spot.left,
-          top: spot.top,
-          width: spot.size,
-          height: spot.size,
-          rotate: `${spot.turn}deg`,
+      {/* Load before the first peek, including on slow connections. */}
+      <img
+        className={s.preload}
+        data-mascot-atlas
+        src="/mascot/panda-wave.webp"
+        alt=""
+        onLoad={() => {
+          ready.current = true;
         }}
-      >
-        <span className={`${s.sprite} ${s.wave}`} />
-      </span>
+      />
+      {spot ? (
+        <span
+          className={s.peek}
+          data-menu-mascot
+          data-placement={spot.pose}
+          style={{
+            left: spot.left,
+            top: spot.top,
+            width: spot.size,
+            height: spot.size,
+            rotate: `${spot.turn}deg`,
+          }}
+        >
+          <span className={`${s.sprite} ${s.wave}`} />
+        </span>
+      ) : null}
     </div>
   );
 }

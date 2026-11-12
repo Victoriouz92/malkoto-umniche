@@ -33,7 +33,17 @@ for (const width of [320, 1280]) {
     ];
     for (const route of routes) {
       await page.goto('/#/' + route);
-      const image = page.locator('[data-page-art]');
+      const expected = route.startsWith('c/')
+        ? route.slice(2)
+        : route === 'stickers'
+          ? 'album'
+          : route === 'kid'
+            ? 'kid-home'
+            : route === 'missing-page'
+              ? 'missing'
+              : route;
+      // Lazy route transitions may retain the previous screen while loading.
+      const image = page.locator(`[data-page-art="${expected}"]`);
       await expect(image).toBeVisible();
       await expect
         .poll(() => image.evaluate((element) => element.complete && element.naturalWidth > 0))

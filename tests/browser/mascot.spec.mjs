@@ -19,10 +19,29 @@ for (const width of [320, 390, 1280]) {
     await seed(page, { reducedMotion: false });
     await page.goto('/#/kid');
     await expect(page.getByRole('heading', { name: 'Здравей, Мими!' })).toBeVisible();
+    await expect
+      .poll(() =>
+        page
+          .locator('[data-mascot-atlas]')
+          .evaluate((element) => element.complete && element.naturalWidth > 0),
+      )
+      .toBe(true);
     await page.clock.runFor(12500);
     const panda = page.locator('[data-menu-mascot]');
     await expect(panda).toBeVisible();
     const first = await panda.getAttribute('data-placement');
+    await expect
+      .poll(() => panda.evaluate((element) => getComputedStyle(element).opacity))
+      .toBe('1');
+    expect(
+      await panda.locator('span').evaluate(async (element) => {
+        const url = getComputedStyle(element).backgroundImage.slice(5, -2);
+        const image = new Image();
+        image.src = url;
+        await image.decode();
+        return image.naturalWidth;
+      }),
+    ).toBe(1152);
     await page.screenshot({ path: `outputs/page-art-2026-11-13/panda-peek-${width}.png` });
     expect(
       await panda.evaluate((element) => {
