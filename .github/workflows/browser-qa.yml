@@ -25,8 +25,8 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npx playwright install --with-deps ${{ matrix.browser }}
-      - name: Provide a real audio output for headless Firefox
-        if: matrix.browser == 'firefox'
+      - name: Provide a real audio output for headless audio tests
+        if: matrix.browser != 'chromium'
         run: |
           sudo apt-get update
           sudo apt-get install -y pulseaudio
