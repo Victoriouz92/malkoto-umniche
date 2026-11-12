@@ -12,6 +12,7 @@ export async function seed(
   } = {},
 ) {
   await page.goto('/');
+  await page.waitForFunction(() => document.documentElement.dataset.appReady === 'true');
   await page.evaluate(
     async ({ age, theme, dailyMin, themes, ageOverride, reducedMotion, music, sound }) => {
       const db = await new Promise((resolve, reject) => {
@@ -75,6 +76,7 @@ export async function seed(
     { age, theme, dailyMin, themes, ageOverride, reducedMotion, music, sound },
   );
   await page.reload();
+  await page.waitForFunction(() => document.documentElement.dataset.appReady === 'true');
 }
 
 export async function enterParentPin(page, pin = '1974') {

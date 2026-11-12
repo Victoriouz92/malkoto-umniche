@@ -105,7 +105,10 @@ test('profile deletion removes its recordings as well as its progress', async ({
     });
     await new Promise((resolve) => {
       const tx = db.transaction('keyval', 'readwrite');
-      tx.objectStore('keyval').put(new Blob(['test recording']), 'tinymind:voice:qa:bravo');
+      tx.objectStore('keyval').put(
+        { type: 'audio/webm', bytes: new TextEncoder().encode('test recording').buffer },
+        'tinymind:voice:qa:bravo',
+      );
       tx.oncomplete = resolve;
     });
     db.close();
@@ -147,6 +150,19 @@ test('public landing has real readable HTML without JavaScript', async ({ browse
   }
 });
 
+test('a blocked audio resume cannot lock the rhythm game', async ({ page }) => {
+  await page.addInitScript(() => {
+    AudioContext.prototype.resume = () => new Promise(() => {});
+    Object.defineProperty(AudioContext.prototype, 'state', { get: () => 'suspended' });
+  });
+  await seed(page, { age: 3 });
+  await page.goto('/#/play/rhythm-studio-3');
+  await page.clock.install();
+  await page.getByRole('button', { name: 'Чуй примера', exact: true }).click();
+  await page.clock.runFor(10_000);
+  await expect(page.getByRole('button', { name: 'Бум', exact: true })).toBeEnabled();
+});
+
 test('production security headers allow local gameplay without external requests', async ({
   page,
 }) => {
@@ -155,6 +171,11 @@ test('production security headers allow local gameplay without external requests
   );
   const headers = Object.fromEntries(
     config.headers[0].headers.map(({ key, value }) => [key.toLowerCase(), value]),
+  );
+  // Production is HTTPS. WebKit upgrades loopback HTTP too, where this test server has no TLS.
+  headers['content-security-policy'] = headers['content-security-policy'].replace(
+    '; upgrade-insecure-requests',
+    '',
   );
   const external = [];
   page.on('request', (request) => {
@@ -421,16 +442,27 @@ for (const route of ['help', 'privacy', 'credits']) {
 }
 
 test('all twenty actual recordings decode and play in the browser', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.qaPlayedAudio = [];
+    const original = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function (...args) {
+      window.qaPlayedAudio.push(this);
+      return original.apply(this, args);
+    };
+  });
   await seed(page);
   await page.goto('/#/play/sound-farm-2');
   await page.locator('.playful-game').getByRole('button', { name: 'Чуй', exact: true }).click();
-  const files = await page.evaluate(() =>
-    performance
-      .getEntriesByType('resource')
-      .map((r) => r.name)
-      .filter((n) => /cow.*\.mp3/.test(n)),
-  );
-  expect(files.length).toBeGreaterThan(0);
+  await expect
+    .poll(() =>
+      page.evaluate(() =>
+        window.qaPlayedAudio.some(
+          (audio) =>
+            /cow.*\.mp3/.test(audio.currentSrc) && audio.readyState >= 2 && !audio.paused,
+        ),
+      ),
+    )
+    .toBe(true);
   const assets = await (await page.request.get('/sw.js')).text();
   const names = [
     ...new Set([...assets.matchAll(/(?:assets\/)?[a-z]+-[\w-]+\.mp3/g)].map((m) => m[0])),

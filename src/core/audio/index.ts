@@ -43,9 +43,11 @@ export function useAudioLifecycle(): void {
       void unlockAudio();
     };
     window.addEventListener('pointerdown', unlock, { once: false, passive: true });
+    window.addEventListener('pointerup', unlock, { passive: true });
     window.addEventListener('keydown', unlock, { once: false, passive: true });
     return () => {
       window.removeEventListener('pointerdown', unlock);
+      window.removeEventListener('pointerup', unlock);
       window.removeEventListener('keydown', unlock);
     };
   }, []);

@@ -1,4 +1,4 @@
-import { audio } from './context';
+import { resumeAudio } from './context';
 import { useApp } from '@/core/store/app';
 import type { Beat } from '@/engines/rhythm/schema';
 
@@ -27,8 +27,7 @@ export function playRhythm(
     let chain = null;
     try {
       if (useApp.getState().settings.sound) {
-        chain = audio();
-        if (chain) await chain.ctx.resume();
+        chain = await resumeAudio();
       }
     } catch {
       chain = null;

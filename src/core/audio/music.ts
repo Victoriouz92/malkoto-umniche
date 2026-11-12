@@ -69,18 +69,33 @@ const MOODS: Record<Mood, MoodSpec> = {
     octaves: [-1, 0],
   },
   woodland: {
-    scale: [0, 2, 4, 7, 9], root: 261.63, interval: 0.57, jitter: 0,
-    gain: 0.095, drone: false, octaves: [0],
+    scale: [0, 2, 4, 7, 9],
+    root: 261.63,
+    interval: 0.57,
+    jitter: 0,
+    gain: 0.095,
+    drone: false,
+    octaves: [0],
     motif: [0, 4, 7, null, 4, 2, 0, null, 2, 4, 9, 7, 4, 2, 0, null],
   },
   railway: {
-    scale: [0, 2, 4, 7, 9], root: 293.66, interval: 0.5, jitter: 0,
-    gain: 0.085, drone: false, octaves: [0],
+    scale: [0, 2, 4, 7, 9],
+    root: 293.66,
+    interval: 0.5,
+    jitter: 0,
+    gain: 0.085,
+    drone: false,
+    octaves: [0],
     motif: [0, 0, 4, null, 7, 7, 9, null, 7, 4, 2, null, 4, 2, 0, null],
   },
   atelier: {
-    scale: [0, 2, 4, 7, 9], root: 246.94, interval: 0.68, jitter: 0,
-    gain: 0.095, drone: false, octaves: [0],
+    scale: [0, 2, 4, 7, 9],
+    root: 246.94,
+    interval: 0.68,
+    jitter: 0,
+    gain: 0.095,
+    drone: false,
+    octaves: [0],
     motif: [7, null, 4, 2, 4, null, 2, 0, 4, null, 7, 9, 7, 4, 2, null],
   },
 };
@@ -96,7 +111,13 @@ let bus: GainNode | null = null;
 let droneOsc: OscillatorNode | null = null;
 let currentMood: Mood | null = null;
 
-function playNote(ctx: AudioContext, out: GainNode, hz: number, gain: number, short = false): void {
+function playNote(
+  ctx: AudioContext,
+  out: GainNode,
+  hz: number,
+  gain: number,
+  short = false,
+): void {
   const osc = ctx.createOscillator();
   const env = ctx.createGain();
   const now = ctx.currentTime;
@@ -116,11 +137,12 @@ function playNote(ctx: AudioContext, out: GainNode, hz: number, gain: number, sh
 
 function schedule(spec: MoodSpec, beat = 0): void {
   const a = audio();
-  if (!a || !bus) return;
+  if (!a || !bus || a.ctx.state !== 'running') return;
 
   if (spec.motif) {
     const step = spec.motif[beat % spec.motif.length];
-    if (typeof step === 'number') playNote(a.ctx, bus, spec.root * 2 ** (step / 12), spec.gain, true);
+    if (typeof step === 'number')
+      playNote(a.ctx, bus, spec.root * 2 ** (step / 12), spec.gain, true);
     if (beat % 4 === 0) playNote(a.ctx, bus, spec.root / 2, spec.gain * 0.28, true);
   } else {
     playNote(a.ctx, bus, noteHz(spec), spec.gain);

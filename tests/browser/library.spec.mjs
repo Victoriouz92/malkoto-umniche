@@ -5,10 +5,12 @@ import AxeBuilder from '@axe-core/playwright';
 import { seed } from './support.mjs';
 
 const directory = new URL('../../src/content/activities/', import.meta.url);
-const catalog = readdirSync(directory, { recursive: true }).filter((file) => file.endsWith('.json'))
-  .map((file) => JSON.parse(readFileSync(new URL(file.replaceAll('\\', '/'), directory), 'utf8')));
+const catalog = readdirSync(directory, { recursive: true })
+  .filter((file) => file.endsWith('.json'))
+  .map((file) =>
+    JSON.parse(readFileSync(new URL(file.replaceAll('\\', '/'), directory), 'utf8')),
+  );
 const puzzle = '/#/play/puzzle-farm-2';
-
 
 const holes = (page) => page.getByRole('group', { name: 'Сенки', exact: true });
 const pieces = (page) => page.getByRole('group', { name: 'Картинки', exact: true });
@@ -45,17 +47,23 @@ async function solveShadows(page) {
     const piece = pieces(page).getByRole('button').first();
     const label = await piece.getAttribute('aria-label');
     await piece.click();
-    await holes(page).getByRole('button', { name: `Сянка: ${label}`, exact: true }).click();
+    await holes(page)
+      .getByRole('button', { name: `Сянка: ${label}`, exact: true })
+      .click();
   }
 }
 
-test('puzzle accepts both orders, gives a hint, waits at the break and saves one sticker', async ({ page }) => {
+test('puzzle accepts both orders, gives a hint, waits at the break and saves one sticker', async ({
+  page,
+}) => {
   await seed(page);
   await page.goto(puzzle);
   const cow = pieces(page).getByRole('button', { name: 'крава', exact: true });
   const cowShadow = holes(page).getByRole('button', { name: 'Сянка: крава', exact: true });
   await page.getByRole('button', { name: 'Подсказка' }).click();
-  await expect(page.getByText('Звездичките свързват картинката и сянката за крава.')).toBeAttached();
+  await expect(
+    page.getByText('Звездичките свързват картинката и сянката за крава.'),
+  ).toBeAttached();
   await cowShadow.click();
   await cow.press('Enter');
   await expect(holes(page).getByRole('button', { name: 'На място: крава' })).toBeDisabled();
@@ -70,7 +78,10 @@ test('puzzle accepts both orders, gives a hint, waits at the break and saves one
   await page.clock.fastForward(1_500);
   await next.click();
   await solveShadows(page);
-  await expect(page.getByRole('progressbar', { name: 'Напредък в играта' })).toHaveAttribute('aria-valuenow', '100');
+  await expect(page.getByRole('progressbar', { name: 'Напредък в играта' })).toHaveAttribute(
+    'aria-valuenow',
+    '100',
+  );
   await page.getByText('Заедно извън екрана', { exact: true }).click();
   await expect(page.getByText(/Сложете лъжица върху лист/)).toBeVisible();
   await page.getByRole('button', { name: 'Следваща игра' }).click();
@@ -91,22 +102,37 @@ test('cancelled pointer gesture cannot place a piece; a real drag can', async ({
   const to = await hole.boundingBox();
   const start = [from.x + from.width / 2, from.y + from.height / 2];
   const end = [to.x + to.width / 2, to.y + to.height / 2];
+  await piece.evaluate((element) =>
+    element.addEventListener(
+      'pointerdown',
+      (event) => {
+        element.dataset.qaPointer = String(event.pointerId);
+      },
+      { once: true },
+    ),
+  );
   await page.mouse.move(...start);
   await page.mouse.down();
   await page.mouse.move(...end, { steps: 10 });
-  await piece.dispatchEvent('pointercancel', { pointerId: 1, clientX: end[0], clientY: end[1] });
+  const pointerId = Number(await piece.getAttribute('data-qa-pointer'));
+  await piece.dispatchEvent('pointercancel', { pointerId, clientX: end[0], clientY: end[1] });
   await page.mouse.up();
   await expect(hole).toBeEnabled();
   await page.mouse.move(...start);
   await page.mouse.down();
   await page.mouse.move(...end, { steps: 10 });
   await page.mouse.up();
-  await expect(holes(page).getByRole('button', { name: `На място: ${label}`, exact: true })).toBeDisabled();
+  await expect(
+    holes(page).getByRole('button', { name: `На място: ${label}`, exact: true }),
+  ).toBeDisabled();
 });
 
 test('sorting accepts a basket-first touch gesture at 320px', async ({ browser }) => {
-  const context = await browser.newContext({ hasTouch: true, isMobile: true,
-    viewport: { width: 320, height: 720 } });
+  const context = await browser.newContext({
+    hasTouch: true,
+    isMobile: true,
+    viewport: { width: 320, height: 720 },
+  });
   try {
     const page = await context.newPage();
     await seed(page, { age: 3 });
@@ -125,16 +151,28 @@ test('sorting accepts a basket-first touch gesture at 320px', async ({ browser }
 
 async function goOffline(page, context) {
   await page.evaluate(() => navigator.serviceWorker.ready.then(() => true));
-  await expect.poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller))).toBe(true);
+  await expect
+    .poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller)))
+    .toBe(true);
   await context.setOffline(true);
 }
 
-test('offline: cached category art, profile and an unvisited puzzle survive reload', async ({ page, context }) => {
+test('offline: cached category art, profile and an unvisited puzzle survive reload', async ({
+  page,
+  context,
+}) => {
   await seed(page);
   await goOffline(page, context);
   await page.goto('/#/c/puzzles');
   await expect(page.locator('header img').first()).toHaveJSProperty('complete', true);
-  await expect.poll(() => page.locator('header img').first().evaluate((img) => img.naturalWidth)).toBeGreaterThan(0);
+  await expect
+    .poll(() =>
+      page
+        .locator('header img')
+        .first()
+        .evaluate((img) => img.naturalWidth),
+    )
+    .toBeGreaterThan(0);
   await page.goto(puzzle);
   await page.reload();
   await expect(pieces(page).getByRole('button')).toHaveCount(2);
@@ -162,11 +200,16 @@ test('parent theme choices apply to the catalogue and direct game links', async 
   await expect(page.getByText('Тази игра е скрита от родителските настройки.')).toBeVisible();
 });
 
-test('category filters keep ages separate and reveal more games on demand', async ({ page }) => {
+test('category filters keep ages separate and reveal more games on demand', async ({
+  page,
+}) => {
   await seed(page, { ageOverride: { min: 2, max: 6 }, reducedMotion: false });
   await page.goto('/#/c/letters');
   const ageSelector = page.getByRole('group', { name: 'Възраст' });
-  await expect(ageSelector.getByRole('button', { name: '2 г.' })).toHaveAttribute('aria-pressed', 'true');
+  await expect(ageSelector.getByRole('button', { name: '2 г.' })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
   const cards = page.locator('button[data-activity]');
   await expect(cards).toHaveCount(12);
   await page.getByRole('button', { name: 'Покажи още игри' }).click();
@@ -183,14 +226,21 @@ test('category filters keep ages separate and reveal more games on demand', asyn
   }
 });
 
-test('first memory game can reveal the picture again and finish by keyboard', async ({ page }) => {
-  const game = catalog.find(({ category, engine, ageMin }) => category === 'memory' && engine === 'discovery' && ageMin === 2);
+test('first memory game can reveal the picture again and finish by keyboard', async ({
+  page,
+}) => {
+  const game = catalog.find(
+    ({ category, engine, ageMin }) =>
+      category === 'memory' && engine === 'discovery' && ageMin === 2,
+  );
   await seed(page);
   await page.goto('/#/play/' + game.id);
   const continueGame = page.getByRole('button', { name: 'Продължи', exact: true });
   await expect(page.getByRole('heading', { name: 'Виж кой е тук.' })).toBeVisible();
   if (process.env.QA_SCREENSHOTS) {
-    await page.screenshot({ path: resolve(process.env.QA_SCREENSHOTS, 'спомни-си-картинката.png') });
+    await page.screenshot({
+      path: resolve(process.env.QA_SCREENSHOTS, 'спомни-си-картинката.png'),
+    });
   }
   await continueGame.press('Enter');
   await expect(page.getByRole('heading', { name: 'Кой беше тук?', exact: true })).toBeFocused();
@@ -198,7 +248,10 @@ test('first memory game can reveal the picture again and finish by keyboard', as
   await expect(page.getByRole('heading', { name: 'Виж кой е тук.' })).toBeFocused();
   for (const round of game.params.rounds) {
     await continueGame.press('Enter');
-    await page.locator('.playful-game section button').nth(round.choices.indexOf(round.answer)).press('Enter');
+    await page
+      .locator('.playful-game section button')
+      .nth(round.choices.indexOf(round.answer))
+      .press('Enter');
     await expect(page.getByRole('heading', { name: /^Откри:/ })).toBeVisible();
     await page.getByRole('button', { name: /^(Продължи|Готово)$/ }).press('Enter');
   }
@@ -206,7 +259,9 @@ test('first memory game can reveal the picture again and finish by keyboard', as
   await expect(page.getByText('Заедно извън екрана')).toBeVisible();
 });
 
-test('music plays only on request, stops cleanly and is absent from listening games', async ({ page }) => {
+test('music plays only on request, stops cleanly and is absent from listening games', async ({
+  page,
+}) => {
   await page.addInitScript(() => {
     const original = OscillatorNode.prototype.start;
     OscillatorNode.prototype.start = function (...args) {
@@ -218,11 +273,13 @@ test('music plays only on request, stops cleanly and is absent from listening ga
   await seed(page, { age: 3, sound: false, reducedMotion: false });
   await page.goto(puzzle);
   const music = page.getByRole('button', { name: 'Музика' });
-  const animation = () => page.locator('.playful-game').evaluate((game) => getComputedStyle(game).animationName);
+  const animation = () =>
+    page.locator('.playful-game').evaluate((game) => getComputedStyle(game).animationName);
   await expect.poll(animation).not.toBe('none');
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect.poll(animation).toBe('none');
-  const oscillatorCount = () => page.locator('html').evaluate((root) => Number(root.dataset.audioStarts ?? 0));
+  const oscillatorCount = () =>
+    page.locator('html').evaluate((root) => Number(root.dataset.audioStarts ?? 0));
   await expect(music).toHaveAttribute('aria-pressed', 'false');
   expect(await oscillatorCount()).toBe(0);
   await music.click();
@@ -252,10 +309,15 @@ test('garden responds to water and light independently', async ({ page }) => {
   await observe.click();
   await expect(page.getByRole('status')).toContainText('Водата и светлината');
   await page.getByRole('button', { name: 'Готово', exact: true }).click();
-  await expect(page.getByRole('progressbar', { name: 'Напредък в играта' })).toHaveAttribute('aria-valuenow', '100');
+  await expect(page.getByRole('progressbar', { name: 'Напредък в играта' })).toHaveAttribute(
+    'aria-valuenow',
+    '100',
+  );
 });
 
-test('garden accepts a prediction, then compares pots without marking it wrong', async ({ page }) => {
+test('garden accepts a prediction, then compares pots without marking it wrong', async ({
+  page,
+}) => {
   await seed(page, { age: 6, theme: 'dark' });
   await page.goto('/#/play/garden-light-test');
   const observe = page.getByRole('button', { name: 'Виж какво ще стане' });
@@ -269,7 +331,10 @@ test('garden accepts a prediction, then compares pots without marking it wrong',
     await page.screenshot({ path: resolve(process.env.QA_SCREENSHOTS, 'жива-градина.png') });
   }
   await page.getByRole('button', { name: 'Готово', exact: true }).click();
-  await expect(page.getByRole('progressbar', { name: 'Напредък в играта' })).toHaveAttribute('aria-valuenow', '100');
+  await expect(page.getByRole('progressbar', { name: 'Напредък в играта' })).toHaveAttribute(
+    'aria-valuenow',
+    '100',
+  );
 });
 
 for (const theme of ['light', 'dark']) {
@@ -278,16 +343,26 @@ for (const theme of ['light', 'dark']) {
     await seed(page, { theme, age: 4 });
     await page.goto('/#/play/puzzle-forest-6');
     await expect(holes(page).getByRole('button')).toHaveCount(6);
-    const report = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
-    expect(report.violations.map(({ id, nodes }) => [id, nodes.map((node) => node.target)])).toEqual([]);
+    const report = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+      .analyze();
+    expect(
+      report.violations.map(({ id, nodes }) => [id, nodes.map((node) => node.target)]),
+    ).toEqual([]);
     if (process.env.QA_SCREENSHOTS) {
-      await page.screenshot({ path: resolve(process.env.QA_SCREENSHOTS, `горска-поляна-${theme}.png`), fullPage: true });
+      await page.screenshot({
+        path: resolve(process.env.QA_SCREENSHOTS, `горска-поляна-${theme}.png`),
+        fullPage: true,
+      });
     }
   });
 }
 
 for (const age of [2, 3, 4, 5, 6]) {
-  test(`all ${age}-year-old starting activities render offline at 320px`, async ({ page, context }) => {
+  test(`all ${age}-year-old starting activities render offline at 320px`, async ({
+    page,
+    context,
+  }) => {
     test.setTimeout(120_000);
     await page.setViewportSize({ width: 320, height: 720 });
     await seed(page, { age });
@@ -300,7 +375,8 @@ for (const age of [2, 3, 4, 5, 6]) {
     });
     page.on('requestfailed', (request) => {
       const reason = request.failure()?.errorText;
-      if (reason !== 'net::ERR_ABORTED') errors.push(`${reason} ${request.url()}`);
+      if (!['net::ERR_ABORTED', 'NS_BINDING_ABORTED', 'cancelled'].includes(reason))
+        errors.push(`${reason} ${request.url()}`);
     });
     // Assign each activity to its starting age. Age coverage is checked separately.
     for (const activity of catalog.filter((entry) => entry.ageMin === age)) {

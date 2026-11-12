@@ -10,6 +10,8 @@ permissions:
 jobs:
   browser:
     runs-on: ubuntu-latest
+    env:
+      QA_BROWSER: ${{ matrix.browser }}
     strategy:
       fail-fast: false
       matrix:
@@ -23,6 +25,10 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npx playwright install --with-deps ${{ matrix.browser }}
+      - name: Critical browser regressions
+        run: npm run test:browser -- --grep 'finish rhythm|cancelled pointer|music plays|render offline|profile deletion|production security|all twenty|recording stops|actual parent|landing exposes|blocked audio' --max-failures=5 --output=test-results/smoke
+        env:
+          GAMEPLAY_REPORT: test-results/smoke-results.json
       - run: npm run test:browser
         env:
           GAMEPLAY_REPORT: test-results/browser-results.json

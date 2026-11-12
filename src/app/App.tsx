@@ -107,6 +107,12 @@ const router = createHashRouter([
 ]);
 
 export function App() {
+  useEffect(() => {
+    document.documentElement.dataset['appReady'] = 'true';
+    return () => {
+      delete document.documentElement.dataset['appReady'];
+    };
+  }, []);
   const [ready, setReady] = useState(() => useApp.persist.hasHydrated());
   const [startupError, setStartupError] = useState<unknown>(null);
   const notice = useSyncExternalStore(watchStorage, storageNotice, () => null);

@@ -124,10 +124,7 @@ test('actual parent recording playback is paused when leaving the tab', async ({
     try {
       await new Promise((resolve) => {
         const tx = db.transaction('keyval', 'readwrite');
-        tx.objectStore('keyval').put(
-          new Blob([bytes], { type: 'audio/wav' }),
-          'tinymind:voice:qa:bravo',
-        );
+        tx.objectStore('keyval').put({ bytes, type: 'audio/wav' }, 'tinymind:voice:qa:bravo');
         tx.oncomplete = resolve;
       });
     } finally {

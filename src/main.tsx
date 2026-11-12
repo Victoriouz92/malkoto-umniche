@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
+import { flushSync } from 'react-dom';
 import { registerOfflineSupport } from '@/core/pwa';
 
 import './design-system/tokens.css';
@@ -20,7 +21,10 @@ void hydration.then(() => {
     </StrictMode>
   );
   if ((!window.location.hash || window.location.hash === '#/') && !getHydrationFailure()) {
-    hydrateRoot(container, app);
+    // Finish adopting public HTML before a hash navigation can change the route.
+    flushSync(() => {
+      hydrateRoot(container, app);
+    });
   } else createRoot(container).render(app);
 });
 
