@@ -31,7 +31,7 @@ async function savedProfile(page) {
   });
 }
 
-test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
+test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: process.env.QA_BROWSER !== 'firefox' });
 
 for (const activity of catalog) {
   test('finish ' + activity.engine + ' · ' + activity.id, async ({ page }, testInfo) => {

@@ -45,7 +45,7 @@ export function NextActivity() {
   const mainAsset = recommendation.assets[0];
   return <Page centered className={s.nextPage}><Stack gap={6} className={s.nextContent}>
     <SoftStop />
-    <button type="button" className={s.miniBrand} onClick={() => void navigate('/kid')}><img src="/icons/icon-192.png" alt="" />{t('app.name')}</button>
+    <button type="button" className={s.miniBrand} onClick={() => void navigate('/kid')}><img src="/icons/icon-192.webp" alt="" />{t('app.name')}</button>
     <div className={s.nextCard}>
       <span className={s.nextEyebrow}>{t('kid.next.eyebrow', { name: profile.name })}</span>
       <h1>{t('kid.next.title')}</h1>

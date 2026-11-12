@@ -73,10 +73,10 @@ type PageProps = {
 /** Ограничена по ширина страница със safe-area отстояния. */
 export function Page({ narrow, centered, className, children }: PageProps) {
   return (
-    <div
+    <main
       className={cx(s.page, narrow && s.pageNarrow, centered && s.pageCentered, className)}
     >
       {children}
-    </div>
+    </main>
   );
 }

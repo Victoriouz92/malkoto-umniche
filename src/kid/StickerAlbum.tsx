@@ -32,7 +32,7 @@ export function StickerAlbum() {
         <Cluster between>
           <Button variant="quiet" iconOnly glyph="←" aria-label={t('action.back')} onClick={() => void navigate('/kid')} />
           <div className={s.albumHeading}>
-            <img src="/icons/icon-192.png" alt="" aria-hidden="true" />
+            <img src="/icons/icon-192.webp" alt="" aria-hidden="true" />
             <div><span>Малкото Умниче</span><h1>{t('kid.stickers.title')}</h1></div>
           </div>
           <span style={{ width: 'var(--tap)' }} aria-hidden="true" />

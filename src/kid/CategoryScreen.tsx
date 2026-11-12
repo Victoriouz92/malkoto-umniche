@@ -101,7 +101,7 @@ function CategoryContent({ category }: { category: Category }) {
         <Cluster between className={s.catalogueNav}>
           <Button variant="quiet" onClick={() => void navigate('/kid')}>← Всички светове</Button>
           <button type="button" className={s.miniBrand} onClick={() => void navigate('/')}>
-            <img src="/icons/icon-192.png" alt="" />Малкото Умниче
+            <img src="/icons/icon-192.webp" alt="" />Малкото Умниче
           </button>
         </Cluster>
         <header className={s.worldHero} data-category={category}>
@@ -155,7 +155,7 @@ function CategoryContent({ category }: { category: Category }) {
         </div> : null}
         {visible.length === 0 && <p className={s.emptyCategory}>{t('kid.category.empty')}</p>}
         <footer className={s.worldFooter}>
-          <img src="/icons/icon-192.png" alt="" />
+          <img src="/icons/icon-192.webp" alt="" />
           <p>Всяко дете открива света със своето темпо.</p>
           <Button variant="quiet" onClick={() => void navigate('/kid')}>Към друг свят →</Button>
         </footer>

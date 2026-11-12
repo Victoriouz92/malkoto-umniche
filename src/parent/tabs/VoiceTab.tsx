@@ -6,6 +6,8 @@ import {
   loadPraise,
   PRAISE_PHRASES,
   savePraise,
+  playPraise,
+  stopParentVoice,
   type PraiseId,
 } from '@/core/audio/parentVoice';
 import { t } from '@/i18n';
@@ -16,63 +18,101 @@ export function VoiceTab() {
   const [saved, setSaved] = useState<Set<PraiseId>>(new Set());
   const [recording, setRecording] = useState<PraiseId | null>(null);
   const [error, setError] = useState('');
+  const [requesting, setRequesting] = useState(false);
   const recorder = useRef<MediaRecorder | null>(null);
   const stream = useRef<MediaStream | null>(null);
+  const mounted = useRef(false);
+  const stopTimer = useRef<number>();
+  const profileId = profile?.id;
 
   useEffect(() => {
-    if (!profile) return;
+    mounted.current = true;
+    if (!profileId)
+      return () => {
+        mounted.current = false;
+      };
     let active = true;
     void Promise.all(
       PRAISE_PHRASES.map(async (phrase) => ({
         id: phrase.id,
-        exists: Boolean(await loadPraise(profile.id, phrase.id)),
+        exists: Boolean(await loadPraise(profileId, phrase.id)),
       })),
-    ).then((items) => {
-      if (active) setSaved(new Set(items.filter((item) => item.exists).map((item) => item.id)));
-    });
+    )
+      .then((items) => {
+        if (active)
+          setSaved(new Set(items.filter((item) => item.exists).map((item) => item.id)));
+      })
+      .catch(() => {
+        if (active)
+          setError('Записите не могат да се отворят. Проверете съхранението в браузъра.');
+      });
     return () => {
       active = false;
+      mounted.current = false;
+      window.clearTimeout(stopTimer.current);
+      if (recorder.current?.state === 'recording') recorder.current.stop();
       stream.current?.getTracks().forEach((track) => track.stop());
+      stopParentVoice();
     };
-  }, [profile]);
+  }, [profileId]);
 
   if (!profile) return <p className={s.muted}>{t('parent.profiles.none')}</p>;
 
   const start = async (phraseId: PraiseId) => {
     setError('');
+    setRequesting(true);
     try {
       const media = await navigator.mediaDevices.getUserMedia({ audio: true });
+      if (!mounted.current) {
+        media.getTracks().forEach((track) => track.stop());
+        return;
+      }
+      stream.current = media;
       const chunks: BlobPart[] = [];
       const next = new MediaRecorder(media);
-      stream.current = media;
       recorder.current = next;
       next.addEventListener('dataavailable', (event) => {
         if (event.data.size > 0) chunks.push(event.data);
       });
       next.addEventListener('stop', () => {
-        const blob = new Blob(chunks, { type: next.mimeType || 'audio/webm' });
-        void savePraise(profile.id, phraseId, blob).then(() => {
-          setSaved((current) => new Set(current).add(phraseId));
-        });
+        window.clearTimeout(stopTimer.current);
         media.getTracks().forEach((track) => track.stop());
+        if (!mounted.current) return;
+        const blob = new Blob(chunks, { type: next.mimeType || 'audio/webm' });
+        if (blob.size)
+          void savePraise(profile.id, phraseId, blob)
+            .then(() => {
+              if (mounted.current) setSaved((current) => new Set(current).add(phraseId));
+            })
+            .catch(() => {
+              if (mounted.current)
+                setError('Записът не можа да се запази. Освободете място и опитайте отново.');
+            });
         setRecording(null);
       });
       next.start();
       setRecording(phraseId);
+      stopTimer.current = window.setTimeout(() => {
+        if (next.state === 'recording') next.stop();
+      }, 10_000);
     } catch {
-      setError(t('parent.voice.micError'));
+      stream.current?.getTracks().forEach((track) => track.stop());
+      if (mounted.current) setError(t('parent.voice.micError'));
+    } finally {
+      if (mounted.current) setRequesting(false);
     }
   };
 
-  const stop = () => recorder.current?.stop();
+  const stop = () => {
+    if (recorder.current?.state === 'recording') recorder.current.stop();
+  };
 
   const play = async (phraseId: PraiseId) => {
-    const blob = await loadPraise(profile.id, phraseId);
-    if (!blob) return;
-    const url = URL.createObjectURL(blob);
-    const audio = new Audio(url);
-    audio.addEventListener('ended', () => URL.revokeObjectURL(url), { once: true });
-    await audio.play();
+    try {
+      await playPraise(profile.id, phraseId);
+    } catch {
+      setError('Записът не може да се пусне. Опитайте да го запишете отново.');
+    }
   };
 
   return (
@@ -92,7 +132,14 @@ export function VoiceTab() {
           <p className={s.muted}>{t('parent.voice.when')}</p>
           <p className={s.muted}>{t('parent.voice.optional')}</p>
           <p className={s.muted}>{t('parent.voice.privacy')}</p>
-          {error ? <p className={s.danger}>{error}</p> : null}
+          <p className={s.muted}>
+            Всеки запис е до 10 секунди. Напускането на раздела спира микрофона и прослушването.
+          </p>
+          {error ? (
+            <p className={s.danger} role="alert">
+              {error}
+            </p>
+          ) : null}
         </Stack>
       </Card>
 
@@ -110,11 +157,13 @@ export function VoiceTab() {
               </Stack>
               <Cluster gap={2}>
                 {isRecording ? (
-                  <Button variant="primary" onClick={stop}>{t('parent.voice.stop')}</Button>
+                  <Button variant="primary" onClick={stop}>
+                    {t('parent.voice.stop')}
+                  </Button>
                 ) : (
                   <Button
                     variant={exists ? 'soft' : 'primary'}
-                    disabled={recording !== null}
+                    disabled={recording !== null || requesting}
                     onClick={() => void start(phrase.id)}
                   >
                     {exists ? t('parent.voice.recordAgain') : t('parent.voice.record')}
@@ -122,18 +171,29 @@ export function VoiceTab() {
                 )}
                 {exists ? (
                   <>
-                    <Button variant="quiet" onClick={() => void play(phrase.id)}>
+                    <Button
+                      variant="quiet"
+                      disabled={recording !== null || requesting}
+                      onClick={() => void play(phrase.id)}
+                    >
                       {t('parent.voice.listen')}
                     </Button>
                     <Button
                       variant="quiet"
-                      onClick={() => void deletePraise(profile.id, phrase.id).then(() => {
-                        setSaved((current) => {
-                          const next = new Set(current);
-                          next.delete(phrase.id);
-                          return next;
-                        });
-                      })}
+                      disabled={recording !== null || requesting}
+                      onClick={() =>
+                        void deletePraise(profile.id, phrase.id)
+                          .then(() => {
+                            setSaved((current) => {
+                              const next = new Set(current);
+                              next.delete(phrase.id);
+                              return next;
+                            });
+                          })
+                          .catch(() =>
+                            setError('Записът не можа да се изтрие. Опитайте отново.'),
+                          )
+                      }
                     >
                       {t('action.delete')}
                     </Button>

@@ -90,7 +90,7 @@ export function useEngineApi(options: {
         // гласът на родителя остават за края на цялата серия.
         if (isFinalRound && !isFinalRound()) return;
         onCelebrate(origin);
-        if (voice && profileId) void playRandomPraise(profileId);
+        if (voice && profileId) void playRandomPraise(profileId).catch(() => undefined);
       },
 
       // Няма синтетичен говор. Инструкцията винаги присъства визуално;

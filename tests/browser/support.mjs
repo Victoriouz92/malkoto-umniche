@@ -76,3 +76,18 @@ export async function seed(
   );
   await page.reload();
 }
+
+export async function enterParentPin(page, pin = '1974') {
+  for (const digit of pin) await page.getByRole('button', { name: digit, exact: true }).click();
+}
+
+export async function createParentPin(page) {
+  await page.goto('/#/parent');
+  await enterParentPin(page);
+  await page.getByRole('heading', { name: 'Повтори PIN' }).waitFor();
+  await enterParentPin(page);
+  const recovery = await page.locator('output').innerText();
+  await page.getByRole('button', { name: 'Записах го' }).click();
+  await page.getByRole('tablist').waitFor();
+  return recovery;
+}

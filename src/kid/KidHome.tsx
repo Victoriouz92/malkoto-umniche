@@ -76,14 +76,14 @@ export function KidHome() {
 
         <Cluster between>
           <button type="button" className={s.miniBrand} onClick={() => void navigate('/')}>
-            <img src="/icons/icon-192.png" alt="" aria-hidden="true" />
+            <img src="/icons/icon-192.webp" alt="" aria-hidden="true" />
             {t('app.name')}
           </button>
           <span className={s.ageRange}>{profile.age} г.</span>
         </Cluster>
 
         <Stack gap={2} className={s.homeIntro}>
-          <img className={s.introMascot} src="/icons/icon-192.png" alt="" aria-hidden="true" />
+          <img className={s.introMascot} src="/icons/icon-192.webp" alt="" aria-hidden="true" />
           <h1>{t('kid.home.greeting', { name: profile.name })}</h1>
           <p style={{ color: 'var(--c-ink-soft)' }}>{t('kid.home.pick')}</p>
         </Stack>

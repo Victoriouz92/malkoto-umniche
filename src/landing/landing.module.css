@@ -210,6 +210,10 @@
 .footer span { color: rgba(255,255,255,.74); font-size: .92rem; }
 .footer button { padding: 12px 20px; color: #17665f; background: rgba(255,255,255,.94); border-radius: 999px; box-shadow: 0 7px 20px rgba(4,50,46,.2); font-weight: 900; }
 .footer button:hover { background: #fff; transform: translateY(-1px); }
+.footer { flex-wrap: wrap; }
+.footerLinks { display: flex; flex-wrap: wrap; gap: 12px 24px; flex-basis: 100%; }
+.footerLinks a { display: inline-flex; align-items: center; min-height: 48px; color: inherit; font-weight: 800; text-underline-offset: 4px; }
+.offlineStatus { flex-basis: 100%; min-height: 3rem; font-size: .9rem; color: inherit; }
 @media (max-width: 800px) {
   .nav { padding: 4px; background: rgba(255,255,255,.84); }
   .navLink { display: none; }

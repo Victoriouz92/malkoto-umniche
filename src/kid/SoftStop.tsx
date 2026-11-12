@@ -74,7 +74,7 @@ export function SoftStop() {
       >
         <div className={s.stopScene}>
           <div className={s.stopCard}>
-            <img src="/icons/icon-192.png" alt="" aria-hidden="true" />
+            <img src="/icons/icon-192.webp" alt="" aria-hidden="true" />
             <span className={s.stopEyebrow}>Малкото Умниче</span>
             <h2>{t('stop.now.title')}</h2>
             <p>{t('stop.now.body')}</p>

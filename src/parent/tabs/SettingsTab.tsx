@@ -5,15 +5,23 @@ import { setMood } from '@/core/audio';
 import { clear as clearStorage } from 'idb-keyval';
 import { t } from '@/i18n';
 import s from '../parent.module.css';
+import { BackupControls } from './BackupControls';
 
 /** Звук, движение, тема — и изтриване на всичко. */
 export function SettingsTab() {
   const settings = useApp((st) => st.settings);
   const updateSettings = useApp((st) => st.updateSettings);
   const [confirming, setConfirming] = useState(false);
+  const [error, setError] = useState('');
+  const [resetting, setResetting] = useState(false);
 
   return (
     <div className={s.section}>
+      {error ? (
+        <p role="alert" className={s.error}>
+          {error}
+        </p>
+      ) : null}
       <Card variant="flat">
         <Stack gap={2}>
           <Toggle
@@ -23,7 +31,7 @@ export function SettingsTab() {
           />
           <Toggle
             label={t('parent.settings.music')}
-            hint="Изключена по подразбиране — детето мисли, музиката не помага."
+            hint="По желание. Можете да я включите или изключите според предпочитанията на детето."
             checked={settings.music}
             onChange={(on) => {
               updateSettings({ music: on });
@@ -38,7 +46,7 @@ export function SettingsTab() {
           />
           <Toggle
             label={t('parent.settings.motion')}
-            hint="Свива анимациите до почти мигновени. Не ги изключва — детето губи обратната връзка."
+            hint="Ограничава движението и премахва декоративните анимации."
             checked={settings.reducedMotion}
             onChange={(on) => updateSettings({ reducedMotion: on })}
           />
@@ -52,6 +60,7 @@ export function SettingsTab() {
         </Stack>
       </Card>
 
+      <BackupControls />
       <Card variant="flat">
         <Stack gap={3}>
           <strong className={s.danger}>{t('parent.reset.title')}</strong>
@@ -61,8 +70,17 @@ export function SettingsTab() {
             <Cluster>
               <Button
                 variant="danger"
+                disabled={resetting}
                 onClick={() => {
-                  void clearStorage().then(() => window.location.reload());
+                  setResetting(true);
+                  void clearStorage()
+                    .then(() => window.location.reload())
+                    .catch(() => {
+                      setResetting(false);
+                      setError(
+                        'Данните не можаха да се изтрият. Проверете съхранението в браузъра и опитайте отново.',
+                      );
+                    });
                 }}
               >
                 {t('action.delete')}

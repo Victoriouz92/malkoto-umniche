@@ -9,7 +9,11 @@ export default defineConfig({
     : [['list']],
   use: {
     baseURL: 'http://localhost:4173',
-    channel: process.env.PLAYWRIGHT_CHANNEL || undefined,
+    browserName: process.env.QA_BROWSER || 'chromium',
+    channel:
+      !process.env.QA_BROWSER || process.env.QA_BROWSER === 'chromium'
+        ? process.env.PLAYWRIGHT_CHANNEL || undefined
+        : undefined,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },

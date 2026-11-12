@@ -35,8 +35,8 @@ export class ErrorBoundary extends Component<Props, State> {
             variant="primary"
             size="kid"
             onClick={() => {
-              this.setState({ error: null });
-              window.history.back();
+              window.location.hash = '/';
+              window.location.reload();
             }}
           >
             {t('action.back')}

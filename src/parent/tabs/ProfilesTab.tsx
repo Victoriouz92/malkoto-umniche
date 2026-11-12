@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Card, Cluster, Stack, Stepper, TextInput } from '@/design-system';
 import { AGE_BANDS, bandForAge } from '@/design-system';
 import { useApp } from '@/core/store/app';
+import { deleteProfilePraise } from '@/core/audio/parentVoice';
 import { t } from '@/i18n';
 import s from '../parent.module.css';
 
@@ -19,11 +20,18 @@ export function ProfilesTab() {
   const [name, setName] = useState('');
   const [age, setAge] = useState(5);
   const [confirming, setConfirming] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState(false);
+  const [error, setError] = useState('');
 
   const canAdd = name.trim().length > 0;
 
   return (
     <div className={s.section}>
+      {error ? (
+        <p role="alert" className={s.error}>
+          {error}
+        </p>
+      ) : null}
       {profiles.length === 0 ? (
         <p className={s.muted}>{t('parent.profiles.none')}</p>
       ) : (
@@ -56,11 +64,7 @@ export function ProfilesTab() {
                       {t('parent.profiles.makeActive')}
                     </Button>
                   ) : null}
-                  <Button
-                    variant="quiet"
-                    size="sm"
-                    onClick={() => setConfirming(profile.id)}
-                  >
+                  <Button variant="quiet" size="sm" onClick={() => setConfirming(profile.id)}>
                     {t('action.delete')}
                   </Button>
                 </Cluster>
@@ -78,9 +82,17 @@ export function ProfilesTab() {
             <Cluster>
               <Button
                 variant="danger"
+                disabled={deleting}
                 onClick={() => {
-                  removeProfile(confirming);
-                  setConfirming(null);
+                  const id = confirming;
+                  setDeleting(true);
+                  void deleteProfilePraise(id)
+                    .then(() => {
+                      removeProfile(id);
+                      setConfirming(null);
+                    })
+                    .catch(() => setError('Изтриването не успя. Опитайте отново.'))
+                    .finally(() => setDeleting(false));
                 }}
               >
                 {t('action.delete')}

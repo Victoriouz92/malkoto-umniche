@@ -48,7 +48,7 @@ export function ParentHome() {
       <Stack gap={4}>
         <Cluster between>
           <h1>{t('parent.title')}</h1>
-          <Button variant="quiet" size="sm" onClick={() => void navigate('/')}>
+          <Button variant="quiet" size="sm" onClick={() => void navigate(profiles.length ? '/kid' : '/')}>
             {t('parent.exit')}
           </Button>
         </Cluster>
@@ -59,16 +59,36 @@ export function ParentHome() {
               key={id}
               type="button"
               role="tab"
+              id={`parent-tab-${id}`}
+              aria-controls="parent-panel"
               aria-selected={tab === id}
+              tabIndex={tab === id ? 0 : -1}
               className={cx(s.tab, tab === id && s.tabOn)}
               onClick={() => setTab(id)}
+              onKeyDown={(event) => {
+                if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+                event.preventDefault();
+                const index = TABS.findIndex((item) => item.id === id);
+                const next =
+                  event.key === 'Home'
+                    ? 0
+                    : event.key === 'End'
+                      ? TABS.length - 1
+                      : (index + (event.key === 'ArrowRight' ? 1 : -1) + TABS.length) %
+                        TABS.length;
+                const target = TABS[next];
+                if (target) {
+                  setTab(target.id);
+                  document.getElementById(`parent-tab-${target.id}`)?.focus();
+                }
+              }}
             >
               {t(labelKey)}
             </button>
           ))}
         </div>
 
-        <div role="tabpanel">
+        <div role="tabpanel" id="parent-panel" aria-labelledby={`parent-tab-${tab}`}>
           {tab === 'profiles' ? <ProfilesTab /> : null}
           {tab === 'limits' ? <LimitsTab /> : null}
           {tab === 'content' ? <ContentTab /> : null}

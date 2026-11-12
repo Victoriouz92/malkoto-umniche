@@ -3,6 +3,7 @@ import { useApp } from '@/core/store/app';
 import { duckAll, restoreAll, unlockAudio } from './context';
 import { playSfx } from './sfx';
 import { startMusic, stopMusic } from './music';
+import { stopParentVoice } from './parentVoice';
 import type { Mood } from './music';
 import type { SfxName } from '@/engines/types';
 
@@ -35,9 +36,12 @@ export function setMood(mood: Mood | null): void {
  */
 export function useAudioLifecycle(): void {
   const music = useApp((s) => s.settings.music);
+  const voice = useApp((s) => s.settings.voice);
 
   useEffect(() => {
-    const unlock = () => { void unlockAudio(); };
+    const unlock = () => {
+      void unlockAudio();
+    };
     window.addEventListener('pointerdown', unlock, { once: false, passive: true });
     window.addEventListener('keydown', unlock, { once: false, passive: true });
     return () => {
@@ -48,15 +52,21 @@ export function useAudioLifecycle(): void {
 
   useEffect(() => {
     const onVisibility = () => {
-      if (document.hidden) duckAll();
-      else restoreAll();
+      if (document.hidden) {
+        duckAll();
+        stopParentVoice();
+      } else restoreAll();
     };
     document.addEventListener('visibilitychange', onVisibility);
-    window.addEventListener('blur', duckAll);
+    const onBlur = () => {
+      duckAll();
+      stopParentVoice();
+    };
+    window.addEventListener('blur', onBlur);
     window.addEventListener('focus', restoreAll);
     return () => {
       document.removeEventListener('visibilitychange', onVisibility);
-      window.removeEventListener('blur', duckAll);
+      window.removeEventListener('blur', onBlur);
       window.removeEventListener('focus', restoreAll);
     };
   }, []);
@@ -64,4 +74,7 @@ export function useAudioLifecycle(): void {
   useEffect(() => {
     if (!music) stopMusic();
   }, [music]);
+  useEffect(() => {
+    if (!voice) stopParentVoice();
+  }, [voice]);
 }

@@ -456,7 +456,7 @@ function ActivityScreen() {
           onClick={() => void navigate('/kid')}
         />
         <div className={s.titleWrap}>
-          <img className={s.guideMascot} src="/icons/icon-192.png" alt="" aria-hidden="true" />
+          <img className={s.guideMascot} src="/icons/icon-192.webp" alt="" aria-hidden="true" />
           <h1 className={s.title}>
             {t(playedActivity.titleKey as never)}
             <small>{t(`cat.${activity.category}`)} · {ageLabel(playedActivity.ageMin, playedActivity.ageMax)}</small>

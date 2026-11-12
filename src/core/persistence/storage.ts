@@ -1,6 +1,41 @@
 import { get, set, del } from 'idb-keyval';
 import type { StateStorage } from 'zustand/middleware';
 
+let temporary = false;
+let notice: string | null = null;
+let original: string | null = null;
+const listeners = new Set<() => void>();
+export const storageNotice = () => notice;
+export function watchStorage(listener: () => void): () => void {
+  listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+  };
+}
+function warn(message: string): void {
+  notice = message;
+  listeners.forEach((listener) => listener());
+}
+export function enableTemporaryStorage(): void {
+  temporary = true;
+  warn(
+    'Временен режим: напредъкът ще се загуби при затваряне. Разрешете съхранението в браузъра, за да се запазва.',
+  );
+}
+export const originalSavedData = () => original;
+export function downloadJson(value: unknown, filename: string): void {
+  const url = URL.createObjectURL(
+    new Blob([typeof value === 'string' ? value : JSON.stringify(value, null, 2)], {
+      type: 'application/json',
+    }),
+  );
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
 /**
  * Съхранение върху IndexedDB.
  *
@@ -11,9 +46,20 @@ import type { StateStorage } from 'zustand/middleware';
  * Нищо от това не напуска устройството. Няма бекенд и няма акаунти.
  */
 export const idbStorage: StateStorage = {
-  getItem: async (name) => (await get<string>(name)) ?? null,
+  getItem: async (name) => {
+    if (temporary) return null;
+    original = (await get<string>(name)) ?? null;
+    return original;
+  },
   setItem: async (name, value) => {
-    await set(name, value);
+    if (temporary) return;
+    try {
+      await set(name, value);
+    } catch {
+      warn(
+        'Запазването не успя. Освободете място или разрешете съхранението в браузъра. Преди затваряне изтеглете резервно копие от родителските настройки.',
+      );
+    }
   },
   removeItem: async (name) => {
     await del(name);
