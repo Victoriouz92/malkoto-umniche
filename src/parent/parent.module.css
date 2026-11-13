@@ -220,3 +220,7 @@
     flex-direction: column;
   }
 }
+.tabScene { display: block; width: 100%; height: clamp(8rem, 22vw, 11rem); object-fit: cover; object-position: 75% 35%; border-radius: 1.5rem; margin-bottom: 1.5rem; }
+.gateScene { display: block; width: 100%; height: 8rem; object-fit: cover; object-position: 75% 35%; border-radius: 1.5rem; }
+.backupFile { display: grid; gap: var(--sp-2); min-width: 0; max-width: 100%; font-weight: var(--fw-bold); }
+.backupFile input { width: 100%; min-width: 0; max-width: 100%; min-height: var(--tap-min); }

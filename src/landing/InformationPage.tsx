@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { activeProfile, useApp } from '@/core/store/app';
 import s from './information.module.css';
+import { PageArtwork } from '@/artwork/PageArtwork';
 
 const titles: Record<string, string> = {
   help: 'Първи стъпки заедно',
@@ -24,6 +25,7 @@ export function InformationPage({ section }: { section: string }) {
         </Link>
       </header>
       <article className={s.article}>
+        <PageArtwork scene={section === 'help' || section === 'privacy' || section === 'credits' ? section : 'missing'} className={s.scene} />
         <span className={s.eyebrow}>За спокойна семейна игра</span>
         <h1>{titles[section] ?? titles['missing']}</h1>
         {section === 'help' ? (

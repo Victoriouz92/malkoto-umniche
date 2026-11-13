@@ -341,3 +341,5 @@
     animation: none;
   }
 }
+
+.celebrationRow { display: flex; align-items: center; justify-content: center; gap: .5rem; max-width: 100%; }

@@ -9,6 +9,7 @@ import { playEffect } from '@/core/audio';
 import { Asset } from '@/assets/Asset';
 import { t } from '@/i18n';
 import { SoftStop } from './SoftStop';
+import { PageArtwork } from '@/artwork/PageArtwork';
 import s from './kid.module.css';
 
 /**
@@ -40,6 +41,7 @@ export function KidHome() {
     return (
       <Page centered>
         <Stack gap={8}>
+          <PageArtwork scene="kid-home" className={s.homeScene} />
           <Stack gap={2}>
             <h1>{t('app.name')}</h1>
             <p style={{ color: 'var(--c-ink-soft)' }}>{t('app.tagline')}</p>
@@ -83,7 +85,7 @@ export function KidHome() {
         </Cluster>
 
         <Stack gap={2} className={s.homeIntro}>
-          <img className={s.introMascot} src="/icons/icon-192.webp" alt="" aria-hidden="true" />
+          <PageArtwork scene="kid-home" className={s.homeScene} />
           <h1>{t('kid.home.greeting', { name: profile.name })}</h1>
           <p style={{ color: 'var(--c-ink-soft)' }}>{t('kid.home.pick')}</p>
         </Stack>

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { PageArtwork } from '@/artwork/PageArtwork';
 import { Button, Card, Cluster, Page, Stack, TextInput } from '@/design-system';
 import { useApp } from '@/core/store/app';
 import {
@@ -177,6 +178,7 @@ export function PinGate({ onUnlocked, onCancel }: Props) {
   return (
     <Page narrow>
       <Stack gap={6} className={s.gate}>
+        <PageArtwork scene="parent-gate" className={s.gateScene} />
         <Stack gap={2}>
           <h1>{title}</h1>
           <p className={s.muted}>{t('parent.gate.hint')}</p>

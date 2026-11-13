@@ -11,3 +11,4 @@
 .lead { font-size: var(--fs-lg); font-weight: var(--fw-bold); }
 .eyebrow, .note { color: var(--c-ink-soft); font-size: var(--fs-sm); }
 .links { justify-content: flex-start; padding-block: var(--sp-5); }
+.scene { display: block; width: 100%; height: clamp(12rem, 35vw, 22rem); object-fit: cover; object-position: 70% 35%; border-radius: 2rem; margin-bottom: 2rem; }

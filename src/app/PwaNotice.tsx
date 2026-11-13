@@ -6,7 +6,7 @@ import { applyAvailableUpdate, getPwaStatus, getServerPwaStatus, watchPwa } from
 export function PwaNotice() {
   const state = useSyncExternalStore(watchPwa, getPwaStatus, getServerPwaStatus);
   const { pathname } = useLocation();
-  if (!state.updateAvailable || pathname.startsWith('/play/')) return null;
+  if (!state.updateAvailable || pathname.startsWith('/play/') || pathname === '/parent') return null;
   return (
     <aside className="update-notice" aria-label="Нова версия">
       <p>Нова версия на игрите е готова. Напредъкът ви се запазва.</p>

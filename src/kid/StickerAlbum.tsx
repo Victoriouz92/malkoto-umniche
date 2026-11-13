@@ -4,6 +4,7 @@ import { useApp, activeProfile } from '@/core/store/app';
 import { useSessionClock } from '@/core/time/session';
 import { t } from '@/i18n';
 import { SoftStop } from './SoftStop';
+import { PageArtwork } from '@/artwork/PageArtwork';
 import s from './kid.module.css';
 
 const COLS = 4;
@@ -11,10 +12,10 @@ const ROWS = 3;
 const PIECES_PER_PUZZLE = COLS * ROWS;
 
 const PUZZLE_ALBUM = [
-  { src: '/optimized/hero-malkoto-umniche-800.webp', title: 'Пандата и големият пъзел' },
-  { src: '/optimized/slide-numbers-wide-800.webp', title: 'Приключение край водопада' },
-  { src: '/optimized/slide-reading-wide-800.webp', title: 'Горската библиотека' },
-  { src: '/optimized/slide-letters-wide-800.webp', title: 'Вълшебните букви' },
+  { src: '/page-art/album-garden-600.webp', title: 'Градината на приятелите' },
+  { src: '/page-art/album-stream-600.webp', title: 'Приключение по поточето' },
+  { src: '/page-art/album-clouds-600.webp', title: 'Над пухкавите облаци' },
+  { src: '/page-art/album-lanterns-600.webp', title: 'Вечерта на фенерите' },
 ] as const;
 
 /** Всяка уникално завършена активност разкрива едно ново парче. */
@@ -39,6 +40,7 @@ export function StickerAlbum() {
         </Cluster>
 
         <div className={s.albumIntro}>
+          <PageArtwork scene="album" className={s.albumScene} />
           <strong>{earned} открити парчета</strong>
           <p>Всяка нова завършена игра разкрива част от следващата картина.</p>
         </div>

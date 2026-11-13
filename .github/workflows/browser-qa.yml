@@ -15,7 +15,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium, firefox, webkit]
+        include:
+          - { browser: chromium, shard: '1/1', artifact: chromium }
+          - { browser: firefox, shard: '1/1', artifact: firefox }
+          - { browser: webkit, shard: '1/4', artifact: webkit-1 }
+          - { browser: webkit, shard: '2/4', artifact: webkit-2 }
+          - { browser: webkit, shard: '3/4', artifact: webkit-3 }
+          - { browser: webkit, shard: '4/4', artifact: webkit-4 }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -25,8 +31,8 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npx playwright install --with-deps ${{ matrix.browser }}
-      - name: Provide a real audio output for headless Firefox
-        if: matrix.browser == 'firefox'
+      - name: Provide a real audio output for headless audio tests
+        if: matrix.browser != 'chromium'
         run: |
           sudo apt-get update
           sudo apt-get install -y pulseaudio
@@ -35,15 +41,15 @@ jobs:
           pactl set-default-sink qa
           pactl info
       - name: Critical browser regressions
-        run: npm run test:browser -- --grep 'finish rhythm|cancelled pointer|music plays|render offline|profile deletion|production security|all twenty|recording stops|actual parent|landing exposes|blocked audio' --max-failures=5 --output=test-results/smoke
+        run: npm run test:browser -- --grep 'finish rhythm|cancelled pointer|music plays|render offline|profile deletion|production security|all twenty|recording stops|actual parent|landing exposes|blocked audio|idle panda|panda respects|panda resumes|round and final|distinct scenes|real service-worker update' --max-failures=5 --output=test-results/smoke
         env:
           GAMEPLAY_REPORT: test-results/smoke-results.json
-      - run: npm run test:browser
+      - run: npm run test:browser -- --shard=${{ matrix.shard }}
         env:
           GAMEPLAY_REPORT: test-results/browser-results.json
           QA_BROWSER: ${{ matrix.browser }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: browser-test-results-${{ matrix.browser }}
+          name: browser-test-results-${{ matrix.artifact }}
           path: test-results/
