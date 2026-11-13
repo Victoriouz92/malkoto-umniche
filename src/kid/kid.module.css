@@ -562,7 +562,7 @@
 .puzzleMeta span { color: var(--c-ink-soft); font-size: var(--fs-sm); font-weight: var(--fw-bold); }
 .puzzleMeta h2 { margin: 0; font-size: var(--fs-lg); }
 .puzzleMeta > strong { flex: 0 0 auto; padding: var(--sp-2) var(--sp-3); color: #286f69; background: #d9f3ef; border-radius: var(--r-full); }
-.puzzlePieces { display: grid; grid-template-columns: repeat(4, 1fr); overflow: hidden; aspect-ratio: 16 / 9; background: #e9e5de; border: 4px solid var(--c-surface); border-radius: var(--r-2xl); box-shadow: inset 0 0 0 1px var(--c-border); }
+.puzzlePieces { display: grid; grid-template-columns: repeat(4, 1fr); overflow: hidden; aspect-ratio: 3 / 2; background: #e9e5de; border: 4px solid var(--c-surface); border-radius: var(--r-2xl); box-shadow: inset 0 0 0 1px var(--c-border); }
 .puzzlePiece { display: grid; place-items: center; color: #b4ada3; background: color-mix(in srgb, var(--c-surface-2) 82%, #e8ddd2); border: 1px dashed color-mix(in srgb, var(--c-ink-soft) 24%, transparent); font-size: var(--fs-lg); }
 .puzzlePieceVisible { background-repeat: no-repeat; border-style: solid; border-color: rgba(255,255,255,.35); animation: puzzleReveal .48s var(--ease-spring) both; }
 @keyframes puzzleReveal { from { opacity: 0; transform: scale(.78) rotate(-3deg); } }
