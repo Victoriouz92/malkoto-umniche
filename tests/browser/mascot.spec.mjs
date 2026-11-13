@@ -94,11 +94,30 @@ test('panda respects stored and system motion preferences and navigation', async
   await page.clock.runFor(70000);
   await expect(page.locator('[data-menu-mascot]')).toHaveCount(0);
   await page.emulateMedia({ reducedMotion: 'no-preference' });
-  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(resolve)));
-  await page.clock.runFor(12500);
-  await expect(page.locator('[data-menu-mascot]')).toBeVisible();
   await page.goto('/#/parent');
   await page.clock.runFor(70000);
+  await expect(page.locator('[data-menu-mascot]')).toHaveCount(0);
+});
+
+test('panda resumes after the system enables motion using real browser timers', async ({
+  page,
+}) => {
+  // Native media-query notifications run on the rendering clock, independently
+  // of Playwright's virtual timers. Exercise this transition in real time.
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await seed(page, { reducedMotion: false });
+  await page.goto('/#/kid');
+  await expect
+    .poll(() =>
+      page
+        .locator('[data-mascot-atlas]')
+        .evaluate((element) => element.complete && element.naturalWidth > 0),
+    )
+    .toBe(true);
+  await expect(page.locator('[data-menu-mascot]')).toHaveCount(0);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await expect(page.locator('[data-menu-mascot]')).toBeVisible({ timeout: 18000 });
+  await page.keyboard.press('Tab');
   await expect(page.locator('[data-menu-mascot]')).toHaveCount(0);
 });
 
